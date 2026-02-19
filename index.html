@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +10,15 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     text-align: center;
     color: white;
     background: url('profile.jpg') no-repeat center center/cover fixed;
 }
 
 .overlay {
-    backdrop-filter: blur(10px);
-    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.6);
     min-height: 100vh;
     padding: 40px 10px;
     box-sizing: border-box;
@@ -28,51 +28,75 @@ body {
 }
 
 .profile {
-    width: 130px;
-    height: 130px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
     margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 h2 {
     margin-bottom: 30px;
-    font-size: 22px;
+    font-size: 24px;
+    letter-spacing: 1px;
 }
 
 .button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     text-decoration: none;
-    padding: 15px;
-    margin: 8px 0;
-    width: 85%;
-    max-width: 320px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
+    margin: 10px 0;
+    width: 90%;
+    max-width: 340px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: 600;
     transition: 0.3s;
     border: 2px solid transparent;
+    overflow: hidden;
 }
 
-/* ألوان الحواف الملونة */
+/* الدائرة الملونة للأيقونة */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 4px;
+    font-size: 20px;
+}
+
+.btn-text {
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 50px; /* لموازنة النص في النص بالظبط */
+}
+
+/* تخصيص الألوان لكل تطبيق (حواف + خلفية الأيقونة) */
 .fb { border-color: #1877F2; }
+.fb .icon-box { background-color: #1877F2; }
+
 .ig { border-color: #E4405F; }
+.ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
 .tk { border-color: #ffffff; }
+.tk .icon-box { background-color: #000; border: 1px solid #fff; }
+
 .wa { border-color: #25D366; }
+.wa .icon-box { background-color: #25D366; }
+
 .call { border-color: #888; }
+.call .icon-box { background-color: #444; }
 
-.button i {
-    margin-left: 15px;
-    font-size: 22px;
-}
-
-.button:active {
-    transform: scale(0.95);
+.button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
 }
 </style>
 </head>
@@ -84,27 +108,33 @@ h2 {
     <h2>ElmoKaDem Photography</h2>
 
     <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <i class="fab fa-facebook"></i> Facebook
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
+        <div class="btn-text">Facebook</div>
     </a>
 
     <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <i class="fab fa-facebook"></i> لينك الصفحة الشخصية
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
+        <div class="btn-text">Personal Profile</div>
     </a>
     
     <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
-        <i class="fab fa-instagram"></i> Instagram
+        <div class="icon-box"><i class="fab fa-instagram"></i></div>
+        <div class="btn-text">Instagram</div>
     </a>
     
     <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <i class="fab fa-tiktok"></i> TikTok
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div>
+        <div class="btn-text">TikTok</div>
     </a>
     
     <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <i class="fab fa-whatsapp"></i> WhatsApp
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="btn-text">WhatsApp</div>
     </a>
     
     <a class="button call" href="tel:01092217287">
-        <i class="fas fa-phone"></i> اتصال
+        <div class="icon-box"><i class="fas fa-phone"></i></div>
+        <div class="btn-text">Call Me</div>
     </a>
 </div>
 
