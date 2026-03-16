@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElmoKaDem Photography</title>
+    <title>ElmoKaDem Photography | عروض العيد</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,12 +11,12 @@
             --bg-blur: rgba(255, 255, 255, 0.08);
             --border-color: rgba(255, 255, 255, 0.2);
             --accent-color: #fff;
+            --gold: #d4af37;
         }
 
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
-            /* التعديل هنا: الامتداد أصبح .jpeg */
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex;
             justify-content: center;
@@ -40,7 +40,7 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid var(--gold);
             margin-bottom: 20px;
         }
 
@@ -61,7 +61,7 @@
 
         .brand-sub {
             font-family: 'Montserrat', sans-serif;
-            color: rgba(255,255,255,0.6);
+            color: var(--gold);
             font-size: 11px;
             font-weight: 300;
             letter-spacing: 6px;
@@ -109,18 +109,100 @@
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
-        .call .icon-box { background: #444; }
+        .vfcash .icon-box { background: #e60000; font-size: 12px; font-weight: bold;}
         
-        .vfcash .icon-box { 
-            background: #e60000; 
+        /* زر عروض العيد المميز */
+        .eid-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
+            color: black !important;
             font-weight: bold;
-            font-size: 12px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
+        .eid-btn .icon-box { background: rgba(0,0,0,0.2); color: black; }
+
         .button:hover {
-            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.4);
+            opacity: 0.9;
+        }
+
+        /* --- Wheel Modal Styling --- */
+        #wheel-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .wheel-title {
+            color: var(--gold);
+            font-family: 'Cinzel';
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border: 8px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 35px solid var(--gold);
+            z-index: 1001;
+        }
+
+        .spin-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: var(--gold);
+            border: none;
+            color: black;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Cinzel';
+            font-size: 18px;
+        }
+
+        #result-text {
+            color: white;
+            margin-top: 25px;
+            font-size: 18px;
+            text-align: center;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px dashed var(--gold);
+            display: none;
+        }
+
+        #close-btn {
+            margin-top: 15px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #444;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: none;
         }
     </style>
 </head>
@@ -134,50 +216,113 @@
         <div class="brand-sub">Wedding Photographer</div>
     </div>
 
+    <div class="button eid-btn" onclick="openWheel()">
+        <div class="icon-box"><i class="fas fa-moon"></i></div>
+        <div class="btn-text">🎁 جرب حظك في هدايا العيد</div>
+    </div>
+
     <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
         <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
         <div class="btn-text">Facebook Page</div>
     </a>
-
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-        <div class="btn-text">Personal Profile</div>
-    </a>
-    
     <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
         <div class="icon-box"><i class="fab fa-instagram"></i></div>
         <div class="btn-text">Instagram</div>
     </a>
-    
     <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
         <div class="icon-box"><i class="fab fa-tiktok"></i></div>
         <div class="btn-text">TikTok</div>
     </a>
-    
     <a class="button wa" href="https://wa.me/201210425901" target="_blank">
         <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
         <div class="btn-text">WhatsApp</div>
     </a>
-    
-    <a class="button call" href="tel:01092217287">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
-        <div class="btn-text">Call Me</div>
-    </a>
-
     <div class="button vfcash" onclick="handleVFCash()">
         <div class="icon-box">VF</div>
         <div class="btn-text">Vodafone Cash</div>
     </div>
 </div>
 
+<div id="wheel-modal">
+    <h2 class="wheel-title">🌙 هدايا عيد 2026 مع Elmokadem</h2>
+    <div class="wheel-pointer"></div>
+    <div class="wheel-container" id="wheel-container">
+        <canvas id="wheelCanvas" width="320" height="320"></canvas>
+    </div>
+    <button class="spin-btn" id="spin-btn" onclick="spinWheel()">لف واكسب هدية العيد!</button>
+    <div id="result-text"></div>
+    <button id="close-btn" onclick="closeWheel()">رجوع</button>
+</div>
+
 <script>
 function handleVFCash() {
     const code = "*9*7*01092217287*";
     navigator.clipboard.writeText(code).then(() => {
-        alert("تم نسخ الكود بنجاح!\nاذهب الآن للوحة الاتصال، ضعه (لصق) ثم اكتب المبلغ و شباك (#)");
-    }).catch(err => {
-        prompt("انسخ الكود التالي وضعه في لوحة الاتصال:", code);
+        alert("تم نسخ الكود بنجاح!");
     });
+}
+
+// إعدادات العيد
+const prizes = ["خصم 20% عريس", "خصم 50% سنجل", "برينت صورة هدية", "خصم 10% جلسة", "جلسة مجانية!", "خصم 15%"];
+const colors = ["#000000", "#d4af37", "#1a1a1a", "#d4af37", "#000000", "#d4af37"];
+const canvas = document.getElementById('wheelCanvas');
+const ctx = canvas.getContext('2d');
+let currentRotation = 0;
+
+function drawWheel() {
+    const arc = (2 * Math.PI) / prizes.length;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = "bold 14px Montserrat";
+
+    for (let i = 0; i < prizes.length; i++) {
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.moveTo(160, 160);
+        ctx.arc(160, 160, 160, i * arc, (i + 1) * arc);
+        ctx.fill();
+        
+        ctx.save();
+        ctx.fillStyle = colors[i] === "#d4af37" ? "black" : "white";
+        ctx.translate(160, 160);
+        ctx.rotate(i * arc + arc / 2);
+        ctx.fillText(prizes[i], 100, 0);
+        ctx.restore();
+    }
+}
+drawWheel();
+
+function openWheel() {
+    if(localStorage.getItem('eidGift2026')) {
+        alert("عفواً، هدايا العيد تُمنح مرة واحدة فقط لكل شخص! 🎉");
+        return;
+    }
+    document.getElementById('wheel-modal').style.display = 'flex';
+}
+
+function spinWheel() {
+    const btn = document.getElementById('spin-btn');
+    btn.style.display = 'none';
+    const randomSpin = Math.floor(Math.random() * 360) + 2880; // 8 لفات
+    currentRotation += randomSpin;
+    document.getElementById('wheel-container').style.transform = `rotate(${currentRotation}deg)`;
+
+    setTimeout(() => {
+        const actualDeg = currentRotation % 360;
+        const prizeIndex = Math.floor((360 - actualDeg) / (360 / prizes.length)) % prizes.length;
+        const finalPrize = prizes[prizeIndex];
+        
+        const res = document.getElementById('result-text');
+        res.style.display = 'block';
+        res.innerHTML = `🌟 مبروك! كسبت هدية العيد: <br><b style="font-size:24px; color:#d4af37;">${finalPrize}</b><br><br>صور الشاشة وابعتها لي على واتساب فوراً لحجز عرضك!`;
+        document.getElementById('close-btn').style.display = 'block';
+        
+        localStorage.setItem('eidGift2026', 'true');
+    }, 4000);
+}
+
+function closeWheel() {
+    document.getElementById('wheel-modal').style.display = 'none';
 }
 </script>
 
