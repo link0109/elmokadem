@@ -287,7 +287,7 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
-    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- النوع: ${type}\n- التاريخ: ${date}`;
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبه: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
 }
@@ -304,7 +304,7 @@ function openCallModal() { document.getElementById('call-modal').style.display =
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
 // عجلة الحظ
-const prizes = ["خصم 20% عريس", "خصم 50% سنجل", "برينت صورة هدية", "خصم 10% جلسة", "جلسة مجانية!", "خصم 15%"];
+const prizes = ["خصم 20% علي الباكدچ", "خصم 30% علي تصوير كتب الكتاب والفرح", "تابلوه هدية", "خصم 10% من الباكدچ", "سيشن كاجول هديه!", "بدون خصم0%"];
 const colors = ["#000", "#d4af37", "#111", "#d4af37", "#000", "#d4af37"];
 const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
