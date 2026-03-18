@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElmoKaDem Photography | جرب حظك</title>
+    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
     <meta property="og:title" content="المقدم فوتوغرافر">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,7 +11,6 @@
         :root {
             --bg-blur: rgba(255, 255, 255, 0.08);
             --border-color: rgba(255, 255, 255, 0.2);
-            --accent-color: #fff;
             --gold: #d4af37;
         }
 
@@ -19,156 +18,66 @@
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
-            display: flex;
-            justify-content: center;
+            display: flex; justify-content: center;
         }
 
         .overlay {
             backdrop-filter: blur(15px) saturate(160%);
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             background: rgba(0, 0, 0, 0.7);
-            width: 100%;
-            min-height: 100vh;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: 100%; min-height: 100vh;
+            padding: 40px 20px; box-sizing: border-box;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .profile {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            margin-bottom: 20px;
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
         }
 
-        .brand-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .brand-name {
-            font-family: 'Cinzel', serif;
-            color: #fff;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .brand-sub {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--gold);
-            font-size: 11px;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
+        .brand-container { text-align: center; margin-bottom: 30px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
 
         .button {
-            position: relative;
-            display: flex;
-            align-items: center;
-            background: var(--bg-blur);
-            border: 1px solid var(--border-color);
-            color: white;
-            text-decoration: none;
-            margin: 8px 0;
-            width: 100%;
-            max-width: 360px;
-            border-radius: 12px;
-            padding: 6px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            display: flex; align-items: center; background: var(--bg-blur);
+            border: 1px solid var(--border-color); color: white;
+            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
+            border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
         }
 
-        .icon-box {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            font-size: 18px;
-            color: #fff;
-        }
-
-        .btn-text {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 400;
-            padding-right: 42px;
-        }
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: #e60000; font-size: 12px; font-weight: bold;}
+        .vfcash .icon-box { background: #e60000; font-size: 12px; font-weight: bold; }
         
-        .eid-btn {
-            background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
-            color: black !important;
-            font-weight: bold;
-            border: none;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            margin-bottom: 15px;
-        }
-        .booking-btn {
-            border: 1px solid var(--gold);
-            background: rgba(212, 175, 55, 0.1);
+        .booking-btn { 
+            border: 2px solid var(--gold); 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
+            margin-bottom: 20px;
         }
 
-        /* --- Booking Modal --- */
-        #booking-modal {
+        #booking-modal, #call-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
-        .modal-content {
-            background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold);
-            width: 85%; max-width: 380px; text-align: right; color: white;
-        }
-        select, input {
-            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px;
-            background: #000; color: white; border: 1px solid #333; box-sizing: border-box;
-        }
-        .confirm-btn {
-            background: var(--gold); color: black; border: none; padding: 12px;
-            width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer;
-        }
-
-        /* --- Wheel & Call Styling --- */
-        #wheel-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 20px; }
-        .wheel-container { position: relative; width: 300px; height: 300px; border: 6px solid var(--gold); border-radius: 50%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
-        .wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid var(--gold); z-index: 1001; }
-        .spin-btn { margin-top: 25px; padding: 12px 35px; background: var(--gold); border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-family: 'Cinzel'; }
-        #result-text { color: white; margin-top: 20px; text-align: center; display: none; padding: 15px; border: 1px dashed var(--gold); border-radius: 10px; }
-        #call-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; }
-        .call-option { width: 85%; max-width: 320px; padding: 15px; margin: 10px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; color: white; }
-        .num-vf { background: #e60000; } .num-orange { background: #FF6600; }
-        .close-call { margin-top: 25px; color: #888; cursor: pointer; border-bottom: 1px solid #333; }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
+        select, input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; }
+        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="overlay">
     <img src="profile.jpg" class="profile" alt="ElmoKaDem">
-    
     <div class="brand-container">
         <h1 class="brand-name">ELMOKADEM</h1>
         <div class="brand-sub">Wedding Photographer</div>
-    </div>
-
-    <div class="button eid-btn" onclick="openWheel()">
-        <div class="icon-box"><i class="fas fa-percent"></i></div>
-        <div class="btn-text">🎁 جرب حظك في الخصومات</div>
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
@@ -176,39 +85,32 @@
         <div class="btn-text">احجز الآن | Book Now</div>
     </div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
-        <div class="btn-text">Facebook Page</div>
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
     </a>
 
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-        <div class="btn-text">Personal Profile</div>
+    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
     </a>
-    
+
     <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div>
-        <div class="btn-text">Instagram</div>
+        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
     </a>
-    
+
     <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <div class="icon-box"><i class="fab fa-tiktok"></i></div>
-        <div class="btn-text">TikTok</div>
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
     </a>
-    
+
     <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-        <div class="btn-text">WhatsApp</div>
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
     </a>
-    
+
     <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
-        <div class="btn-text">Call Me</div>
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
     </div>
 
     <div class="button vfcash" onclick="handleVFCash()">
-        <div class="icon-box">VF</div>
-        <div class="btn-text">Vodafone Cash</div>
+        <div class="icon-box">VF</div><div class="btn-text">Vodafone Cash</div>
     </div>
 </div>
 
@@ -223,10 +125,8 @@
             <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
         </select>
-
         <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
-
         <div id="time-selection" style="display:none; margin-top:15px;">
             <label>موعد كتب الكتاب:</label>
             <select id="session-time">
@@ -235,38 +135,26 @@
                 <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
             </select>
         </div>
-
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
-<div id="wheel-modal">
-    <h2 style="color:var(--gold); font-family:'Cinzel';">عجلة الخصومات</h2>
-    <div class="wheel-pointer"></div>
-    <div class="wheel-container" id="wheel-container">
-        <canvas id="wheelCanvas" width="300" height="300"></canvas>
-    </div>
-    <button class="spin-btn" id="spin-btn" onclick="spinWheel()">لف واكسب!</button>
-    <div id="result-text"></div>
-    <button id="close-wheel-btn" style="display:none; margin-top:10px; background:none; color:#888; border:none; cursor:pointer;" onclick="closeWheel()">إغلاق</button>
-</div>
-
 <div id="call-modal">
-    <h3 style="color:white; margin-bottom:20px; font-family:'Montserrat';">اختر الخط للاتصال</h3>
-    <a href="tel:01092217287" class="call-option num-vf"><i class="fas fa-phone-alt"></i> 01092217287</a>
-    <a href="tel:01210425901" class="call-option num-orange"><i class="fas fa-phone-alt"></i> 01210425901</a>
-    <div class="close-call" onclick="closeCallModal()">إغلاق</div>
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
+        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
 </div>
 
 <script>
-// تنبيه التليجرام
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
-    
     fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
         const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
         const now = new Date().toLocaleString('ar-EG');
@@ -286,7 +174,7 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
-    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبه: ${type}\n- التاريخ: ${date}`;
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- النوع: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
 }
@@ -300,43 +188,6 @@ function handleVFCash() {
 
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-
-// الجوائز الجديدة
-const prizes = ["خصم 10% باكدچ", "خصم 20% سيشن", "تابلوه هدية", "سيشن كاجول", "حظ سعيد", "خصم 10% باكدچ"];
-const colors = ["#000", "#d4af37", "#111", "#d4af37", "#000", "#d4af37"];
-const canvas = document.getElementById('wheelCanvas');
-const ctx = canvas.getContext('2d');
-let rotation = 0;
-
-function draw() {
-    const arc = (Math.PI * 2) / prizes.length;
-    for (let i = 0; i < prizes.length; i++) {
-        ctx.fillStyle = colors[i]; ctx.beginPath(); ctx.moveTo(150, 150); ctx.arc(150, 150, 150, i*arc, (i+1)*arc); ctx.fill();
-        ctx.save(); ctx.translate(150, 150); ctx.rotate(i*arc + arc/2);
-        ctx.fillStyle = colors[i]==="#d4af37"?"black":"white"; ctx.font = "bold 10px Montserrat"; ctx.fillText(prizes[i], 60, 5); ctx.restore();
-    }
-}
-draw();
-
-function openWheel() {
-    if(localStorage.getItem('promo2026_done')) { alert("استخدمت محاولتك مسبقاً يا فندم 🎉"); return; }
-    document.getElementById('wheel-modal').style.display = 'flex';
-}
-
-function spinWheel() {
-    document.getElementById('spin-btn').style.display = 'none';
-    const extraSpin = Math.floor(Math.random() * 360) + 2160;
-    rotation += extraSpin;
-    document.getElementById('wheel-container').style.transform = `rotate(${rotation}deg)`;
-    setTimeout(() => {
-        const prizeIdx = Math.floor((360 - (rotation % 360)) / (360/prizes.length)) % prizes.length;
-        document.getElementById('result-text').style.display = 'block';
-        document.getElementById('result-text').innerHTML = `مبروك كسبت: <b>${prizes[prizeIdx]}</b><br>صور الشاشة وابعتها واتساب!`;
-        document.getElementById('close-wheel-btn').style.display = 'block';
-        localStorage.setItem('promo2026_done', 'true');
-    }, 4000);
-}
-function closeWheel() { document.getElementById('wheel-modal').style.display = 'none'; }
 </script>
 </body>
 </html>
