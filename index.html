@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElmoKaDem Photography | عروض العيد</title>
+    <title>ElmoKaDem Photography | جرب حظك</title>
     <meta property="og:title" content="المقدم فوتوغرافر">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -167,8 +167,8 @@
     </div>
 
     <div class="button eid-btn" onclick="openWheel()">
-        <div class="icon-box"><i class="fas fa-gift"></i></div>
-        <div class="btn-text">🎁 جرب حظك في هدايا العيد</div>
+        <div class="icon-box"><i class="fas fa-percent"></i></div>
+        <div class="btn-text">🎁 جرب حظك في الخصومات</div>
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
@@ -242,7 +242,7 @@
 </div>
 
 <div id="wheel-modal">
-    <h2 style="color:var(--gold); font-family:'Cinzel';">هدايا عيد 2026</h2>
+    <h2 style="color:var(--gold); font-family:'Cinzel';">عجلة الخصومات</h2>
     <div class="wheel-pointer"></div>
     <div class="wheel-container" id="wheel-container">
         <canvas id="wheelCanvas" width="300" height="300"></canvas>
@@ -260,10 +260,10 @@
 </div>
 
 <script>
-// تنبيه التليجرام عند الدخول
+// تنبيه التليجرام
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const source = urlParams.get('utm_source') || "رابط مباشر (أو غير معروف)";
+    const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
     
@@ -275,7 +275,6 @@ window.onload = function() {
     });
 };
 
-// وظائف الحجز
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function toggleTime() {
@@ -286,13 +285,12 @@ function sendToWhatsApp() {
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
-    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
+    if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
     let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبه: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
 }
 
-// فودافون كاش
 function handleVFCash() {
     const code = "*9*7*01092217287*";
     navigator.clipboard.writeText(code).then(() => {
@@ -303,8 +301,8 @@ function handleVFCash() {
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
-// عجلة الحظ
-const prizes = ["خصم 20% علي الباكدچ", "خصم 30% علي تصوير كتب الكتاب والفرح", "تابلوه هدية", "خصم 10% من الباكدچ", "سيشن كاجول هديه!", "بدون خصم0%"];
+// الجوائز الجديدة
+const prizes = ["خصم 10% باكدچ", "خصم 20% سيشن", "تابلوه هدية", "سيشن كاجول", "حظ سعيد", "خصم 10% باكدچ"];
 const colors = ["#000", "#d4af37", "#111", "#d4af37", "#000", "#d4af37"];
 const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
@@ -313,17 +311,15 @@ let rotation = 0;
 function draw() {
     const arc = (Math.PI * 2) / prizes.length;
     for (let i = 0; i < prizes.length; i++) {
-        ctx.fillStyle = colors[i];
-        ctx.beginPath(); ctx.moveTo(150, 150); ctx.arc(150, 150, 150, i*arc, (i+1)*arc); ctx.fill();
+        ctx.fillStyle = colors[i]; ctx.beginPath(); ctx.moveTo(150, 150); ctx.arc(150, 150, 150, i*arc, (i+1)*arc); ctx.fill();
         ctx.save(); ctx.translate(150, 150); ctx.rotate(i*arc + arc/2);
-        ctx.fillStyle = colors[i]==="#d4af37"?"black":"white";
-        ctx.font = "bold 12px Montserrat"; ctx.fillText(prizes[i], 60, 5); ctx.restore();
+        ctx.fillStyle = colors[i]==="#d4af37"?"black":"white"; ctx.font = "bold 10px Montserrat"; ctx.fillText(prizes[i], 60, 5); ctx.restore();
     }
 }
 draw();
 
 function openWheel() {
-    if(localStorage.getItem('eid2026_done')) { alert("استخدمت محاولتك مسبقاً 🎉"); return; }
+    if(localStorage.getItem('promo2026_done')) { alert("استخدمت محاولتك مسبقاً يا فندم 🎉"); return; }
     document.getElementById('wheel-modal').style.display = 'flex';
 }
 
@@ -337,7 +333,7 @@ function spinWheel() {
         document.getElementById('result-text').style.display = 'block';
         document.getElementById('result-text').innerHTML = `مبروك كسبت: <b>${prizes[prizeIdx]}</b><br>صور الشاشة وابعتها واتساب!`;
         document.getElementById('close-wheel-btn').style.display = 'block';
-        localStorage.setItem('eid2026_done', 'true');
+        localStorage.setItem('promo2026_done', 'true');
     }, 4000);
 }
 function closeWheel() { document.getElementById('wheel-modal').style.display = 'none'; }
