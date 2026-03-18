@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElmoKaDem Photography | عروض العيد</title>
+    
+    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
+    <meta property="og:title" content="المقدم فوتوغرافر 📸">
+    <meta property="og:description" content="أهلاً بك في عالم ElmoKaDem Photography.. احجز جلستك الآن.">
+    <meta property="og:image" content="profile.jpg"> 
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -282,6 +287,20 @@
 </div>
 
 <script>
+// --- الترحيب بالعميل وتنبيه التليجرام ---
+window.onload = function() {
+    // 1. رسالة ترحيب للعميل
+    alert("أهلاً بك مع المقدم فوتوغرافر 📸");
+
+    // 2. تنبيه لصاحب الموقع على التليجرام
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+    const message = "🔔 تنبيه: فيه عميل فتح لينك ElmoKaDem دلوقتي!";
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`)
+      .catch(err => console.log("Telegram alert failed"));
+};
+
 // فودافون كاش
 function handleVFCash() {
     const code = "*9*7*01092217287*";
@@ -328,9 +347,16 @@ function spinWheel() {
     setTimeout(() => {
         const prizeIdx = Math.floor((360 - (rotation % 360)) / (360/prizes.length)) % prizes.length;
         document.getElementById('result-text').style.display = 'block';
-        document.getElementById('result-text').innerHTML = `مبروك كسبت: <b>${prizes[prizeIdx]}</b><br>صور الشاشة وابعتها واتساب!`;
+        const winMsg = `مبروك كسبت: ${prizes[prizeIdx]}`;
+        document.getElementById('result-text').innerHTML = `<b>${winMsg}</b><br>صور الشاشة وابعتها واتساب!`;
         document.getElementById('close-wheel-btn').style.display = 'block';
         localStorage.setItem('eid2026_done', 'true');
+        
+        // إرسال نتيجة الجائزة للتليجرام فوراً
+        const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+        const chat_id = "720656827";
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent("🎁 عميل كسب في العجلة: " + prizes[prizeIdx])}`);
+
     }, 4000);
 }
 
