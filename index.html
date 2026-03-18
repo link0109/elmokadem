@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
-    
+    <title>ElmoKaDem Photography | عروض العيد</title>
     <meta property="og:title" content="المقدم فوتوغرافر">
-    <meta property="og:description" content="Wedding Photographer">
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --bg-blur: rgba(255, 255, 255, 0.08);
             --border-color: rgba(255, 255, 255, 0.2);
+            --accent-color: #fff;
             --gold: #d4af37;
         }
 
@@ -73,6 +71,7 @@
         }
 
         .button {
+            position: relative;
             display: flex;
             align-items: center;
             background: var(--bg-blur);
@@ -122,72 +121,46 @@
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             margin-bottom: 15px;
         }
-
         .booking-btn {
-            background: rgba(212, 175, 55, 0.2);
             border: 1px solid var(--gold);
+            background: rgba(212, 175, 55, 0.1);
         }
 
-        /* نافذة الحجز */
+        /* --- Booking Modal --- */
         #booking-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92);
-            z-index: 3000;
-            justify-content: center; align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center;
         }
         .modal-content {
-            background: #1a1a1a;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--gold);
-            width: 85%;
-            max-width: 400px;
-            text-align: right;
-            color: white;
+            background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold);
+            width: 85%; max-width: 380px; text-align: right; color: white;
         }
-        .input-group { margin-bottom: 15px; }
         select, input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            background: #000;
-            color: white;
-            border: 1px solid #333;
-            margin-top: 5px;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px;
+            background: #000; color: white; border: 1px solid #333; box-sizing: border-box;
         }
         .confirm-btn {
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
+            background: var(--gold); color: black; border: none; padding: 12px;
+            width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer;
         }
 
-        /* عجلة الحظ والاتصال */
-        #wheel-modal, #call-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.96); z-index: 4000; justify-content: center; align-items: center; flex-direction: column;
-        }
+        /* --- Wheel & Call Styling --- */
+        #wheel-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 20px; }
         .wheel-container { position: relative; width: 300px; height: 300px; border: 6px solid var(--gold); border-radius: 50%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
         .wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid var(--gold); z-index: 1001; }
-        .spin-btn { margin-top: 25px; padding: 12px 35px; background: var(--gold); border: none; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        .spin-btn { margin-top: 25px; padding: 12px 35px; background: var(--gold); border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-family: 'Cinzel'; }
         #result-text { color: white; margin-top: 20px; text-align: center; display: none; padding: 15px; border: 1px dashed var(--gold); border-radius: 10px; }
-        .call-option { width: 85%; max-width: 320px; padding: 15px; margin: 10px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+        #call-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; }
+        .call-option { width: 85%; max-width: 320px; padding: 15px; margin: 10px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; color: white; }
         .num-vf { background: #e60000; } .num-orange { background: #FF6600; }
+        .close-call { margin-top: 25px; color: #888; cursor: pointer; border-bottom: 1px solid #333; }
     </style>
 </head>
 <body>
 
 <div class="overlay">
     <img src="profile.jpg" class="profile" alt="ElmoKaDem">
+    
     <div class="brand-container">
         <h1 class="brand-name">ELMOKADEM</h1>
         <div class="brand-sub">Wedding Photographer</div>
@@ -199,86 +172,105 @@
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-alt"></i></div>
+        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
         <div class="btn-text">احجز الآن | Book Now</div>
     </div>
 
     <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
+        <div class="btn-text">Facebook Page</div>
+    </a>
+
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+        <div class="btn-text">Personal Profile</div>
     </a>
     
     <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
+        <div class="icon-box"><i class="fab fa-instagram"></i></div>
+        <div class="btn-text">Instagram</div>
+    </a>
+    
+    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div>
+        <div class="btn-text">TikTok</div>
     </a>
     
     <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="btn-text">WhatsApp</div>
     </a>
     
     <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+        <div class="btn-text">Call Me</div>
     </div>
 
     <div class="button vfcash" onclick="handleVFCash()">
-        <div class="icon-box">VF</div><div class="btn-text">Vodafone Cash</div>
+        <div class="icon-box">VF</div>
+        <div class="btn-text">Vodafone Cash</div>
     </div>
 </div>
 
 <div id="booking-modal">
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
-        <div class="input-group">
-            <label>اختر النوع:</label>
-            <select id="session-type" onchange="toggleTimeField()">
-                <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
-                <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
-                <option value="قاعة (Party Hall)">قاعة (Party Hall)</option>
-                <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
-                <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
-            </select>
-        </div>
-        
-        <div class="input-group">
-            <label>التاريخ:</label>
-            <input type="date" id="session-date">
-        </div>
+        <label>نوع السيشن:</label>
+        <select id="session-type" onchange="toggleTime()">
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
+            <option value="قاعة (Party Hall)">قاعة (Party Hall)</option>
+            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+        </select>
 
-        <div class="input-group" id="time-group" style="display:none;">
+        <label style="display:block; margin-top:15px;">التاريخ:</label>
+        <input type="date" id="session-date">
+
+        <div id="time-selection" style="display:none; margin-top:15px;">
             <label>موعد كتب الكتاب:</label>
             <select id="session-time">
-                <option value="بعد او قبل صلاة العصر">بعد او قبل صلاة العصر</option>
-                <option value="بعد او قبل صلاة المغرب">بعد او قبل صلاة المغرب</option>
-                <option value="بعد او قبل صلاة العشاء">بعد او قبل صلاة العشاء</option>
+                <option value="بعد صلاة العصر">بعد صلاة العصر</option>
+                <option value="بعد صلاة المغرب">بعد صلاة المغرب</option>
+                <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
             </select>
         </div>
 
-        <button class="confirm-btn" onclick="sendBooking()">إرسال الطلب</button>
-        <p style="text-align:center; cursor:pointer; color:#888; margin-top:15px;" onclick="closeBooking()">إغلاق</p>
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز واتساب</button>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <div id="wheel-modal">
+    <h2 style="color:var(--gold); font-family:'Cinzel';">هدايا عيد 2026</h2>
     <div class="wheel-pointer"></div>
-    <div class="wheel-container" id="wheel-container"><canvas id="wheelCanvas" width="300" height="300"></canvas></div>
+    <div class="wheel-container" id="wheel-container">
+        <canvas id="wheelCanvas" width="300" height="300"></canvas>
+    </div>
     <button class="spin-btn" id="spin-btn" onclick="spinWheel()">لف واكسب!</button>
     <div id="result-text"></div>
-    <button onclick="closeWheel()" style="margin-top:15px; background:none; color:#888; border:none;">إغلاق</button>
+    <button id="close-wheel-btn" style="display:none; margin-top:10px; background:none; color:#888; border:none; cursor:pointer;" onclick="closeWheel()">إغلاق</button>
 </div>
 
 <div id="call-modal">
+    <h3 style="color:white; margin-bottom:20px; font-family:'Montserrat';">اختر الخط للاتصال</h3>
     <a href="tel:01092217287" class="call-option num-vf"><i class="fas fa-phone-alt"></i> 01092217287</a>
     <a href="tel:01210425901" class="call-option num-orange"><i class="fas fa-phone-alt"></i> 01210425901</a>
-    <div style="margin-top:20px; color:#888; cursor:pointer;" onclick="closeCallModal()">إغلاق</div>
+    <div class="close-call" onclick="closeCallModal()">إغلاق</div>
 </div>
 
 <script>
-// تنبيه التليجرام
+// تنبيه التليجرام عند الدخول
 window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || "رابط مباشر (أو غير معروف)";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
+    
     fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
         const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
-        const msg = `📸 زائر جديد للموقع\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}, ${data.country_name}`;
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
         fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
     });
 };
@@ -286,19 +278,18 @@ window.onload = function() {
 // وظائف الحجز
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-function toggleTimeField() {
-    const type = document.getElementById('session-type').value;
-    document.getElementById('time-group').style.display = type.includes("كتب كتاب") ? "block" : "none";
+function toggleTime() {
+    const val = document.getElementById('session-type').value;
+    document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
 }
-
-function sendBooking() {
+function sendToWhatsApp() {
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
-    if(!date) { alert("من فضلك اختر التاريخ"); return; }
-    let text = `حجز جديد من الموقع:\n- النوع: ${type}\n- التاريخ: ${date}`;
-    if(type.includes("كتب كتاب")) text += `\n- الموعد: ${time}`;
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(text)}`);
+    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- النوع: ${type}\n- التاريخ: ${date}`;
+    if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
 }
 
 // فودافون كاش
@@ -309,24 +300,33 @@ function handleVFCash() {
     });
 }
 
-// العجلة والاتصال
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-const prizes = ["خصم 20% عريس", "خصم 30% لتصوير كتب الكتاب والفرح", "تابلوه هدية", "خصم 10% علي حجزك", "سيشن كاجول مجاني!", "خصم 15%"];
+
+// عجلة الحظ
+const prizes = ["خصم 20% عريس", "خصم 50% سنجل", "برينت صورة هدية", "خصم 10% جلسة", "جلسة مجانية!", "خصم 15%"];
 const colors = ["#000", "#d4af37", "#111", "#d4af37", "#000", "#d4af37"];
 const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
 let rotation = 0;
+
 function draw() {
     const arc = (Math.PI * 2) / prizes.length;
     for (let i = 0; i < prizes.length; i++) {
-        ctx.fillStyle = colors[i]; ctx.beginPath(); ctx.moveTo(150, 150); ctx.arc(150, 150, 150, i*arc, (i+1)*arc); ctx.fill();
+        ctx.fillStyle = colors[i];
+        ctx.beginPath(); ctx.moveTo(150, 150); ctx.arc(150, 150, 150, i*arc, (i+1)*arc); ctx.fill();
         ctx.save(); ctx.translate(150, 150); ctx.rotate(i*arc + arc/2);
-        ctx.fillStyle = colors[i]==="#d4af37"?"black":"white"; ctx.font = "bold 12px Montserrat"; ctx.fillText(prizes[i], 60, 5); ctx.restore();
+        ctx.fillStyle = colors[i]==="#d4af37"?"black":"white";
+        ctx.font = "bold 12px Montserrat"; ctx.fillText(prizes[i], 60, 5); ctx.restore();
     }
 }
 draw();
-function openWheel() { if(localStorage.getItem('eid2026_done')) { alert("استخدمت محاولتك مسبقاً 🎉"); return; } document.getElementById('wheel-modal').style.display = 'flex'; }
+
+function openWheel() {
+    if(localStorage.getItem('eid2026_done')) { alert("استخدمت محاولتك مسبقاً 🎉"); return; }
+    document.getElementById('wheel-modal').style.display = 'flex';
+}
+
 function spinWheel() {
     document.getElementById('spin-btn').style.display = 'none';
     const extraSpin = Math.floor(Math.random() * 360) + 2160;
@@ -336,6 +336,7 @@ function spinWheel() {
         const prizeIdx = Math.floor((360 - (rotation % 360)) / (360/prizes.length)) % prizes.length;
         document.getElementById('result-text').style.display = 'block';
         document.getElementById('result-text').innerHTML = `مبروك كسبت: <b>${prizes[prizeIdx]}</b><br>صور الشاشة وابعتها واتساب!`;
+        document.getElementById('close-wheel-btn').style.display = 'block';
         localStorage.setItem('eid2026_done', 'true');
     }, 4000);
 }
