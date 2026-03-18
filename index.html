@@ -3,20 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
+    
     <meta property="og:title" content="المقدم فوتوغرافر 📸">
-    <meta property="og:description" content="أهلاً بك مع المقدم فوتوغرافر.. احجز جلستك الآن.">
+    <meta property="og:description" content="احجز سيشن التصوير بتاعك دلوقتي">
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --gold: #d4af37;
-        }
-
+        :root { --bg-blur: rgba(255, 255, 255, 0.08); --border-color: rgba(255, 255, 255, 0.2); --gold: #d4af37; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed; display: flex; justify-content: center; }
         .overlay { backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); background: rgba(0, 0, 0, 0.7); width: 100%; min-height: 100vh; padding: 40px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .profile { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); margin-bottom: 20px; }
@@ -24,8 +20,9 @@
         .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 30px; }
 
         .button { display: flex; align-items: center; background: var(--bg-blur); border: 1px solid var(--border-color); color: white; text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px; border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer; }
-        .booking-btn { background: linear-gradient(135deg, #d4af37 0%, #8a6d05 100%); border: none; margin-bottom: 15px; }
-        .booking-btn .btn-text { color: #000; font-weight: 700; }
+        .eid-btn { background: linear-gradient(135deg, #d4af37 0%, #8a6d05 100%); border: none; margin-bottom: 15px; animation: pulse 2s infinite; }
+        .eid-btn .btn-text { color: #000; font-weight: 700; }
+        
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; }
         .btn-text { flex-grow: 1; text-align: center; padding-right: 42px; }
 
@@ -34,16 +31,15 @@
         .tk .icon-box { background: #000; border: 1px solid var(--border-color); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: #e60000; font-size: 12px; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
         /* نافذة الحجز */
         #booking-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
         .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 400px; text-align: center; color: white; }
-        .modal-content h3 { font-family: 'Cinzel'; color: var(--gold); margin-top: 0; }
         .input-group { margin: 15px 0; text-align: right; }
-        .input-group label { display: block; font-size: 12px; color: #888; margin-bottom: 5px; }
-        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; font-size: 14px; }
-        .confirm-btn { background: var(--gold); color: black; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        select, input { width: 100%; padding: 12px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; }
+        .confirm-btn { background: var(--gold); color: black; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -53,77 +49,58 @@
     <h1 class="brand-name">ELMOKADEM</h1>
     <div class="brand-sub">Wedding Photographer</div>
 
-    <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:rgba(0,0,0,0.8); color:var(--gold);"><i class="fas fa-calendar-alt"></i></div>
+    <a class="button eid-btn" href="your-spinner-link-here.html">
+        <div class="icon-box" style="background:#000; color:var(--gold);"><i class="fas fa-gift"></i></div>
+        <div class="btn-text">جرب حظك مع خصومات العيد 🎁</div>
+    </a>
+
+    <div class="button wa" onclick="openBooking()" style="background: rgba(212, 175, 55, 0.2);">
+        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
         <div class="btn-text">احجز جلستك الآن | Book Now</div>
     </div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
-        <div class="btn-text">Facebook Page</div>
-    </a>
-
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-        <div class="btn-text">Personal Profile</div>
-    </a>
-
-    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div>
-        <div class="btn-text">Instagram</div>
-    </a>
-    
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <div class="icon-box"><i class="fab fa-tiktok"></i></div>
-        <div class="btn-text">TikTok</div>
-    </a>
-    
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-        <div class="btn-text">WhatsApp</div>
-    </a>
-
-    <a class="button call" href="tel:01210425901">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
-        <div class="btn-text">Call Me</div>
-    </a>
-
-    <div class="button vfcash" onclick="handleVFCash()">
-        <div class="icon-box">VF</div>
-        <div class="btn-text">Vodafone Cash</div>
-    </div>
+    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/" target="_blank"><div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div></a>
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/" target="_blank"><div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div></a>
+    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank"><div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div></a>
+    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank"><div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div></a>
+    <a class="button wa" href="https://wa.me/201210425901" target="_blank"><div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div></a>
+    <a class="button call" href="tel:01210425901"><div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div></a>
 </div>
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3>تفاصيل الحجز</h3>
+        <h3 style="color:var(--gold)">تفاصيل الحجز</h3>
         <div class="input-group">
-            <label>نوع الجلسة</label>
+            <label>اختر نوع السيشن:</label>
             <select id="session-type">
-                <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding)</option>
-                <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement)</option>
+                <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+                <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
                 <option value="قاعة بارتي (Party Hall)">قاعة بارتي (Party Hall)</option>
-                <option value="تصوير خطوبة في البيت (Home Engagement)">تصوير خطوبة في البيت</option>
-                <option value="تصوير كتب كتاب في البيت (Home Katb Ktab)">تصوير كتب كتاب في البيت</option>
-                <option value="تصوير سيشن فرح وقاعة بارتي (Wedding Session & Party)">تصوير سيشن فرح وقاعة بارتي</option>
-                <option value="تصوير خطوبة وقاعة بارتي (Engagement & Party)">تصوير خطوبة وقاعة بارتي</option>
+                <option value="تصوير خطوبة في البيت (Home Engagement)">تصوير خطوبة في البيت (Home Engagement)</option>
+                <option value="تصوير كتب كتاب (Katb Ktab)">تصوير كتب كتاب (Katb Ktab)</option>
             </select>
         </div>
         <div class="input-group">
-            <label>تاريخ الجلسة</label>
+            <label>التاريخ:</label>
             <input type="date" id="session-date">
         </div>
-        <button class="confirm-btn" onclick="sendBooking()">تأكيد الحجز واتساب</button>
-        <div style="margin-top:15px; font-size:12px; color:#888; cursor:pointer;" onclick="closeBooking()">إغلاق</div>
+        <button class="confirm-btn" onclick="sendBooking()">تأكيد وإرسال واتساب</button>
+        <p onclick="closeBooking()" style="cursor:pointer; font-size:12px; margin-top:10px;">إغلاق</p>
     </div>
 </div>
 
 <script>
+// كود التليجرام المطور: بيبعت الجهاز والموقع
 window.onload = function() {
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
-    const message = "🔔 تنبيه: فيه عميل فتح اللينك دلوقتي!";
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`);
+    
+    // جلب معلومات الجهاز والمدينة
+    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
+        const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
+        const message = `🔔 عميل جديد دخل!\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}, ${data.country_name}\n🌐 الشبكة: ${data.org}`;
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`);
+    });
 };
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
@@ -132,15 +109,8 @@ function closeBooking() { document.getElementById('booking-modal').style.display
 function sendBooking() {
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
-    if(!date) { alert("من فضلك اختر التاريخ"); return; }
-    
-    const text = `أهلاً المقدم فوتوغرافر، أرغب في حجز:\n📸 النوع: ${type}\n📅 التاريخ: ${date}`;
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(text)}`, '_blank');
-    closeBooking();
-}
-
-function handleVFCash() {
-    navigator.clipboard.writeText("*9*7*01092217287*").then(() => { alert("تم نسخ كود فودافون كاش!"); });
+    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent("حجز جديد:\n" + type + "\nالتاريخ: " + date)}`);
 }
 </script>
 </body>
