@@ -174,14 +174,14 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
-    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبه: ${type}\n- التاريخ: ${date}`;
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
 }
 
 function handleVFCash() {
     const code = "*9*7*01092217287*";
-    navigator.clipboard.writeText(code).
+    navigator.clipboard.writeText(code).then(() => {
         alert("تم نسخ كود فودافون كاش! اذهب للوحة الاتصال واعمل لصق، ثم اكتب المبلغ المراد تحويله، ثم شباك.");
     });
 }
