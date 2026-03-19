@@ -67,7 +67,7 @@
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
         .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
-        select, input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; }
+        select, input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
@@ -117,7 +117,11 @@
 <div id="booking-modal">
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
-        <label>المناسبة:</label>
+        
+        <label>الاسم بالكامل:</label>
+        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+
+        <label style="display:block; margin-top:15px;">المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
             <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
@@ -126,8 +130,10 @@
             <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
         </select>
+
         <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
+
         <div id="time-selection" style="display:none; margin-top:15px;">
             <label>موعد كتب الكتاب:</label>
             <select id="session-time">
@@ -136,7 +142,8 @@
                 <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
             </select>
         </div>
-        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز</button>
+
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
@@ -151,9 +158,6 @@
 </div>
 
 <script>
-// رابط سكربت جوجل
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwbFaiZ58Nd1tQm4D_Sx2cDs0SdCuUb_nlo8TAJWQe3ZcaGlz71kCKRjxPbiu7Q1kpfrg/exec';
-
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
@@ -175,29 +179,21 @@ function toggleTime() {
 }
 
 function sendToWhatsApp() {
+    const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
-    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
+    if(!name) { alert("من فضلك اكتب اسمك يا فندم"); return; }
+    if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
 
-    // إرسال صامت للجدول والتقويم
-    const finalURL = scriptURL + 
-                     "?occasion=" + encodeURIComponent(type) + 
-                     "&date=" + encodeURIComponent(date) + 
-                     "&time=" + encodeURIComponent(time);
-
-    var img = new Image();
-    img.src = finalURL; 
-
-    // رسالة الواتساب
-    let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
+    // تم حذف كود إرسال البيانات لجوجل شيت لضمان السرعة والسهولة
+    
+    let msg = `أهلاً يا مقدم، أنا ${name}، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     
-    setTimeout(() => {
-        window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
-        closeBooking();
-    }, 400);
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
 }
 
 function handleVFCash() {
