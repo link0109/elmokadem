@@ -152,7 +152,7 @@
 
 <script>
 // رابط سكربت جوجل
-const scriptURL = 'https://script.google.com/macros/s/AKfycbx__tRiOojpIww31qSz1TnEXDkRRBrWTm1WaNErBtCbRaah1lIeDMZ-dSc6FDyY7gDhLQ/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzQxs_naAhuo1CV13UJjqZ1arQ6jE2QNe-L5Ub3yK1g7rhNHeQvua10qQbldsOemI9gPg/exec';
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -179,9 +179,9 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
-    if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
+    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
 
-    // إرسال البيانات لجوجل (الجدول والتقويم)
+    // إرسال صامت للجدول والتقويم
     const finalURL = scriptURL + 
                      "?occasion=" + encodeURIComponent(type) + 
                      "&date=" + encodeURIComponent(date) + 
@@ -190,7 +190,7 @@ function sendToWhatsApp() {
     var img = new Image();
     img.src = finalURL; 
 
-    // تحضير رسالة الواتساب
+    // رسالة الواتساب
     let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     
