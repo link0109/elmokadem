@@ -118,10 +118,7 @@
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
         
-        <label>الاسم بالكامل:</label>
-        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
-
-        <label style="display:block; margin-top:15px;">المناسبة:</label>
+        <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
             <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
@@ -142,6 +139,9 @@
                 <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
             </select>
         </div>
+
+        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
+        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
 
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
@@ -184,11 +184,9 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
-    if(!name) { alert("من فضلك اكتب اسمك يا فندم"); return; }
     if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
+    if(!name) { alert("من فضلك اكتب اسم حضرتك"); return; }
 
-    // تم حذف كود إرسال البيانات لجوجل شيت لضمان السرعة والسهولة
-    
     let msg = `أهلاً يا مقدم، أنا ${name}، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     
