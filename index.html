@@ -136,7 +136,7 @@
                 <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
             </select>
         </div>
-        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز واتساب</button>
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
@@ -170,14 +170,26 @@ function toggleTime() {
     const val = document.getElementById('session-type').value;
     document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
 }
+
 function sendToWhatsApp() {
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
-    if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
+
+    if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
+
+    // 1. إرسال للواتساب
     let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
+
+    // 2. تسجيل صامت في Google Form
+    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeh9RoyrepGOXtXTUhU7kpNR8Yp2HWPjrMxcEtN9FBqI57QAg/formResponse";
+    const params = new URLSearchParams();
+    params.append("entry.744179332", type);
+    params.append("entry.1492316410", date);
+
+    fetch(formUrl, { method: "POST", mode: "no-cors", body: params });
 }
 
 function handleVFCash() {
