@@ -151,6 +151,9 @@
 </div>
 
 <script>
+// رابط سكربت جوجل الخاص بك للربط بالجدول والتقويم
+const scriptURL = 'https://script.google.com/macros/s/AKfycbySRO6oDupZdnsXfLkCUcT9uXcDLLzlgiVfGARZ_0gX9gvOhtmZRodj18HcxDIaxscbpw/exec';
+
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
@@ -178,18 +181,24 @@ function sendToWhatsApp() {
 
     if(!date) { alert("اختار التاريخ الأول يا فنان"); return; }
 
-    // 1. إرسال للواتساب
+    // 1. تسجيل صامت في جدول البيانات والتقويم أوتوماتيك
+    const formData = new URLSearchParams();
+    formData.append('occasion', type);
+    formData.append('date', date);
+    if(type.includes("كتب كتاب")) formData.append('time', time);
+
+    fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+    .then(() => console.log('تم تسجيل الحجز في التقويم والجدول'))
+    .catch(err => console.error('خطأ في التسجيل:', err));
+
+    // 2. إرسال للواتساب
     let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`);
-
-    // 2. تسجيل صامت في Google Form
-    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeh9RoyrepGOXtXTUhU7kpNR8Yp2HWPjrMxcEtN9FBqI57QAg/formResponse";
-    const params = new URLSearchParams();
-    params.append("entry.744179332", type);
-    params.append("entry.1492316410", date);
-
-    fetch(formUrl, { method: "POST", mode: "no-cors", body: params });
+    
+    setTimeout(() => {
+        window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+        closeBooking();
+    }, 400);
 }
 
 function handleVFCash() {
