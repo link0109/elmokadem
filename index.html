@@ -172,7 +172,9 @@
 </div>
 
 <script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+// الروابط الخاصة بك
+const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbzyjZ-Nuug0FNX0xjU6yfhof3ETovH1jzDtH9O-SuiVm1cBJLJJAH8EtiXaTxB7-Y55/exec';
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -202,14 +204,15 @@ function sendToWhatsApp() {
 
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فنان"); return; }
 
-    // إرسال البيانات للتقويم أوتوماتيكياً
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, type: type, date: date, time: time })
-    });
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+
+    // إرسال البيانات للتقويم ولشيت الحسابات في وقت واحد
+    Promise.all([
+        fetch(calendarURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData }),
+        fetch(accountsURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData })
+    ]).then(() => {
+        console.log("تم الإرسال للتقويم والحسابات");
+    }).catch(err => console.error("خطأ في الربط:", err));
 
     let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
