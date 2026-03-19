@@ -182,16 +182,17 @@ function sendToWhatsApp() {
     if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
 
     // 1. تسجيل صامت في جدول البيانات والتقويم أوتوماتيك
-    const formData = new URLSearchParams();
-    formData.append('occasion', type);
-    formData.append('date', date);
-    if(type.includes("كتب كتاب")) formData.append('time', time);
+        // تجهيز الرابط مع البيانات
+    const finalURL = scriptURL + 
+                     "?occasion=" + encodeURIComponent(type) + 
+                     "&date=" + encodeURIComponent(date) + 
+                     "&time=" + encodeURIComponent(time);
 
-    fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-    .then(() => console.log('تم تسجيل الحجز في التقويم والجدول'))
-    .catch(err => console.error('خطأ في التسجيل:', err));
+    // إرسال البيانات لجوجل صامت
+    var img = new Image();
+    img.src = finalURL; 
 
-    // 2. إرسال للواتساب
+    // إرسال للواتساب
     let msg = `أهلاً يا مقدم، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
     
@@ -199,7 +200,7 @@ function sendToWhatsApp() {
         window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
         closeBooking();
     }, 400);
-}
+
 
 function handleVFCash() {
     const code = "*9*7*01092217287*";
