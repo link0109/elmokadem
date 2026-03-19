@@ -67,7 +67,21 @@
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
         .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
-        select, input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        
+        select, input { 
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
+            background: #000; color: white; border: 1px solid #333; 
+            box-sizing: border-box; font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* تحسين شكل خانة التاريخ */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
@@ -120,6 +134,7 @@
         
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
+            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
             <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
             <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
             <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
@@ -184,11 +199,12 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
+    if(!type) { alert("من فضلك اختر نوع المناسبة"); return; }
     if(!date) { alert("اختار التاريخ الأول يا فندم"); return; }
     if(!name) { alert("من فضلك اكتب اسم حضرتك"); return; }
 
-    let msg = `أهلاً يا مقدم، أنا ${name}، محتاج أحجز:\n- المناسبة: ${type}\n- التاريخ: ${date}`;
-    if(type.includes("كتب كتاب")) msg += `\n- الموعد: ${time}`;
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
