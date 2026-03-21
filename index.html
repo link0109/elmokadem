@@ -138,6 +138,7 @@
             <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
             <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
             <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option> 
             <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
         </select>
@@ -172,7 +173,6 @@
 </div>
 
 <script>
-// الروابط الخاصة بك
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbyW8aGyYbPd05EVsCxPqs1Cb8pNWtoN2eStbsTqvVJAtBlifb3cTxqnWLRavp7iwNra/exec';
 
@@ -206,7 +206,6 @@ function sendToWhatsApp() {
 
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
 
-    // إرسال البيانات للتقويم ولشيت الحسابات في وقت واحد
     Promise.all([
         fetch(calendarURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData }),
         fetch(accountsURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData })
