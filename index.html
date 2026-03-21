@@ -174,7 +174,7 @@
 <script>
 // الروابط الخاصة بك
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
-const accountsURL = 'https://script.google.com/macros/s/AKfycbwt9dAVuo-UHAHHm0qL67nIYjUhBSWKyEn4Z5fMEvXV6caFZtvexJym-qVg058et-PZ/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbwm4LePutPM8M6iCFk9hveKB_ERTka5W0CiBzW_mhQuj2ynk8QMW0IKZwqOpYfoSULw/exec';
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -202,7 +202,7 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
-    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فنان"); return; }
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
 
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
 
