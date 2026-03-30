@@ -1,183 +1,275 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELMOKADEM | Photography</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
+    <meta property="og:title" content="المقدم فوتوغرافر">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         :root {
+            --bg-blur: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.2);
             --gold: #d4af37;
-            --voda-red: #e60000;
-            --orange-color: #FF6600;
-            --dark-bg: #0a0a0a;
         }
 
         body {
-            margin: 0; background-color: var(--dark-bg); color: #fff;
-            font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
+            display: flex; justify-content: center;
         }
 
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98)), url('background.jpeg') center/cover;
-            z-index: -1;
-        }
-
-        .profile-section { text-align: center; padding: 40px 20px; width: 100%; max-width: 420px; box-sizing: border-box; }
-        .profile-img { width: 115px; height: 115px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; margin-bottom: 15px; object-fit: cover; }
-        .brand-name { font-family: 'Cinzel', serif; font-size: 28px; letter-spacing: 4px; margin: 0; text-transform: uppercase; }
-        .brand-sub { font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-top: 5px; text-transform: uppercase; opacity: 0.8; }
-
-        /* حاوية الروابط */
-        .links-container { width: 100%; margin-top: 35px; }
-        
-        .link-item {
-            display: flex; align-items: center; background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
-            padding: 14px; margin-bottom: 12px; text-decoration: none; color: #fff;
-            transition: 0.3s ease;
-        }
-        .link-item:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); transform: translateY(-2px); }
-        
-        .link-item i { width: 35px; font-size: 20px; text-align: center; margin-left: 15px; }
-        .link-text { flex-grow: 1; font-size: 14px; font-weight: 500; text-align: right; }
-
-        /* تمييز زرار الحجز */
-        .booking-link {
-            border: 1px solid var(--gold);
-            background: linear-gradient(45deg, rgba(212,175,55,0.1), rgba(0,0,0,0));
-            margin-top: 20px;
-        }
-
-        /* المودال (نافذة الدفع) */
-        #deposit-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96);
-            backdrop-filter: blur(12px); z-index: 9999; justify-content: center; align-items: center;
-        }
-        .modal-card {
-            background: #0d0d0d; width: 90%; max-width: 380px; border-radius: 28px;
-            border: 1px solid rgba(212,175,55,0.2); padding: 40px 25px; text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-        }
-
-        .wallet-grid { display: flex; gap: 15px; margin: 30px 0; }
-        .wallet-box {
-            flex: 1; background: #151515; border: 1px solid #222; border-radius: 20px;
-            padding: 25px 10px; cursor: pointer; transition: 0.4s;
+        .overlay {
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%; min-height: 100vh;
+            padding: 40px 20px; box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center;
         }
-        .wallet-box i { font-size: 35px; margin-bottom: 12px; color: #333; transition: 0.3s; }
-        .wallet-box span { font-size: 11px; font-weight: 600; color: #666; }
 
-        /* الحالات النشطة للأيقونات */
-        .voda-active { border-color: var(--voda-red); background: rgba(230,0,0,0.05); }
-        .voda-active i { color: var(--voda-red); transform: scale(1.1); }
-        .voda-active span { color: #fff; }
-
-        .orange-active { border-color: var(--orange-color); background: rgba(255,102,0,0.05); }
-        .orange-active i { color: var(--orange-color); transform: scale(1.1); }
-        .orange-active span { color: #fff; }
-
-        .input-group { display: none; animation: slideUp 0.4s ease; }
-        .amount-input {
-            width: 100%; background: transparent; border: none; border-bottom: 2px solid #222;
-            color: #fff; font-size: 32px; text-align: center; padding: 10px; margin-bottom: 25px; outline: none;
-            font-family: 'Cinzel', serif;
+        .profile {
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
         }
-        .confirm-btn {
-            width: 100%; padding: 18px; border-radius: 15px; border: none;
-            font-weight: 700; font-size: 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+
+        .brand-container { text-align: center; margin-bottom: 30px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
+
+        .button {
+            display: flex; align-items: center; background: var(--bg-blur);
+            border: 1px solid var(--border-color); color: white;
+            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
+            border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
         }
+
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
+
+        .fb .icon-box { background: #1877F2; }
+        .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
+        .wa .icon-box { background: #25D366; }
+        .call .icon-box { background: #444; }
+        .vfcash .icon-box { background: var(--gold); color: #000; }
         
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .cancel-text { margin-top: 25px; color: #444; cursor: pointer; font-size: 13px; font-weight: 600; }
+        .booking-btn { 
+            border: 2px solid var(--gold); 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
+            margin-bottom: 20px;
+        }
+
+        #booking-modal, #call-modal, #deposit-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
+        }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
+        
+        select, input { 
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
+            background: #000; color: white; border: 1px solid #333; 
+            box-sizing: border-box; font-family: 'Montserrat', sans-serif;
+            font-size: 14px; outline: none;
+        }
+
+        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        
+        /* Deposit Modal Specific Styles */
+        .wallet-choice { display: flex; gap: 10px; margin-top: 15px; }
+        .wallet-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white; cursor: pointer; font-size: 12px; transition: 0.3s; }
+        .wallet-btn.active { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
     </style>
 </head>
 <body>
 
-<div class="bg-overlay"></div>
+<div class="overlay">
+    <img src="profile.jpg" class="profile" alt="ElmoKaDem">
+    <div class="brand-container">
+        <h1 class="brand-name">ELMOKADEM</h1>
+        <div class="brand-sub">Wedding Photographer</div>
+    </div>
 
-<div class="profile-section">
-    <img src="profile.jpg" class="profile-img" alt="ELMOKADEM">
-    <h1 class="brand-name">ELMOKADEM</h1>
-    <div class="brand-sub">Wedding Photographer</div>
+    <div class="button booking-btn" onclick="openBooking()">
+        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
+        <div class="btn-text">احجز الآن | Book Now</div>
+    </div>
 
-    <div class="links-container">
-        <a href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" class="link-item" target="_blank">
-            <i class="fas fa-user-circle" style="color: #1877F2;"></i>
-            <span class="link-text">Personal Profile</span>
-        </a>
-        <a href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" class="link-item" target="_blank">
-            <i class="fab fa-facebook-f" style="color: #1877F2;"></i>
-            <span class="link-text">Facebook Page</span>
-        </a>
-        <a href="https://www.instagram.com/elmokadem_photographer" class="link-item" target="_blank">
-            <i class="fab fa-instagram" style="color: #E4405F;"></i>
-            <span class="link-text">Instagram</span>
-        </a>
-        <a href="https://www.tiktok.com/@elmokadem.photographar" class="link-item" target="_blank">
-            <i class="fab fa-tiktok" style="color: #fff;"></i>
-            <span class="link-text">TikTok</span>
-        </a>
-        <a href="https://wa.me/201210425901" class="link-item" target="_blank">
-            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
-            <span class="link-text">WhatsApp</span>
-        </a>
-        
-        <div class="link-item booking-link" onclick="openDeposit()">
-            <i class="fas fa-calendar-check" style="color: var(--gold);"></i>
-            <span class="link-text" style="color: var(--gold); font-weight: 700;">Booking Deposit | تأكيد الحجز</span>
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
+    </a>
+
+    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
+    </a>
+
+    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
+        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
+    </a>
+
+    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
+    </a>
+
+    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
+    </a>
+
+    <div class="button call" onclick="openCallModal()">
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
+    </div>
+
+    <div class="button vfcash" onclick="openDepositModal()">
+        <div class="icon-box"><i class="fas fa-wallet"></i></div><div class="btn-text">Pay Deposit | دفع العربون</div>
+    </div>
+</div>
+
+<div id="booking-modal">
+    <div class="modal-content">
+        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
+        <label>المناسبة:</label>
+        <select id="session-type" onchange="toggleTime()">
+            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
+            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
+            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+        </select>
+        <label style="display:block; margin-top:15px;">التاريخ:</label>
+        <input type="date" id="session-date">
+        <div id="time-selection" style="display:none; margin-top:15px;">
+            <label>موعد كتب الكتاب:</label>
+            <select id="session-time">
+                <option value="بعد صلاة العصر">بعد صلاة العصر</option>
+                <option value="بعد صلاة المغرب">بعد صلاة المغرب</option>
+                <option value="بعد صلاة العشاء">بعد صلاة العشاء</option>
+            </select>
         </div>
+        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
+        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="call-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
+        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <div id="deposit-modal">
-    <div class="modal-card">
-        <h2 style="font-family: 'Cinzel'; color: var(--gold); margin: 0; letter-spacing: 2px;">DEPOSIT</h2>
-        <p style="font-size: 11px; color: #555; margin-top: 5px;">اختر نوع المحفظة للمتابعة</p>
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">دفع العربون | Pay Deposit</h3>
+        <p style="font-size: 13px; color: #ccc;">اختر المحفظة الإلكترونية المراد التحويل إليها</p>
         
-        <div class="wallet-grid">
-            <div class="wallet-box" id="voda-box" onclick="selectType('voda')">
-                <i class="fas fa-mobile-alt"></i>
-                <span>فودافون كاش</span>
-            </div>
-            <div class="wallet-box" id="orange-box" onclick="selectType('orange')">
-                <i class="fas fa-phone-square-alt"></i>
-                <span>أورانج كاش</span>
-            </div>
+        <div class="wallet-choice">
+            <div class="wallet-btn" id="voda-choice" onclick="setWallet('voda')">Vodafone Cash</div>
+            <div class="wallet-btn" id="orange-choice" onclick="setWallet('orange')">Orange Cash</div>
         </div>
 
-        <div id="payment-ui" class="input-group">
-            <input type="number" class="amount-input" id="amt-value" placeholder="دخل المبلغ هنا">
-            <button id="main-btn" class="confirm-btn" onclick="goCall()">اتصال الآن | Call Now</button>
+        <div id="amount-input-area" style="display:none; margin-top:20px;">
+            <input type="number" id="deposit-amount" placeholder="اكتب المبلغ المراد تحويله">
+            <button class="confirm-btn" onclick="copyDepositCode()">نسخ كود التحويل</button>
         </div>
 
-        <div class="cancel-text" onclick="closeDeposit()">إغلاق</div>
+        <p onclick="closeDepositModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <script>
-    let currentType = '';
-    const MY_VODA = "01092217287";
-    const MY_ORANGE = "01210425901";
+const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
-    function openDeposit() { document.getElementById('deposit-modal').style.display = 'flex'; }
-    function closeDeposit() { 
-        document.getElementById('deposit-modal').style.display = 'none';
-        currentType = '';
-        document.getElementById('payment-ui').style.display = 'none';
-        document.getElementById('voda-box').className = 'wallet-box';
-        document.getElementById('orange-box').className = 'wallet-box';
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
+        const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+    });
+};
+
+function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
+function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
+function toggleTime() {
+    const val = document.getElementById('session-type').value;
+    document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
+}
+
+function sendToWhatsApp() {
+    const name = document.getElementById('user-name').value;
+    const type = document.getElementById('session-type').value;
+    const date = document.getElementById('session-date').value;
+    const time = document.getElementById('session-time').value;
+
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+
+    Promise.all([
+        fetch(calendarURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData }),
+        fetch(accountsURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData })
+    ]).then(() => {
+        console.log("تم الإرسال للتقويم والحسابات");
+    }).catch(err => console.error("خطأ في الربط:", err));
+
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
+    
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
+}
+
+// Deposit Logic
+let selectedWallet = '';
+function openDepositModal() { document.getElementById('deposit-modal').style.display = 'flex'; }
+function closeDepositModal() { 
+    document.getElementById('deposit-modal').style.display = 'none'; 
+    selectedWallet = '';
+    document.getElementById('amount-input-area').style.display = 'none';
+    document.querySelectorAll('.wallet-btn').forEach(b => b.classList.remove('active'));
+}
+
+function setWallet(w) {
+    selectedWallet = w;
+    document.querySelectorAll('.wallet-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(w + '-choice').classList.add('active');
+    document.getElementById('amount-input-area').style.display = 'block';
+}
+
+function copyDepositCode() {
+    const amount = document.getElementById('deposit-amount').value;
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
+    
+    let code = "";
+    if(selectedWallet === 'voda') {
+        code = `*9*7*01092217287*${amount}#`;
+    } else {
+        code = `*7115*${amount}*01210425901#`;
     }
 
-    function selectType(t) {
-        currentType = t;
-        document.getElementById('payment-ui').style.display = 'block';
-        document.getElementById('voda-box').className = 'wallet-box' + (t === 'voda' ? ' voda-active' : '');
-        document.getElementById('orange-box').className = 'wallet-box' + (t === 'orange' ? ' orange-active' : '');
-        
-        const btn = document.getElementById('main-btn');
-        btn.style.backgroundColor = (t === 'voda' ? 'var(--voda-red)' : 'var(--orange-color)');
+    navigator.clipboard.writeText(code).then(() => {
+        alert("تم نسخ الكود بنجاح: " + code + "\nاذهب للوحة الاتصال وقم بعمل لصق للاتصال فوراً.");
+        closeDepositModal();
+    });
+}
+
+function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
+function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
+</script>
+</body>
+</html>
