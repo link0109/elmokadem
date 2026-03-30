@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
-    <meta property="og:title" content="المقدم فوتوغرافر">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -100,16 +99,34 @@
         <div class="btn-text">احجز الآن | Book Now</div>
     </div>
 
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/" target="_blank">
+        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
+    </a>
+    
+    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/" target="_blank">
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
+    </a>
+
+    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
+        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
+    </a>
+
+    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
+    </a>
+
+    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
+    </a>
+
+    <div class="button call" onclick="openCallModal()">
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
+    </div>
+
     <div class="button" onclick="openDepositModal()">
         <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-wallet"></i></div>
         <div class="btn-text">Booking Deposit | تأكيد الحجز</div>
     </div>
-
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/" target="_blank"><div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div></a>
-    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank"><div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div></a>
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank"><div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div></a>
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank"><div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div></a>
-    <div class="button call" onclick="openCallModal()"><div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div></div>
 </div>
 
 <div id="booking-modal">
@@ -135,7 +152,6 @@
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold); font-family:'Cinzel';">DEPOSIT</h3>
         <p style="font-size: 12px; color: #aaa;">اختر المحفظة لتحويل العربون</p>
-        
         <div class="wallet-list">
             <div class="wallet-item v-box" id="v-btn" onclick="selectWallet('voda')">
                 <i class="fas fa-mobile-alt"></i>
@@ -146,15 +162,11 @@
                 <span>أورانج كاش</span><span>Orange Cash</span>
             </div>
         </div>
-
         <div id="pay-area">
             <input type="number" id="dep-amount" placeholder="اكتب مبلغ العربون هنا" oninput="generateCode()">
-            <div class="code-display">
-                <span id="final-code">*9*7*01092217287*0#</span>
-            </div>
+            <div class="code-display"><span id="final-code">*9*...#</span></div>
             <button id="call-action-btn" class="confirm-btn" onclick="dialCode()">اتصال الآن | Call Now</button>
         </div>
-
         <p onclick="closeDepositModal()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
@@ -172,7 +184,6 @@
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
-// التليجرام شغال زي ما هو
 window.onload = function() {
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
@@ -194,17 +205,13 @@ function sendToWhatsApp() {
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     if(!type || !date || !name) { alert("كمل البيانات"); return; }
-    
-    // تسجيل التقويم والحسابات شغال
     const bookingData = JSON.stringify({ name: name, type: type, date: date });
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
-
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent("حجز جديد: " + name)}`, '_blank');
     closeBooking();
 }
 
-// منطق تأكيد الحجز الجديد
 let currentWallet = '';
 function openDepositModal() { document.getElementById('deposit-modal').style.display = 'flex'; }
 function closeDepositModal() { document.getElementById('deposit-modal').style.display = 'none'; }
