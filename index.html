@@ -3,218 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
-    <meta property="og:title" content="المقدم فوتوغرافر">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <title>ELMOKADEM | Professional Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
             --gold: #d4af37;
-            --voda-red: #e60000;
-            --orange-color: #FF6600;
+            --voda: #e60000;
+            --orange: #ff6600;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(212, 175, 55, 0.3);
         }
 
         body {
             margin: 0;
+            background: #050505;
+            color: #fff;
             font-family: 'Montserrat', sans-serif;
-            background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
-            display: flex; justify-content: center;
+            overflow-x: hidden;
         }
 
-        .overlay {
-            backdrop-filter: blur(15px) saturate(160%);
-            -webkit-backdrop-filter: blur(15px) saturate(160%);
-            background: rgba(0, 0, 0, 0.7);
-            width: 100%; min-height: 100vh;
-            padding: 40px 20px; box-sizing: border-box;
+        /* تحسين الخلفية لتكون أكثر فخامة */
+        .main-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url('background.jpeg') center/cover;
+            z-index: -1;
+        }
+
+        .container {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 50px 20px; min-height: 100vh;
+        }
+
+        .brand-logo {
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 2px solid var(--gold); padding: 5px;
+            margin-bottom: 25px; transition: 0.5s;
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif; font-size: 34px; letter-spacing: 6px;
+            margin: 0; color: #fff; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .brand-tagline {
+            font-size: 10px; letter-spacing: 5px; color: var(--gold);
+            text-transform: uppercase; margin-top: 8px; opacity: 0.8;
+        }
+
+        /* تصميم المودال الاحترافي */
+        #deposit-modal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
+            z-index: 9999; justify-content: center; align-items: center;
+        }
+
+        .premium-card {
+            background: #0f0f0f; width: 90%; max-width: 400px;
+            border-radius: 30px; border: 1px solid var(--border);
+            padding: 35px 25px; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-header h2 {
+            font-family: 'Cinzel', serif; font-size: 24px; color: var(--gold);
+            margin: 0 0 10px 0; letter-spacing: 3px;
+        }
+
+        .wallet-selector {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;
+        }
+
+        .option-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px 10px; border-radius: 20px; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; flex-direction: column; align-items: center;
         }
 
-        .profile {
-            width: 120px; height: 120px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
-        }
+        .option-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 15px; }
+        .option-card span { font-size: 12px; font-weight: 600; color: #888; }
 
-        .brand-container { text-align: center; margin-bottom: 30px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
-        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
+        /* تفعيل الاختيار */
+        .option-card.active-voda { border-color: var(--voda); background: rgba(230, 0, 0, 0.1); transform: translateY(-5px); }
+        .option-card.active-orange { border-color: var(--orange); background: rgba(255, 102, 0, 0.1); transform: translateY(-5px); }
+        .active-voda span, .active-orange span { color: #fff; }
 
-        .button {
-            display: flex; align-items: center; background: var(--bg-blur);
-            border: 1px solid var(--border-color); color: white;
-            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
-            border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
-        }
-
-        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
-
-        .fb .icon-box { background: #1877F2; }
-        .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
-        .wa .icon-box { background: #25D366; }
-        .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: var(--gold); color: #000; }
+        /* منطقة الإدخال المطورة */
+        .input-group { display: none; margin-top: 30px; animation: fadeIn 0.5s ease; }
         
-        .booking-btn { 
-            border: 2px solid var(--gold); 
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            margin-bottom: 20px;
+        .amount-input {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 2px solid #333; color: #fff; text-align: center;
+            font-size: 32px; font-family: 'Cinzel', serif; padding: 10px;
+            outline: none; transition: 0.3s;
+        }
+        .amount-input:focus { border-color: var(--gold); }
+
+        .live-preview {
+            margin-top: 25px; padding: 20px; background: rgba(212,175,55,0.03);
+            border-radius: 15px; border: 1px dashed rgba(212,175,55,0.2);
         }
 
-        #booking-modal, #call-modal, #deposit-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
+        .call-btn {
+            width: 100%; padding: 18px; border-radius: 15px; border: none;
+            font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 25px;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
         }
 
-        .modal-content { background: #111; padding: 25px; border-radius: 25px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: center; color: white; }
-        
-        input { 
-            width: 100%; padding: 15px; margin-top: 15px; border-radius: 12px; 
-            background: #000; color: #fff; border: 1px solid #333; 
-            box-sizing: border-box; font-family: 'Cinzel', serif;
-            font-size: 22px; outline: none; text-align: center; transition: 0.3s;
-        }
-        input:focus { border-color: var(--gold); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .confirm-btn:active { transform: scale(0.95); }
-        
-        /* MODERN WALLET DESIGN */
-        .wallet-grid { display: flex; gap: 15px; margin-top: 25px; }
-        .wallet-card { 
-            flex: 1; padding: 20px 10px; border-radius: 20px; border: 1px solid #222; 
-            background: #181818; cursor: pointer; transition: 0.4s; text-align: center;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .wallet-logo { width: 45px; height: 45px; margin-bottom: 10px; object-fit: contain; }
-        .wallet-card span { font-size: 11px; font-weight: bold; color: #777; letter-spacing: 0.5px; }
-        
-        .wallet-card.voda-active { border-color: var(--voda-red); background: rgba(230, 0, 0, 0.05); }
-        .wallet-card.voda-active span { color: #fff; }
-        
-        .wallet-card.orange-active { border-color: var(--orange-color); background: rgba(255, 102, 0, 0.05); }
-        .wallet-card.orange-active span { color: #fff; }
-        
-        .preview-box {
-            background: rgba(0,0,0,0.5); border: 1px dashed #444; padding: 15px; 
-            margin-top: 20px; border-radius: 15px; text-align: center;
-        }
-        .preview-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;}
-        .preview-code { display: block; font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold); letter-spacing: 1px; }
+        .close-link { margin-top: 25px; color: #444; font-size: 13px; cursor: pointer; display: inline-block; }
     </style>
 </head>
 <body>
 
-<div class="overlay">
-    <img src="profile.jpg" class="profile" alt="ElmoKaDem">
-    <div class="brand-container">
-        <h1 class="brand-name">ELMOKADEM</h1>
-        <div class="brand-sub">Wedding Photographer</div>
-    </div>
+<div class="main-bg"></div>
 
-    <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
-        <div class="btn-text">احجز الآن | Book Now</div>
-    </div>
+<div class="container">
+    <img src="profile.jpg" class="brand-logo" alt="ELMOKADEM">
+    <h1 class="brand-title">ELMOKADEM</h1>
+    <div class="brand-tagline">Excellence in Every Frame</div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
-    </a>
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
-    </a>
-    <a class="button ig" href="https://www.instagram.com/elmokadem_photographer" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
-    </a>
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
-    </a>
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
-    </a>
-    <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
-    </div>
-    <div class="button vfcash" onclick="openDepositModal()">
-        <div class="icon-box"><i class="fas fa-receipt"></i></div><div class="btn-text">Deposit | تأكيد الحجز</div>
+    <div onclick="openModal()" style="margin-top: 50px; cursor: pointer; border: 1px solid var(--gold); padding: 15px 40px; border-radius: 50px; background: rgba(212,175,55,0.1);">
+        <span style="font-size: 14px; letter-spacing: 2px; color: var(--gold);">SECURE DEPOSIT | تأكيد الحجز</span>
     </div>
 </div>
 
 <div id="deposit-modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold); font-family:'Cinzel'; margin:0;">Deposit</h3>
-        <p style="font-size: 11px; color: #555; margin-bottom: 5px;">تأكيد الحجز عبر المحفظة</p>
-        
-        <div class="wallet-grid">
-            <div class="wallet-card" id="card-voda" onclick="selectWallet('voda')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png" class="wallet-logo" alt="VF">
+    <div class="premium-card">
+        <div class="modal-header">
+            <h2>DEPOSIT</h2>
+            <p style="font-size: 11px; color: #555; margin: 0;">الرجاء اختيار وسيلة الدفع المناسبة</p>
+        </div>
+
+        <div class="wallet-selector">
+            <div class="option-card" id="voda-card" onclick="selectType('voda')">
+                <img src="https://img.icons8.com/color/144/vodafone.png" alt="Vodafone">
                 <span>فودافون كاش</span>
             </div>
-            <div class="wallet-card" id="card-orange" onclick="selectWallet('orange')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1024px-Orange_logo.svg.png" class="wallet-logo" alt="Orange">
+            <div class="option-card" id="orange-card" onclick="selectType('orange')">
+                <img src="https://img.icons8.com/color/144/orange.png" alt="Orange">
                 <span>أورانج كاش</span>
             </div>
         </div>
 
-        <div id="deposit-inputs" style="display:none; margin-top:20px;">
-            <input type="number" id="dep-amount" placeholder="0.00" oninput="updatePreview()">
+        <div id="input-area" class="input-group">
+            <input type="number" class="amount-input" id="amount" placeholder="000" oninput="syncCode()">
             
-            <div class="preview-box">
-                <span class="preview-label">سيتم طلب الكود التالي:</span>
-                <span class="preview-code" id="code-display">---</span>
+            <div class="live-preview">
+                <p style="font-size: 9px; color: #666; margin: 0 0 8px 0; letter-spacing: 1px;">USSD AUTO-CODE</p>
+                <span id="final-code" style="font-family: 'Cinzel'; color: var(--gold); font-size: 18px;">*9*7*---#</span>
             </div>
 
-            <button class="confirm-btn" id="final-btn" onclick="callNow()">اتصال الآن | Call Now</button>
+            <button id="main-action" class="call-btn" onclick="executeCall()">Call & Confirm</button>
         </div>
 
-        <p onclick="closeDepositModal()" style="color:#444; cursor:pointer; margin-top:20px; font-size:13px; font-weight:bold;">إغلاق</p>
+        <div class="close-link" onclick="closeModal()">إلغاء العملية</div>
     </div>
 </div>
 
 <script>
-// الأكواد الأساسية
-let activeWallet = '';
-const vodaNum = "01092217287";
-const orangeNum = "01210425901";
+    let currentWallet = '';
+    const VODA_NUM = "01092217287";
+    const ORANGE_NUM = "01210425901";
 
-function openDepositModal() { document.getElementById('deposit-modal').style.display = 'flex'; }
-function closeDepositModal() { 
-    document.getElementById('deposit-modal').style.display = 'none';
-    activeWallet = '';
-    document.getElementById('deposit-inputs').style.display = 'none';
-    document.getElementById('card-voda').className = 'wallet-card';
-    document.getElementById('card-orange').className = 'wallet-card';
-    document.getElementById('dep-amount').value = '';
-}
+    function openModal() { document.getElementById('deposit-modal').style.display = 'flex'; }
+    function closeModal() { 
+        document.getElementById('deposit-modal').style.display = 'none';
+        resetUI();
+    }
 
-function selectWallet(w) {
-    activeWallet = w;
-    document.getElementById('deposit-inputs').style.display = 'block';
-    document.getElementById('card-voda').className = 'wallet-card' + (w === 'voda' ? ' voda-active' : '');
-    document.getElementById('card-orange').className = 'wallet-card' + (w === 'orange' ? ' orange-active' : '');
-    const btn = document.getElementById('final-btn');
-    btn.style.background = (w === 'voda') ? 'var(--voda-red)' : 'var(--orange-color)';
-    btn.style.color = '#fff';
-    updatePreview();
-}
+    function selectType(type) {
+        currentWallet = type;
+        document.getElementById('input-area').style.display = 'block';
+        document.getElementById('voda-card').className = 'option-card' + (type === 'voda' ? ' active-voda' : '');
+        document.getElementById('orange-card').className = 'option-card' + (type === 'orange' ? ' active-orange' : '');
+        
+        const btn = document.getElementById('main-action');
+        btn.style.background = type === 'voda' ? 'var(--voda)' : 'var(--orange)';
+        btn.style.color = '#fff';
+        syncCode();
+    }
 
-function updatePreview() {
-    const amount = document.getElementById('dep-amount').value || "0";
-    let code = "---";
-    if(activeWallet === 'voda') code = `*9*7*${vodaNum}*${amount}#`;
-    if(activeWallet === 'orange') code = `#${orangeNum}*${amount}*1*7115#`;
-    document.getElementById('code-display').innerText = code;
-}
+    function syncCode() {
+        const amt = document.getElementById('amount').value || "0";
+        let code = "---";
+        if(currentWallet === 'voda') code = `*9*7*${VODA_NUM}*${amt}#`;
+        if(currentWallet === 'orange') code = `#${ORANGE_NUM}*${amt}*1*7115#`;
+        document.getElementById('final-code').innerText = code;
+    }
 
-function callNow() {
-    const amount = document.getElementById('dep-amount').value;
-    if(!amount || amount <= 0) { alert("يرجى إدخال مبلغ العربون"); return; }
-    const code = document.getElementById('code-display').innerText;
-    window.location.href = "tel:" + encodeURIComponent(code);
-}
+    function executeCall() {
+        const amt = document.getElementById('amount').value;
+        if(!amt || amt <= 0) { alert("يرجى إدخال المبلغ أولاً"); return; }
+        const code = document.getElementById('final-code').innerText;
+        window.location.href = "tel:" + encodeURIComponent(code);
+    }
+
+    function resetUI() {
+        currentWallet = '';
+        document.getElementById('input-area').style.display = 'none';
+        document.getElementById('voda-card').className = 'option-card';
+        document.getElementById('orange-card').className = 'option-card';
+        document.getElementById('amount').value = '';
+    }
 </script>
+
 </body>
 </html>
