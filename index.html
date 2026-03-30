@@ -68,40 +68,42 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
-        .modal-content { background: #111; padding: 25px; border-radius: 24px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: center; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+        .modal-content { background: #111; padding: 25px; border-radius: 25px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: center; color: white; }
         
         input { 
             width: 100%; padding: 15px; margin-top: 15px; border-radius: 12px; 
-            background: #000; color: var(--gold); border: 1px solid #333; 
+            background: #000; color: #fff; border: 1px solid #333; 
             box-sizing: border-box; font-family: 'Cinzel', serif;
-            font-size: 20px; outline: none; text-align: center; font-weight: bold;
+            font-size: 22px; outline: none; text-align: center; transition: 0.3s;
         }
+        input:focus { border-color: var(--gold); }
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .confirm-btn:active { transform: scale(0.98); }
+        .confirm-btn:active { transform: scale(0.95); }
         
-        /* NEW LUXURY DEPOSIT UI */
+        /* MODERN WALLET DESIGN */
         .wallet-grid { display: flex; gap: 15px; margin-top: 25px; }
         .wallet-card { 
-            flex: 1; padding: 20px 10px; border-radius: 18px; border: 1px solid #222; 
+            flex: 1; padding: 20px 10px; border-radius: 20px; border: 1px solid #222; 
             background: #181818; cursor: pointer; transition: 0.4s; text-align: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            display: flex; flex-direction: column; align-items: center;
         }
-        .wallet-card i { font-size: 32px; margin-bottom: 10px; }
-        .wallet-card span { font-size: 12px; font-weight: 600; color: #888; font-family: 'Montserrat', sans-serif; }
+        .wallet-logo { width: 45px; height: 45px; margin-bottom: 10px; object-fit: contain; }
+        .wallet-card span { font-size: 11px; font-weight: bold; color: #777; letter-spacing: 0.5px; }
         
-        .wallet-card.voda-active { border-color: var(--voda-red); background: rgba(230, 0, 0, 0.08); box-shadow: 0 0 15px rgba(230, 0, 0, 0.2); }
+        .wallet-card.voda-active { border-color: var(--voda-red); background: rgba(230, 0, 0, 0.05); }
         .wallet-card.voda-active span { color: #fff; }
         
-        .wallet-card.orange-active { border-color: var(--orange-color); background: rgba(255, 102, 0, 0.08); box-shadow: 0 0 15px rgba(255, 102, 0, 0.2); }
+        .wallet-card.orange-active { border-color: var(--orange-color); background: rgba(255, 102, 0, 0.05); }
         .wallet-card.orange-active span { color: #fff; }
         
         .preview-box {
-            background: rgba(212, 175, 55, 0.05); border: 1px dashed var(--gold); padding: 18px; 
+            background: rgba(0,0,0,0.5); border: 1px dashed #444; padding: 15px; 
             margin-top: 20px; border-radius: 15px; text-align: center;
         }
-        .preview-label { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 8px; font-weight: bold;}
-        .preview-code { display: block; font-family: 'Cinzel', serif; font-size: 18px; color: #fff; letter-spacing: 1.5px; word-break: break-all; }
+        .preview-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;}
+        .preview-code { display: block; font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold); letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -136,30 +138,23 @@
     <div class="button call" onclick="openCallModal()">
         <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
     </div>
-
     <div class="button vfcash" onclick="openDepositModal()">
         <div class="icon-box"><i class="fas fa-receipt"></i></div><div class="btn-text">Deposit | تأكيد الحجز</div>
     </div>
 </div>
 
-<div id="booking-modal">
-    </div>
-
-<div id="call-modal">
-    </div>
-
 <div id="deposit-modal">
     <div class="modal-content">
-        <h2 style="font-family:'Cinzel'; color:var(--gold); margin:0; font-size:22px;">Deposit</h2>
-        <p style="font-size: 12px; color: #666; margin-top: 5px;">تأكيد الحجز عبر المحفظة</p>
+        <h3 style="color:var(--gold); font-family:'Cinzel'; margin:0;">Deposit</h3>
+        <p style="font-size: 11px; color: #555; margin-bottom: 5px;">تأكيد الحجز عبر المحفظة</p>
         
         <div class="wallet-grid">
             <div class="wallet-card" id="card-voda" onclick="selectWallet('voda')">
-                <i class="fas fa-coins" style="color:var(--voda-red);"></i>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png" class="wallet-logo" alt="VF">
                 <span>فودافون كاش</span>
             </div>
             <div class="wallet-card" id="card-orange" onclick="selectWallet('orange')">
-                <i class="fas fa-wallet" style="color:var(--orange-color);"></i>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1024px-Orange_logo.svg.png" class="wallet-logo" alt="Orange">
                 <span>أورانج كاش</span>
             </div>
         </div>
@@ -168,22 +163,19 @@
             <input type="number" id="dep-amount" placeholder="0.00" oninput="updatePreview()">
             
             <div class="preview-box">
-                <span class="preview-label" id="preview-title">الكود المولد</span>
+                <span class="preview-label">سيتم طلب الكود التالي:</span>
                 <span class="preview-code" id="code-display">---</span>
             </div>
 
             <button class="confirm-btn" id="final-btn" onclick="callNow()">اتصال الآن | Call Now</button>
         </div>
 
-        <p onclick="closeDepositModal()" style="color:#555; cursor:pointer; margin-top:20px; font-size:13px; font-weight:bold;">إلغاء</p>
+        <p onclick="closeDepositModal()" style="color:#444; cursor:pointer; margin-top:20px; font-size:13px; font-weight:bold;">إغلاق</p>
     </div>
 </div>
 
 <script>
-// الأكواد الخاصة بالتتبع والحجز تبقى كما هي
-// ... (أكواد التتبع والحجز من ملفك الأصلي)
-
-// المنطق الجديد للدفع
+// الأكواد الأساسية
 let activeWallet = '';
 const vodaNum = "01092217287";
 const orangeNum = "01210425901";
@@ -195,6 +187,7 @@ function closeDepositModal() {
     document.getElementById('deposit-inputs').style.display = 'none';
     document.getElementById('card-voda').className = 'wallet-card';
     document.getElementById('card-orange').className = 'wallet-card';
+    document.getElementById('dep-amount').value = '';
 }
 
 function selectWallet(w) {
@@ -202,33 +195,25 @@ function selectWallet(w) {
     document.getElementById('deposit-inputs').style.display = 'block';
     document.getElementById('card-voda').className = 'wallet-card' + (w === 'voda' ? ' voda-active' : '');
     document.getElementById('card-orange').className = 'wallet-card' + (w === 'orange' ? ' orange-active' : '');
+    const btn = document.getElementById('final-btn');
+    btn.style.background = (w === 'voda') ? 'var(--voda-red)' : 'var(--orange-color)';
+    btn.style.color = '#fff';
     updatePreview();
 }
 
 function updatePreview() {
     const amount = document.getElementById('dep-amount').value || "0";
     let code = "---";
-    if(activeWallet === 'voda') {
-        code = `*9*7*${vodaNum}*${amount}#`;
-        document.getElementById('preview-title').innerText = "فودافون كاش";
-    }
-    if(activeWallet === 'orange') {
-        code = `#${orangeNum}*${amount}*1*7115#`;
-        document.getElementById('preview-title').innerText = "أورانج كاش";
-    }
+    if(activeWallet === 'voda') code = `*9*7*${vodaNum}*${amount}#`;
+    if(activeWallet === 'orange') code = `#${orangeNum}*${amount}*1*7115#`;
     document.getElementById('code-display').innerText = code;
 }
 
 function callNow() {
     const amount = document.getElementById('dep-amount').value;
-    if(!amount || amount <= 0) { alert("يرجى إدخال مبلغ صحيح أولاً"); return; }
+    if(!amount || amount <= 0) { alert("يرجى إدخال مبلغ العربون"); return; }
     const code = document.getElementById('code-display').innerText;
-    
-    // محاولة الاتصال المباشر
     window.location.href = "tel:" + encodeURIComponent(code);
-    
-    // نسخة احتياطية للنسخ في حالة لم يدعم المتصفح طلب الاتصال المباشر بالأكواد
-    navigator.clipboard.writeText(code);
 }
 </script>
 </body>
