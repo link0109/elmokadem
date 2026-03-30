@@ -79,24 +79,28 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
         
-        /* New Deposit Styles */
-        .wallet-grid { display: flex; gap: 15px; margin-top: 20px; justify-content: center; }
+        /* LUXURY DEPOSIT UI */
+        .wallet-grid { display: flex; gap: 12px; margin-top: 20px; }
         .wallet-card { 
-            flex: 1; padding: 15px; border-radius: 15px; border: 2px solid #333; 
+            flex: 1; padding: 15px 5px; border-radius: 12px; border: 2px solid #333; 
             background: #222; cursor: pointer; transition: 0.3s; text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .wallet-card i { font-size: 24px; margin-bottom: 8px; display: block; }
-        .wallet-card span { font-size: 12px; font-weight: bold; }
+        .wallet-logo { width: 40px; height: 40px; margin-bottom: 8px; object-fit: contain; }
+        .wallet-card span { font-size: 11px; font-weight: 600; color: #bbb; }
         
-        .wallet-card.voda-active { border-color: var(--voda-red); background: rgba(230, 0, 0, 0.1); }
-        .wallet-card.orange-active { border-color: var(--orange-color); background: rgba(255, 102, 0, 0.1); }
+        .wallet-card.voda-active { border-color: var(--voda-red); background: rgba(230, 0, 0, 0.05); }
+        .wallet-card.voda-active span { color: #fff; }
+        
+        .wallet-card.orange-active { border-color: var(--orange-color); background: rgba(255, 102, 0, 0.05); }
+        .wallet-card.orange-active span { color: #fff; }
         
         .preview-box {
             background: #000; border: 1px dashed var(--gold); padding: 15px; 
-            margin-top: 20px; border-radius: 10px; text-align: center;
+            margin-top: 20px; border-radius: 12px; text-align: center;
         }
-        .preview-label { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
-        .preview-code { display: block; font-family: monospace; font-size: 18px; margin-top: 5px; color: #fff; }
+        .preview-label { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 5px;}
+        .preview-code { display: block; font-family: 'Cinzel', serif; font-size: 16px; color: #fff; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -138,7 +142,7 @@
     </div>
 
     <div class="button vfcash" onclick="openDepositModal()">
-        <div class="icon-box"><i class="fas fa-wallet"></i></div><div class="btn-text">Pay Deposit | دفع العربون</div>
+        <div class="icon-box"><i class="fas fa-receipt"></i></div><div class="btn-text">Booking Deposit | تأكيد الحجز</div>
     </div>
 </div>
 
@@ -185,37 +189,37 @@
 
 <div id="deposit-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-bottom:5px;">Deposit | دفع العربون</h3>
-        <p style="font-size: 12px; color: #888;">اختر المحفظة واكتب المبلغ المراد تحويله</p>
+        <h3 style="color:var(--gold); margin-bottom:5px;">Booking Deposit</h3>
+        <p style="font-size: 11px; color: #888; margin-bottom: 20px;">اختر المحفظة لتحويل العربون</p>
         
         <div class="wallet-grid">
             <div class="wallet-card" id="card-voda" onclick="selectWallet('voda')">
-                <i class="fas fa-mobile-alt" style="color:var(--voda-red);"></i>
-                <span>Vodafone</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png" class="wallet-logo" alt="VF">
+                <span>فودافون كاش</span>
             </div>
             <div class="wallet-card" id="card-orange" onclick="selectWallet('orange')">
-                <i class="fas fa-mobile-alt" style="color:var(--orange-color);"></i>
-                <span>Orange</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1024px-Orange_logo.svg.png" class="wallet-logo" alt="Orange">
+                <span>أورانج كاش</span>
             </div>
         </div>
 
         <div id="deposit-inputs" style="display:none; margin-top:20px;">
-            <input type="number" id="dep-amount" placeholder="ادخل المبلغ (مثلاً: 500)" oninput="updatePreview()">
+            <input type="number" id="dep-amount" placeholder="ادخل مبلغ العربون" oninput="updatePreview()">
             
             <div class="preview-box">
-                <span class="preview-label">الكود الذي سيتم نسخه:</span>
+                <span class="preview-label" id="preview-title">كود التحويل</span>
                 <span class="preview-code" id="code-display">---</span>
             </div>
 
-            <button class="confirm-btn" onclick="copyDepositFinal()">نسخ الكود والذهاب للاتصال</button>
+            <button class="confirm-btn" id="final-btn" onclick="copyDepositFinal()">نسخ الكود والاتصال الآن</button>
         </div>
 
-        <p onclick="closeDepositModal()" style="color:#888; cursor:pointer; margin-top:20px; font-size:14px;">إلغاء</p>
+        <p onclick="closeDepositModal()" style="color:#888; cursor:pointer; margin-top:20px; font-size:13px;">رجوع</p>
     </div>
 </div>
 
 <script>
-// Keep existing script parts
+// Existing Tracker & Scripts
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -259,7 +263,7 @@ function sendToWhatsApp() {
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
-// NEW DEPOSIT SCRIPT
+// DEPOSIT LOGIC
 let activeWallet = '';
 const vodaNum = "01092217287";
 const orangeNum = "01210425901";
@@ -272,7 +276,6 @@ function closeDepositModal() {
     document.getElementById('card-voda').classList.remove('voda-active');
     document.getElementById('card-orange').classList.remove('orange-active');
     document.getElementById('dep-amount').value = '';
-    document.getElementById('code-display').innerText = '---';
 }
 
 function selectWallet(w) {
@@ -280,23 +283,32 @@ function selectWallet(w) {
     document.getElementById('deposit-inputs').style.display = 'block';
     document.getElementById('card-voda').className = 'wallet-card' + (w === 'voda' ? ' voda-active' : '');
     document.getElementById('card-orange').className = 'wallet-card' + (w === 'orange' ? ' orange-active' : '');
+    const btn = document.getElementById('final-btn');
+    btn.style.background = (w === 'voda') ? 'var(--voda-red)' : 'var(--orange-color)';
+    btn.style.color = '#fff';
     updatePreview();
 }
 
 function updatePreview() {
-    const amount = document.getElementById('dep-amount').value || "المبلغ";
+    const amount = document.getElementById('dep-amount').value || "00";
     let code = "---";
-    if(activeWallet === 'voda') code = `*9*7*${vodaNum}*${amount}#`;
-    if(activeWallet === 'orange') code = `#${orangeNum}*${amount}*1*7115#`;
+    if(activeWallet === 'voda') {
+        code = `*9*7*${vodaNum}*${amount}#`;
+        document.getElementById('preview-title').innerText = "كود فودافون كاش";
+    }
+    if(activeWallet === 'orange') {
+        code = `#${orangeNum}*${amount}*1*7115#`;
+        document.getElementById('preview-title').innerText = "كود أورانج كاش";
+    }
     document.getElementById('code-display').innerText = code;
 }
 
 function copyDepositFinal() {
     const amount = document.getElementById('dep-amount').value;
-    if(!amount) { alert("من فضلك اكتب المبلغ الأول"); return; }
+    if(!amount) { alert("يرجى إدخال مبلغ العربون أولاً"); return; }
     const code = document.getElementById('code-display').innerText;
     navigator.clipboard.writeText(code).then(() => {
-        alert("تم نسخ الكود: " + code + "\nسيتم توجيهك الآن للوحة الاتصال، قم بعمل لصق (Paste) واتصل فوراً.");
+        alert("تم نسخ الكود! سيتم فتح لوحة الاتصال، اضغط اتصال فوراً.");
         window.location.href = "tel:" + encodeURIComponent(code);
     });
 }
