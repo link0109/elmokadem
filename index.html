@@ -128,11 +128,11 @@
         <div class="info-card">
             <p style="margin:5px 0; color:#eee;">الرقم المستلم:</p>
             <strong style="font-size:18px; color:var(--gold);">01092217287</strong>
-            <p style="margin:10px 0 5px 0; color:#eee;">الكود:</p>
+            <p style="margin:10px 0 5px 0; color:#eee;">الكود الحالي:</p>
             <code id="vf-code-display" style="background:#000; padding:5px 10px; border-radius:5px; color:var(--gold); font-weight:bold;">*9*7*01092217287*المبلغ#</code>
         </div>
         <label>أدخل المبلغ:</label>
-        <input type="number" id="cash-amount" placeholder="0.00" dir="rtl" oninput="updateCode()">
+        <input type="number" id="cash-amount" placeholder="اكتب المبلغ هنا" dir="rtl" oninput="updateCode()">
         <button class="confirm-btn" onclick="processVF()">تأكيد واتصال</button>
         <p onclick="closeVFModal()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -146,12 +146,8 @@
             <option value="" disabled selected>اختيار نوع المناسبة</option>
             <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
             <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
-            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
-            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
-            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
-            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
         </select>
         <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
@@ -180,25 +176,39 @@
 </div>
 
 <script>
-// الروابط الخاصة بالتقويم والشيت (نفس الروابط القديمة)
+// الإعدادات
+const botToken = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+const chatId = "720656827";
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
-// إشعار التلجرام عند الدخول
-window.onload = function() {
+// وظيفة إرسال التليجرام (محدثة)
+function sendTelegramNotification() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
-    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
-    const chat_id = "720656827";
-    
-    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
-        const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
-        const now = new Date().toLocaleString('ar-EG');
-        const msg = `📸 زائر جديد\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
-        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
-    });
-};
+    const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android/PC 📱";
+    const now = new Date().toLocaleString('ar-EG');
 
+    fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+            const msg = `📸 زائر جديد للمقدم\n📱 الجهاز: ${device}\n📍 المدينة: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`;
+            
+            // استخدام Image كطريقة بديلة لتخطي مشاكل CORS
+            const img = new Image();
+            img.src = telegramUrl;
+        }).catch(e => {
+            // محاولة إرسال رسالة مبسطة لو الـ IP API فشل
+            const simpleMsg = `📸 زائر جديد دخل الموقع الآن\n⏰ الوقت: ${now}`;
+            new Image().src = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(simpleMsg)}`;
+        });
+}
+
+// تنفيذ الإشعار فور التحميل
+sendTelegramNotification();
+
+// وظائف المودالات والتحكم
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
@@ -213,7 +223,7 @@ function updateCode() {
 
 function processVF() {
     const amt = document.getElementById('cash-amount').value;
-    if(!amt) { alert("من فضلك اكتب المبلغ أولاً"); return; }
+    if(!amt) { alert("اكتب المبلغ يا فنان أولاً"); return; }
     window.location.href = `tel:*9*7*01092217287*${amt}%23`;
 }
 
@@ -228,15 +238,13 @@ function sendToWhatsApp() {
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
 
-    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    if(!type || !date || !name) { alert("كمل البيانات يا فندم"); return; }
 
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
 
-    // الربط بالشيت والتقويم
-    Promise.all([
-        fetch(calendarURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData }),
-        fetch(accountsURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData })
-    ]).then(() => console.log("تم الإرسال")).catch(err => console.error("خطأ:", err));
+    // الإرسال للشيت والتقويم
+    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
     let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
