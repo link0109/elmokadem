@@ -125,17 +125,14 @@
 <div id="vf-modal">
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold);">تحويل فودافون كاش</h3>
-        
         <div class="info-card">
             <p style="margin:5px 0; color:#eee;">الرقم المستلم:</p>
             <strong style="font-size:18px; color:var(--gold);">01092217287</strong>
-            <p style="margin:10px 0 5px 0; color:#eee;">الكود المستخدم:</p>
+            <p style="margin:10px 0 5px 0; color:#eee;">الكود:</p>
             <code id="vf-code-display" style="background:#000; padding:5px 10px; border-radius:5px; color:var(--gold); font-weight:bold;">*9*7*01092217287*المبلغ#</code>
         </div>
-
-        <label>أدخل المبلغ المراد تحويله:</label>
-        <input type="number" id="cash-amount" placeholder="اكتب المبلغ هنا" dir="rtl" oninput="updateCode()">
-
+        <label>أدخل المبلغ:</label>
+        <input type="number" id="cash-amount" placeholder="0.00" dir="rtl" oninput="updateCode()">
         <button class="confirm-btn" onclick="processVF()">تأكيد واتصال</button>
         <p onclick="closeVFModal()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -146,10 +143,15 @@
         <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
-            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
-            <option value="سيشن زفاف">سيشن زفاف (Wedding Session)</option>
-            <option value="سيشن زفاف وقاعة">سيشن زفاف وقاعة (Wedding and Party)</option>
-            <option value="كتب كتاب">كتب كتاب (Katb Ktab)</option>
+            <option value="" disabled selected>اختيار نوع المناسبة</option>
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
+            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
+            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
         </select>
         <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
@@ -162,7 +164,7 @@
             </select>
         </div>
         <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
-        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+        <input type="text" id="user-name" placeholder="اكتب اسمك هنا">
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -178,6 +180,25 @@
 </div>
 
 <script>
+// الروابط الخاصة بالتقويم والشيت (نفس الروابط القديمة)
+const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
+
+// إشعار التلجرام عند الدخول
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+    
+    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
+        const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+    });
+};
+
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
@@ -205,9 +226,23 @@ function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
-    if(!type || !date || !name) { alert("كمل البيانات يا فندم"); return; }
-    let msg = `أهلاً، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    const time = document.getElementById('session-time').value;
+
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+
+    // الربط بالشيت والتقويم
+    Promise.all([
+        fetch(calendarURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData }),
+        fetch(accountsURL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', body: bookingData })
+    ]).then(() => console.log("تم الإرسال")).catch(err => console.error("خطأ:", err));
+
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
+    
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
 }
 </script>
 </body>
