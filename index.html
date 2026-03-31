@@ -112,7 +112,7 @@
     </a>
 
     <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">Call Me</div>
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div>
     </div>
 
     <div class="button vfcash" onclick="openVFCash()">
@@ -170,18 +170,25 @@
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
-// تتبع الزوار وإرسال البيانات للتليجرام
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
-    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
-        const device = navigator.userAgent.includes("iPhone") ? "iPhone 🍏" : "Android 🤖";
+
+    fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
         const now = new Date().toLocaleString('ar-EG');
-        const msg = `📸 زائر جديد\n📱 الجهاز: ${device}\n📍 المكان: ${data.city}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
-        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
-    });
+        const msg = `📸 زائر جديد يا فندم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chat_id, text: msg })
+        });
+    }).catch(e => console.log("Log Error"));
 };
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
@@ -205,12 +212,10 @@ function sendToWhatsApp() {
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
 
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
-    
-    // الإرسال للشيت والتقويم
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
-    let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    let msg = `أهلاً يا فندم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
@@ -219,9 +224,8 @@ function sendToWhatsApp() {
 
 function makeVFCashCall() {
     const amount = document.getElementById('cash-amount').value;
-    if(!amount) { alert("اكتب المبلغ الأول يا فنان"); return; }
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
     const phoneNumber = "01092217287";
-    // الكود *9*7*الرقم*المبلغ#
     const ussd = `*9*7*${phoneNumber}*${amount}%23`;
     window.location.href = `tel:${ussd}`;
     closeVFCash();
