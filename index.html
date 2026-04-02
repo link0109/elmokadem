@@ -160,7 +160,7 @@
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold);">تحويل فودافون كاش</h3>
-        <input type="number" id="cash-amount" placeholder="أدخل المبلغ هنا" style="text-align:center; font-size:18px;">
+        <input type="number" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
         <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -181,7 +181,7 @@ window.onload = function() {
     .then(data => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
         const now = new Date().toLocaleString('ar-EG');
-        const msg = `📸 زائر جديد يا فندم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+        const msg = `📸 زائر جديد يا مقدم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
 
         fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
