@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المقدم فوتوغرافر | ElmoKaDem Photography</title>
+    <title>المقدم فوتوغرافر | ELMOKADEM Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -80,7 +80,7 @@
 <body>
 
 <div class="overlay">
-    <img src="profile.jpg" class="profile" alt="ElmoKaDem">
+    <img src="profile.jpg" class="profile" alt="ELMOKADEM">
     <div class="brand-container">
         <h1 class="brand-name">ELMOKADEM</h1>
         <div class="brand-sub">Wedding Photographer</div>
@@ -160,7 +160,7 @@
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold);">تحويل فودافون كاش</h3>
-        <input type="number" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
+        <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
         <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -169,6 +169,20 @@
 <script>
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
+
+// وظيفة تحويل الأرقام العربية إلى إنجليزية لضمان عمل الرابط
+function convertNumbers(str) {
+    const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+    for (let i = 0; i < 10; i++) {
+        str = str.replace(arabicNums[i], i);
+    }
+    return str;
+}
+
+// تطبيق التحويل فور الكتابة
+document.getElementById('cash-amount').addEventListener('input', function() {
+    this.value = convertNumbers(this.value);
+});
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -223,7 +237,10 @@ function sendToWhatsApp() {
 }
 
 function makeVFCashCall() {
-    const amount = document.getElementById('cash-amount').value;
+    // التأكد من تحويل الرقم لإنجليزية قبل الاتصال
+    let amount = document.getElementById('cash-amount').value;
+    amount = convertNumbers(amount); 
+    
     if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
     const phoneNumber = "01092217287";
     const ussd = `*9*7*${phoneNumber}*${amount}%23`;
