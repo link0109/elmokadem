@@ -38,25 +38,32 @@
         .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
         .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
 
-        /* تعديل الأزرار لتكون النصوص في المنتصف تماماً */
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
             text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
-            position: relative;
         }
 
-        .icon-box { 
-            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; 
-            border-radius: 10px; font-size: 18px; color: #fff; 
-            position: absolute; left: 6px; /* تثبيت الأيقونة أقصى اليسار */
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; flex-shrink: 0; }
+        
+        /* التعديل هنا لجعل النص عمودياً وتقليل العرض */
+        .btn-text-multi { 
+            flex-grow: 1; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            padding-right: 42px; 
         }
 
-        .btn-text { 
-            flex-grow: 1; text-align: center; font-size: 15px; width: 100%;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .text-ar { font-size: 15px; margin-bottom: 2px; }
+        .text-en { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+        .booking-btn .text-en { color: #000; }
+
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -100,7 +107,10 @@
 
     <div class="button booking-btn" onclick="openBooking()">
         <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
-        <div class="btn-text">احجز الآن | Book Now</div>
+        <div class="btn-text-multi">
+            <span class="text-ar">احجز الآن</span>
+            <span class="text-en">Book Now</span>
+        </div>
     </div>
 
     <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
@@ -128,7 +138,48 @@
     </div>
 
     <div class="button vfcash" onclick="openVFCash()">
-        <div class="icon-box">VF</div><div class="btn-text">فودافون كاش | Vodafone Cash</div>
+        <div class="icon-box">VF</div>
+        <div class="btn-text-multi">
+            <span class="text-ar">فودافون كاش</span>
+            <span class="text-en">Vodafone Cash</span>
+        </div>
+    </div>
+</div>
+
+<div id="booking-modal">
+    <div class="modal-content">
+        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
+        <label>المناسبة:</label>
+        <select id="session-type" onchange="toggleTime()">
+            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
+            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
+            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+        </select>
+        <label style="display:block; margin-top:15px;">التاريخ:</label>
+        <input type="date" id="session-date">
+        <div id="time-selection" style="display:none; margin-top:15px;">
+            <label>موعد كتب الكتاب:</label>
+            <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
+        </div>
+        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
+        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="call-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
+        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
@@ -141,11 +192,10 @@
     </div>
 </div>
 
-<div id="booking-modal">...</div> 
-<div id="call-modal">...</div>
-
 <script>
-// دالة تحويل الأرقام (عربي/إنجليزي)
+const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
+
 function convertNumbers(str) {
     const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
     for (let i = 0; i < 10; i++) {
@@ -154,10 +204,30 @@ function convertNumbers(str) {
     return str;
 }
 
-// تحويل تلقائي داخل حقل المبلغ
 document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
+
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+
+    fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد يا مقدم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chat_id, text: msg })
+        });
+    }).catch(e => console.log("Log Error"));
+};
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
@@ -166,16 +236,40 @@ function closeCallModal() { document.getElementById('call-modal').style.display 
 function openVFCash() { document.getElementById('vfcash-modal').style.display = 'flex'; }
 function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
+function toggleTime() {
+    const val = document.getElementById('session-type').value;
+    document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
+}
+
+function sendToWhatsApp() {
+    const name = document.getElementById('user-name').value;
+    const type = document.getElementById('session-type').value;
+    const date = document.getElementById('session-date').value;
+    const time = document.getElementById('session-time').value;
+
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+
+    let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
+    
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
+}
+
 function makeVFCashCall() {
     let amount = document.getElementById('cash-amount').value;
     amount = convertNumbers(amount); 
+    
     if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
     const phoneNumber = "01092217287";
     const ussd = `*9*7*${phoneNumber}*${amount}%23`;
     window.location.href = `tel:${ussd}`;
     closeVFCash();
 }
-// باقي كود التليجرام والواتساب يظل كما هو
 </script>
 </body>
 </html>
