@@ -45,24 +45,7 @@
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
         }
 
-        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; flex-shrink: 0; }
-        
-        /* التعديل هنا لجعل النص عمودياً وتقليل العرض */
-        .btn-text-multi { 
-            flex-grow: 1; 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
-            align-items: center;
-            padding-right: 42px; 
-        }
-
-        .text-ar { font-size: 15px; margin-bottom: 2px; }
-        .text-en { font-size: 12px; color: rgba(255,255,255,0.7); }
-
-        .booking-btn .text-en { color: #000; }
-
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
         .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
 
         .fb .icon-box { background: #1877F2; }
@@ -74,11 +57,9 @@
         
         .booking-btn { 
             border: 2px solid var(--gold); 
-            background: var(--gold);
-            color: black;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
             margin-bottom: 20px;
         }
-        .booking-btn .icon-box { background: black; color: var(--gold); }
 
         #booking-modal, #call-modal, #vfcash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -106,11 +87,8 @@
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
-        <div class="btn-text-multi">
-            <span class="text-ar">احجز الآن</span>
-            <span class="text-en">Book Now</span>
-        </div>
+        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
+        <div class="btn-text">احجز الآن | Book Now</div>
     </div>
 
     <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
@@ -138,11 +116,7 @@
     </div>
 
     <div class="button vfcash" onclick="openVFCash()">
-        <div class="icon-box">VF</div>
-        <div class="btn-text-multi">
-            <span class="text-ar">فودافون كاش</span>
-            <span class="text-en">Vodafone Cash</span>
-        </div>
+        <div class="icon-box">VF</div><div class="btn-text">فودافون كاش | Vodafone Cash</div>
     </div>
 </div>
 
@@ -196,6 +170,7 @@
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
+// وظيفة تحويل الأرقام العربية إلى إنجليزية لضمان عمل الرابط
 function convertNumbers(str) {
     const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
     for (let i = 0; i < 10; i++) {
@@ -204,6 +179,7 @@ function convertNumbers(str) {
     return str;
 }
 
+// تطبيق التحويل فور الكتابة
 document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
@@ -261,6 +237,7 @@ function sendToWhatsApp() {
 }
 
 function makeVFCashCall() {
+    // التأكد من تحويل الرقم لإنجليزية قبل الاتصال
     let amount = document.getElementById('cash-amount').value;
     amount = convertNumbers(amount); 
     
