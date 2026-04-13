@@ -34,16 +34,23 @@
             object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
         }
 
-        /* --- تعديل اللوجو الجديد --- */
-        .brand-container { text-align: center; margin-bottom: 30px; }
+        /* --- تنسيق اللوجو العريض بدون نص إضافي --- */
+        .brand-container { 
+            text-align: center; 
+            margin-bottom: 35px; /* زيادة المسافة تحت اللوجو ليعطي شكلاً أرقى */
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
         .main-logo {
-            width: 250px; /* المقاس اللي طلبته */
+            width: 320px; 
             height: auto;
             display: block;
             margin: 0 auto;
-            max-width: 85%; /* لضمان التناسق على الموبايلات الصغيرة */
+            max-width: 90%; 
         }
-        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
         /* ----------------------- */
 
         .button {
@@ -91,8 +98,7 @@
     <img src="profile.jpg" class="profile" alt="ELMOKADEM">
     
     <div class="brand-container">
-        <img src=";;;;.png" alt="ELMOKADEM" class="main-logo">
-        <div class="brand-sub">Wedding Photographer</div>
+        <img src=";;;;.png" alt="ELMOKADEM Logo" class="main-logo">
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
@@ -126,52 +132,6 @@
 
     <div class="button vfcash" onclick="openVFCash()">
         <div class="icon-box">VF</div><div class="btn-text">فودافون كاش | Vodafone Cash</div>
-    </div>
-</div>
-
-<div id="booking-modal">
-    <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
-        <label>المناسبة:</label>
-        <select id="session-type" onchange="toggleTime()">
-            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
-            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
-            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
-            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
-            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
-            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
-            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
-        </select>
-        <label style="display:block; margin-top:15px;">التاريخ:</label>
-        <input type="date" id="session-date">
-        <div id="time-selection" style="display:none; margin-top:15px;">
-            <label>موعد كتب الكتاب:</label>
-            <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
-        </div>
-        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
-        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
-        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
-    </div>
-</div>
-
-<div id="call-modal">
-    <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
-        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
-        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
-        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
-    </div>
-</div>
-
-<div id="vfcash-modal">
-    <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold);">تحويل فودافون كاش</h3>
-        <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
