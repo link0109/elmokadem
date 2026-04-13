@@ -76,23 +76,29 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        /* ستايل خانة النسخ الصغيرة جداً */
+        /* ستايل خانة النسخ - تحديث: رقم أصغر وأبيض */
         .copy-box-mini {
             background: rgba(255,255,255,0.05);
             border: 1px dashed var(--gold);
-            padding: 6px 12px;
+            padding: 5px 10px;
             margin: 0 auto;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            max-width: 180px; /* صغيرة جداً */
+            max-width: 160px; /* أصغر */
             transition: 0.3s;
         }
         .copy-box-mini:active { transform: scale(0.95); }
-        .copy-box-mini span { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; }
-        .copy-box-mini i { color: var(--gold); font-size: 12px; }
+        .copy-box-mini span { 
+            color: #ffffff !important; /* أبيض صريح */
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 13px; /* أصغر */
+            font-weight: 500;
+            text-decoration: none !important;
+        }
+        .copy-box-mini i { color: var(--gold); font-size: 11px; }
     </style>
 </head>
 <body>
@@ -184,18 +190,19 @@
         
         <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
 
-        <p style="font-size: 11px; color: #aaa; margin-bottom: 8px;">لنسخ الرقم والتحويل عن طريق انستا باي</p>
+        <p style="font-size: 10px; color: #aaa; margin-bottom: 8px;">لنسخ الرقم والتحويل عن طريق انستا باي</p>
         <div class="copy-box-mini" onclick="copyNumber('01092217287')">
-            <span>01092217287</span>
+            <span id="target-number">01092217287</span>
             <i class="fas fa-copy"></i>
         </div>
         <small id="copy-msg" style="color: #2ecc71; display: none; margin-top: 5px; font-size: 10px;">تم نسخ الرقم!</small>
 
-        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 13px;">إغلاق</p>
+        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 12px;">إغلاق</p>
     </div>
 </div>
 
 <script>
+// تأكيد الروابط الخاصة بالتقويم والشيت
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -217,6 +224,7 @@ function copyNumber(num) {
     });
 }
 
+// التليجرام شغال فور تحميل الصفحة
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
@@ -249,15 +257,20 @@ function toggleTime() {
     document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
 }
 
+// وظيفة تسجيل البيانات في التقويم والشيت
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+    
+    // إرسال البيانات للروابط (التقويم والشيت)
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+
     let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
