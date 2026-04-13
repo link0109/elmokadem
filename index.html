@@ -76,30 +76,21 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        /* الأجزاء الجديدة */
+        /* تنسيق صندوق النسخ */
         .copy-box {
             background: #000;
             border: 1px dashed var(--gold);
-            padding: 10px;
-            margin-top: 15px;
+            padding: 12px;
+            margin-top: 10px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            transition: 0.2s;
         }
+        .copy-box:active { transform: scale(0.98); background: #111; }
         .copy-box i { color: var(--gold); }
-        .instapay-btn {
-            display: block;
-            background: #4a154b; /* لون انستا باي */
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 10px;
-            font-weight: bold;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -186,26 +177,24 @@
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold);">الدفع والتحويل</h3>
         
-        <p style="font-size: 13px; margin-bottom: 5px;">اضغط على الرقم لنسخه</p>
+        <p style="font-size: 13px; margin-bottom: 5px;">لنسخ الرقم والتحويل عن طريق انستا باي</p>
         <div class="copy-box" onclick="copyNumber('01092217287')">
-            <span id="target-number">01092217287</span>
+            <span id="target-number" style="font-family: monospace; font-size: 18px; color: var(--gold);">01092217287</span>
             <i class="fas fa-copy"></i>
         </div>
-        <small id="copy-msg" style="color: var(--gold); display: none;">تم النسخ!</small>
+        <small id="copy-msg" style="color: #2ecc71; display: none; margin-top: 5px;">تم نسخ الرقم بنجاح!</small>
 
         <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
 
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل فودافون كاش</button>
         
-        <a href="instapay://" class="instapay-btn">التحويل عبر إنستا باي</a>
-
         <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <script>
+// روابط الـ Scripts الخاصة بك (التقويم والحسابات)
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -221,14 +210,35 @@ document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
 
-// ميزة النسخ
+// وظيفة النسخ
 function copyNumber(num) {
     navigator.clipboard.writeText(num).then(() => {
         const msg = document.getElementById('copy-msg');
         msg.style.display = 'block';
-        setTimeout(() => msg.style.display = 'none', 2000);
+        setTimeout(() => msg.style.display = 'none', 2500);
     });
 }
+
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+
+    fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد يا مقدم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chat_id, text: msg })
+        });
+    }).catch(e => console.log("Log Error"));
+};
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
@@ -251,6 +261,8 @@ function sendToWhatsApp() {
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
 
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+    
+    // إرسال للتقويم والشيت (تأكد من الروابط صحيحة في الـ Apps Script)
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
