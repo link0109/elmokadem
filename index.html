@@ -53,7 +53,8 @@
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: #e60000; font-size: 12px; font-weight: bold; }
+        /* تحديث لون وأيقونة زرار التحويل الجديد */
+        .vfcash .icon-box { background: #d4af37; color: #000; font-size: 18px; }
         
         .booking-btn { 
             border: 2px solid var(--gold); 
@@ -61,7 +62,7 @@
             margin-bottom: 20px;
         }
 
-        #booking-modal, #call-modal, #vfcash-modal {
+        #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
@@ -76,29 +77,14 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        /* ستايل خانة النسخ - تحديث: رقم أصغر وأبيض */
-        .copy-box-mini {
-            background: rgba(255,255,255,0.05);
-            border: 1px dashed var(--gold);
-            padding: 5px 10px;
-            margin: 0 auto;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            max-width: 160px; /* أصغر */
-            transition: 0.3s;
+        /* ستايل أزرار الدفع الجديدة */
+        .pay-option-btn {
+            display: block; width: 100%; padding: 15px; margin: 12px 0;
+            border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
+            font-family: 'Montserrat', sans-serif; font-size: 14px;
         }
-        .copy-box-mini:active { transform: scale(0.95); }
-        .copy-box-mini span { 
-            color: #ffffff !important; /* أبيض صريح */
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 13px; /* أصغر */
-            font-weight: 500;
-            text-decoration: none !important;
-        }
-        .copy-box-mini i { color: var(--gold); font-size: 11px; }
+        .vf-style { background: #e60000; color: white; }
+        .insta-style { background: white; color: black; }
     </style>
 </head>
 <body>
@@ -139,8 +125,17 @@
         <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div>
     </div>
 
-    <div class="button vfcash" onclick="openVFCash()">
-        <div class="icon-box">VF</div><div class="btn-text">فودافون كاش | Vodafone Cash</div>
+    <div class="button vfcash" onclick="openPaymentSelection()">
+        <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
+    </div>
+</div>
+
+<div id="payment-selection-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
+        <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
+        <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
+        <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
@@ -183,26 +178,15 @@
 
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-bottom: 20px;">الدفع والتحويل</h3>
-        
+        <h3 style="color:var(--gold); margin-bottom: 20px;">التحويل عبر فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
-        
-        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-
-        <p style="font-size: 10px; color: #aaa; margin-bottom: 8px;">لنسخ الرقم والتحويل عن طريق انستا باي</p>
-        <div class="copy-box-mini" onclick="copyNumber('01092217287')">
-            <span id="target-number">01092217287</span>
-            <i class="fas fa-copy"></i>
-        </div>
-        <small id="copy-msg" style="color: #2ecc71; display: none; margin-top: 5px; font-size: 10px;">تم نسخ الرقم!</small>
-
         <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 12px;">إغلاق</p>
     </div>
 </div>
 
 <script>
-// تأكيد الروابط الخاصة بالتقويم والشيت
+// الأكواد الأصلية كما هي تماماً
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -216,15 +200,24 @@ document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
 
-function copyNumber(num) {
+// الوظائف الجديدة للتحويل
+function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
+function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
+
+function showVFCashPage() {
+    closePaymentSelection();
+    document.getElementById('vfcash-modal').style.display = 'flex';
+}
+
+function handleInstaPay() {
+    const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        const msg = document.getElementById('copy-msg');
-        msg.style.display = 'block';
-        setTimeout(() => msg.style.display = 'none', 2000);
+        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وإرسال المبلغ المراد تحويله.");
+        closePaymentSelection();
     });
 }
 
-// التليجرام شغال فور تحميل الصفحة
+// التليجرام وباقي الوظائف
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
@@ -249,7 +242,6 @@ function openBooking() { document.getElementById('booking-modal').style.display 
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-function openVFCash() { document.getElementById('vfcash-modal').style.display = 'flex'; }
 function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
 function toggleTime() {
@@ -257,7 +249,6 @@ function toggleTime() {
     document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
 }
 
-// وظيفة تسجيل البيانات في التقويم والشيت
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
@@ -267,7 +258,6 @@ function sendToWhatsApp() {
     
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
     
-    // إرسال البيانات للروابط (التقويم والشيت)
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
