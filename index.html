@@ -53,7 +53,8 @@
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: var(--gold); color: #000; font-size: 18px; }
+        /* تحديث لون وأيقونة زرار التحويل الجديد */
+        .vfcash .icon-box { background: #d4af37; color: #000; font-size: 18px; }
         
         .booking-btn { 
             border: 2px solid var(--gold); 
@@ -76,6 +77,7 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
+        /* ستايل أزرار الدفع الجديدة */
         .pay-option-btn {
             display: block; width: 100%; padding: 15px; margin: 12px 0;
             border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
@@ -184,6 +186,7 @@
 </div>
 
 <script>
+// الأكواد الأصلية كما هي تماماً
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -197,6 +200,7 @@ document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
 
+// الوظائف الجديدة للتحويل
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
 
@@ -208,19 +212,12 @@ function showVFCashPage() {
 function handleInstaPay() {
     const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم.");
-        
-        // محاولة الفتح الصامت بدون إظهار رسائل خطأ للمتصفح
-        var iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = "instapay://";
-        document.body.appendChild(iframe);
-        setTimeout(function() { document.body.removeChild(iframe); }, 1000);
-
+        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وإرسال المبلغ المراد تحويله.");
         closePaymentSelection();
     });
 }
 
+// التليجرام وباقي الوظائف
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
