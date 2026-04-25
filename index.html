@@ -53,6 +53,7 @@
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
+        /* تحديث لون وأيقونة زرار التحويل الجديد */
         .vfcash .icon-box { background: #d4af37; color: #000; font-size: 18px; }
         
         .booking-btn { 
@@ -76,6 +77,7 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
+        /* ستايل أزرار الدفع الجديدة */
         .pay-option-btn {
             display: block; width: 100%; padding: 15px; margin: 12px 0;
             border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
@@ -83,16 +85,6 @@
         }
         .vf-style { background: #e60000; color: white; }
         .insta-style { background: white; color: black; }
-        
-        footer {
-            margin-top: 50px;
-            padding-bottom: 20px;
-            text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 11px;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 1px;
-        }
     </style>
 </head>
 <body>
@@ -136,10 +128,6 @@
     <div class="button vfcash" onclick="openPaymentSelection()">
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
-
-    <footer>
-        <p>© 2024 ELMOKADEM PHOTOGRAPHY. All Rights Reserved.</p>
-    </footer>
 </div>
 
 <div id="payment-selection-modal">
@@ -153,10 +141,8 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">ألف مبروك يا فندم 🎉</h3>
-        <p style="text-align:center; font-size: 13px; margin-top: 0; color: #ccc;">من فضلك اختار نوع المناسبة</p>
-        
-        <label style="display:block; margin-top:15px;">المناسبة:</label>
+        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
+        <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
             <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
@@ -200,6 +186,7 @@
 </div>
 
 <script>
+// الأكواد الأصلية كما هي تماماً
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -213,6 +200,7 @@ document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
 
+// الوظائف الجديدة للتحويل
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
 
@@ -229,6 +217,7 @@ function handleInstaPay() {
     });
 }
 
+// التليجرام وباقي الوظائف
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
