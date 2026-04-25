@@ -53,7 +53,6 @@
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        /* تحديث لون وأيقونة زرار التحويل الجديد */
         .vfcash .icon-box { background: #d4af37; color: #000; font-size: 18px; }
         
         .booking-btn { 
@@ -77,7 +76,6 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        /* ستايل أزرار الدفع الجديدة */
         .pay-option-btn {
             display: block; width: 100%; padding: 15px; margin: 12px 0;
             border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
@@ -85,6 +83,20 @@
         }
         .vf-style { background: #e60000; color: white; }
         .insta-style { background: white; color: black; }
+
+        .footer-brand {
+            margin-top: auto;
+            padding: 30px 0;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* تنسيق أيقونات العناوين في المودال */
+        label i { color: var(--gold); margin-left: 8px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -128,6 +140,10 @@
     <div class="button vfcash" onclick="openPaymentSelection()">
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
+
+    <div class="footer-brand">
+        © ELMOKADEM PHOTOGRAPHY
+    </div>
 </div>
 
 <div id="payment-selection-modal">
@@ -141,27 +157,40 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
-        <label>المناسبة:</label>
+        <div style="text-align:center; margin-bottom: 20px;">
+            <h2 style="color:var(--gold); margin:0;">ألف مبروك 🎉</h2>
+            <p style="font-size:12px; color:#ccc; margin-top:5px;">من فضلك ادخل نوع المناسبة</p>
+        </div>
+
+        <label><i class="fas fa-star"></i>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
-            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
-            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
-            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
-            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
-            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
-            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+            <option value="سيشن زفاف (Wedding Session)">👰 سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding and Party)">💍 سيشن زفاف وقاعة</option>
+            <option value="سيشن خطوبة (Engagement Session)">💎 سيشن خطوبة (Engagement Session)</option>
+            <option value="سيشن خطوبة وقاعة (Engagement and Party)">🎊 سيشن خطوبة وقاعة</option>
+            <option value="قاعة أو فرح (Party)">💃 قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد (Birthday)</option>
+            <option value="خطوبة في البيت (Home Engagement)">🏠 خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">📝 كتب كتاب (Katb Ktab)</option>
+            <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج (Graduation Party)</option>
         </select>
-        <label style="display:block; margin-top:15px;">التاريخ:</label>
+
+        <label style="display:block; margin-top:15px;"><i class="fas fa-calendar-alt"></i>التاريخ:</label>
         <input type="date" id="session-date">
+
         <div id="time-selection" style="display:none; margin-top:15px;">
-            <label>موعد كتب الكتاب:</label>
-            <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
+            <label><i class="fas fa-clock"></i>موعد كتب الكتاب:</label>
+            <select id="session-time">
+                <option value="بعد صلاة العصر">🕓 بعد صلاة العصر</option>
+                <option value="بعد صلاة المغرب">🕕 بعد صلاة المغرب</option>
+                <option value="بعد صلاة العشاء">🕗 بعد صلاة العشاء</option>
+            </select>
         </div>
-        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
+
+        <label style="display:block; margin-top:15px;"><i class="fas fa-user"></i>اسم حضرتك:</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -186,7 +215,6 @@
 </div>
 
 <script>
-// الأكواد الأصلية كما هي تماماً
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -200,7 +228,6 @@ document.getElementById('cash-amount').addEventListener('input', function() {
     this.value = convertNumbers(this.value);
 });
 
-// الوظائف الجديدة للتحويل
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
 
@@ -212,13 +239,15 @@ function showVFCashPage() {
 function handleInstaPay() {
     const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وإرسال المبلغ المراد تحويله.");
+        alert("تم نسخ رقم إنستا باي: " + num + "\nبرجاء التوجه للتطبيق ولصق الرقم لإتمام التحويل يا فندم.");
         closePaymentSelection();
     });
 }
 
-// التليجرام وباقي الوظائف
 window.onload = function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('session-date').setAttribute('min', today);
+
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
