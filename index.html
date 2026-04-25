@@ -83,20 +83,16 @@
         }
         .vf-style { background: #e60000; color: white; }
         .insta-style { background: white; color: black; }
-
-        .footer-brand {
-            margin-top: auto;
-            padding: 30px 0;
+        
+        footer {
+            margin-top: 50px;
+            padding-bottom: 20px;
             text-align: center;
-            font-family: 'Cinzel', serif;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            font-size: 11px;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
         }
-
-        /* تنسيق أيقونات العناوين في المودال */
-        label i { color: var(--gold); margin-left: 8px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -141,9 +137,9 @@
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
 
-    <div class="footer-brand">
-        © ELMOKADEM PHOTOGRAPHY
-    </div>
+    <footer>
+        <p>© 2024 ELMOKADEM PHOTOGRAPHY. All Rights Reserved.</p>
+    </footer>
 </div>
 
 <div id="payment-selection-modal">
@@ -157,40 +153,29 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <div style="text-align:center; margin-bottom: 20px;">
-            <h2 style="color:var(--gold); margin:0;">ألف مبروك 🎉</h2>
-            <p style="font-size:12px; color:#ccc; margin-top:5px;">من فضلك ادخل نوع المناسبة</p>
-        </div>
-
-        <label><i class="fas fa-star"></i>المناسبة:</label>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">ألف مبروك يا فندم 🎉</h3>
+        <p style="text-align:center; font-size: 13px; margin-top: 0; color: #ccc;">من فضلك اختار نوع المناسبة</p>
+        
+        <label style="display:block; margin-top:15px;">المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">👰 سيشن زفاف (Wedding Session)</option>
-            <option value="سيشن زفاف وقاعة (Wedding and Party)">💍 سيشن زفاف وقاعة</option>
-            <option value="سيشن خطوبة (Engagement Session)">💎 سيشن خطوبة (Engagement Session)</option>
-            <option value="سيشن خطوبة وقاعة (Engagement and Party)">🎊 سيشن خطوبة وقاعة</option>
-            <option value="قاعة أو فرح (Party)">💃 قاعة أو فرح (Party)</option>
-            <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت (Home Engagement)">🏠 خطوبة في البيت (Home Engagement)</option>
-            <option value="كتب كتاب (Katb Ktab)">📝 كتب كتاب (Katb Ktab)</option>
-            <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج (Graduation Party)</option>
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
+            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
+            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
         </select>
-
-        <label style="display:block; margin-top:15px;"><i class="fas fa-calendar-alt"></i>التاريخ:</label>
+        <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
-
         <div id="time-selection" style="display:none; margin-top:15px;">
-            <label><i class="fas fa-clock"></i>موعد كتب الكتاب:</label>
-            <select id="session-time">
-                <option value="بعد صلاة العصر">🕓 بعد صلاة العصر</option>
-                <option value="بعد صلاة المغرب">🕕 بعد صلاة المغرب</option>
-                <option value="بعد صلاة العشاء">🕗 بعد صلاة العشاء</option>
-            </select>
+            <label>موعد كتب الكتاب:</label>
+            <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
         </div>
-
-        <label style="display:block; margin-top:15px;"><i class="fas fa-user"></i>اسم حضرتك:</label>
+        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
-
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -239,15 +224,12 @@ function showVFCashPage() {
 function handleInstaPay() {
     const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ رقم إنستا باي: " + num + "\nبرجاء التوجه للتطبيق ولصق الرقم لإتمام التحويل يا فندم.");
+        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وإرسال المبلغ المراد تحويله.");
         closePaymentSelection();
     });
 }
 
 window.onload = function() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('session-date').setAttribute('min', today);
-
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
