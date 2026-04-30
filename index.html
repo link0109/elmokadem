@@ -18,8 +18,8 @@
             font-family: 'Montserrat', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
-            height: 100vh; /* تحديد طول الشاشة */
-            overflow: hidden; /* منع الاسكرول تماماً */
+            height: 100vh;
+            overflow: hidden; 
         }
 
         .overlay {
@@ -27,30 +27,36 @@
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             background: rgba(0, 0, 0, 0.7);
             width: 100%; height: 100%;
-            padding: 30px 20px; 
+            padding: 25px 20px;
             box-sizing: border-box;
-            display: flex; flex-direction: column; align-items: center;
-            position: relative; /* عشان نتحكم في مكان كلمة الحقوق بالظبط */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: space-between; 
         }
+
+        .header-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
         .profile {
-            width: 110px; height: 110px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 12px;
+            width: 105px; height: 105px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 10px;
         }
 
-        .brand-container { text-align: center; margin-bottom: 20px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 28px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
-        .brand-sub { color: var(--gold); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; }
+        .brand-container { text-align: center; margin-bottom: 10px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 26px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 9px; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; }
+
+        .buttons-container { width: 100%; max-width: 360px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
 
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
-            text-decoration: none; margin: 6px 0; width: 100%; max-width: 360px;
+            text-decoration: none; margin: 4px 0; width: 100%;
             border-radius: 12px; padding: 5px; transition: 0.3s; cursor: pointer;
         }
 
-        .icon-box { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 16px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 14px; padding-right: 38px; }
+        .icon-box { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 16px; color: #fff; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 14px; padding-right: 36px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -61,83 +67,73 @@
         
         .booking-btn { 
             border: 2px solid var(--gold); 
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            margin-bottom: 12px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 100%);
+            margin-bottom: 8px;
         }
 
-        /* تعديل كلمة حقوق النشر لتكون في الحتة الفاضية بالظبط */
         .copyright {
-            position: absolute;
-            bottom: 25px; /* رفعناها شوية عشان تكون في نص الحتة الفاضية */
             color: rgba(255, 255, 255, 0.3);
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 3px;
             text-transform: uppercase;
             text-align: center;
-            width: 100%;
-            pointer-events: none;
+            padding-bottom: 10px;
         }
 
+        /* Modals */
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
         .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
-        
-        select, input { 
-            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
-            background: #000; color: white; border: 1px solid #333; 
-            box-sizing: border-box; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none;
-        }
-
+        select, input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-size: 14px; outline: none; }
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
-
-        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 14px; }
-        .vf-style { background: #e60000; color: white; }
-        .orange-style { background: #ff6600; color: white; }
-        .insta-style { background: white; color: black; }
     </style>
 </head>
 <body>
 
 <div class="overlay">
-    <img src="profile.jpg" class="profile" alt="ELMOKADEM">
-    <div class="brand-container">
-        <h1 class="brand-name">ELMOKADEM</h1>
-        <div class="brand-sub">Wedding Photographer</div>
+    <div class="header-section">
+        <img src="profile.jpg" class="profile" alt="ELMOKADEM">
+        <div class="brand-container">
+            <h1 class="brand-name">ELMOKADEM</h1>
+            <div class="brand-sub">Wedding Photographer</div>
+        </div>
     </div>
 
-    <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
-        <div class="btn-text">احجز الآن | Book Now</div>
-    </div>
+    <div class="buttons-container">
+        <div class="button booking-btn" onclick="openBooking()">
+            <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
+            <div class="btn-text">احجز الآن | Book Now</div>
+        </div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
-    </a>
+        <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
+            <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
+        </a>
 
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
-    </a>
+        <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
+            <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
+        </a>
 
-    <a class="button ig" href="https://www.instagram.com/elmokadem_ph" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
-    </a>
+        <a class="button ig" href="https://www.instagram.com/elmokadem_ph" target="_blank">
+            <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
+        </a>
 
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
-    </a>
+        <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
+            <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
+        </a>
 
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
-    </a>
+        <a class="button wa" href="https://wa.me/201210425901" target="_blank">
+            <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
+        </a>
 
-    <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div>
-    </div>
+        <div class="button call" onclick="openCallModal()">
+            <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div>
+        </div>
 
-    <div class="button vfcash" onclick="openPaymentSelection()">
-        <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
+        <div class="button vfcash" onclick="openPaymentSelection()">
+            <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
+        </div>
     </div>
 
     <div class="copyright">ELMOKADEM Photography ©️</div>
@@ -151,24 +147,6 @@ function convertNumbers(str) {
     const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
     for (let i = 0; i < 10; i++) { str = str.replace(arabicNums[i], i); }
     return str;
-}
-
-document.getElementById('cash-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
-document.getElementById('orange-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
-
-function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
-function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
-function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
-function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
-function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
-function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
-
-function handleInstaPay() {
-    const num = "01092217287";
-    navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم.");
-        closePaymentSelection();
-    });
 }
 
 window.onload = function() {
@@ -188,33 +166,25 @@ window.onload = function() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ chat_id: chat_id, text: msg })
         });
-    }).catch(e => console.log("Log Error"));
+    }).catch(e => console.log("Tracking Log Error"));
 };
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-
-function toggleTime() {
-    const val = document.getElementById('session-type').value;
-    document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
-}
+function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
+function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
 
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
-    const time = document.getElementById('session-time').value;
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
-    
-    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
-    
+    const bookingData = JSON.stringify({ name: name, type: type, date: date });
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
-
     let msg = `أهلاً يا مقدم، محتاج أحجز:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
-    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
 }
@@ -223,20 +193,14 @@ function makeVFCashCall() {
     let amount = document.getElementById('cash-amount').value;
     amount = convertNumbers(amount); 
     if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
-    const phoneNumber = "01092217287";
-    const ussd = `*9*7*${phoneNumber}*${amount}%23`;
-    window.location.href = `tel:${ussd}`;
-    closeVFCash();
+    window.location.href = `tel:*9*7*01092217287*${amount}%23`;
 }
 
 function makeOrangeCashCall() {
     let amount = document.getElementById('orange-amount').value;
     amount = convertNumbers(amount); 
     if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
-    const myNumber = "01210425901";
-    const ussd = `%237115*7*${amount}*${myNumber}%23`;
-    window.location.href = `tel:${ussd}`;
-    closeOrangeCash();
+    window.location.href = `tel:%237115*7*${amount}*01210425901%23`;
 }
 </script>
 </body>
