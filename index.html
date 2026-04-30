@@ -18,6 +18,7 @@
             font-family: 'Montserrat', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
+            overflow-x: hidden;
         }
 
         .overlay {
@@ -25,40 +26,41 @@
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             background: rgba(0, 0, 0, 0.7);
             width: 100%; min-height: 100vh;
-            padding: 40px 20px; box-sizing: border-box;
+            padding: 20px 20px; box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center;
+            position: relative;
         }
 
         .profile {
-            width: 120px; height: 120px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
+            width: 110px; height: 110px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 15px;
         }
 
-        .brand-container { text-align: center; margin-bottom: 30px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
-        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
+        .brand-container { text-align: center; margin-bottom: 20px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 30px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; }
 
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
-            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
+            text-decoration: none; margin: 5px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
         }
 
-        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
+        .icon-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 17px; color: #fff; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 14px; padding-right: 40px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        .vfcash .icon-box { background: var(--gold); color: #000; font-size: 18px; }
+        .vfcash .icon-box { background: var(--gold); color: #000; }
         
         .booking-btn { 
             border: 2px solid var(--gold); 
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
@@ -70,29 +72,20 @@
         select, input { 
             width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
             background: #000; color: white; border: 1px solid #333; 
-            box-sizing: border-box; font-family: 'Montserrat', sans-serif;
-            font-size: 14px; outline: none;
+            box-sizing: border-box; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none;
         }
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        .pay-option-btn {
-            display: block; width: 100%; padding: 15px; margin: 12px 0;
-            border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
-            font-family: 'Montserrat', sans-serif; font-size: 14px;
-        }
+        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 14px; }
         .vf-style { background: #e60000; color: white; }
         .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
 
         .copyright {
-            margin-top: auto;
-            padding: 20px 0;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-family: 'Montserrat', sans-serif;
+            position: absolute; bottom: 8px; color: rgba(255, 255, 255, 0.2);
+            font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -138,9 +131,7 @@
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
 
-    <div class="copyright">
-        ELMOKADEM Photography ©️
-    </div>
+    <div class="copyright">ELMOKADEM Photography ©️</div>
 </div>
 
 <div id="payment-selection-modal">
@@ -156,7 +147,7 @@
 <div id="booking-modal">
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">تفاصيل الحجز</h3>
-        <p style="text-align:center; color:#fff; font-size:14px; margin-top:0;">ألف مبروك يا فندم 🎉</p>
+        <p style="text-align:center; color:#fff; font-size:13px; margin: 0 0 10px 0;">ألف مبروك يا فندم 🎉</p>
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
@@ -170,16 +161,16 @@
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
             <option value="حافلة تخرج (Graduation)">حافلة تخرج (Graduation)</option>
         </select>
-        <label style="display:block; margin-top:15px;">التاريخ:</label>
+        <label style="display:block; margin-top:10px;">التاريخ:</label>
         <input type="date" id="session-date">
-        <div id="time-selection" style="display:none; margin-top:15px;">
+        <div id="time-selection" style="display:none; margin-top:10px;">
             <label>موعد كتب الكتاب:</label>
             <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
         </div>
-        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
+        <label style="display:block; margin-top:10px;">اسم حضرتك:</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:10px;">إغلاق</p>
     </div>
 </div>
 
@@ -194,19 +185,19 @@
 
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-bottom: 20px;">التحويل عبر فودافون كاش</h3>
+        <h3 style="color:var(--gold); margin-bottom: 20px;">فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 12px;">إغلاق</p>
+        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
 
 <div id="orange-cash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:#ff6600; margin-bottom: 20px;">التحويل عبر أورنج كاش</h3>
+        <h3 style="color:#ff6600; margin-bottom: 20px;">أورنج كاش</h3>
         <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 12px;">إغلاق</p>
+        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
 
@@ -225,15 +216,15 @@ document.getElementById('orange-amount').addEventListener('input', function() { 
 
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
-
 function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
 function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
 function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
+function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
 function handleInstaPay() {
     const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وإرسال المبلغ المراد تحويله.");
+        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم.");
         closePaymentSelection();
     });
 }
@@ -262,7 +253,6 @@ function openBooking() { document.getElementById('booking-modal').style.display 
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
 function toggleTime() {
     const val = document.getElementById('session-type').value;
@@ -290,7 +280,7 @@ function sendToWhatsApp() {
 function makeVFCashCall() {
     let amount = document.getElementById('cash-amount').value;
     amount = convertNumbers(amount); 
-    if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
     const phoneNumber = "01092217287";
     const ussd = `*9*7*${phoneNumber}*${amount}%23`;
     window.location.href = `tel:${ussd}`;
@@ -300,10 +290,10 @@ function makeVFCashCall() {
 function makeOrangeCashCall() {
     let amount = document.getElementById('orange-amount').value;
     amount = convertNumbers(amount); 
-    if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
     const myNumber = "01210425901";
-    // الكود الجديد: #5117*7*المبلغ*الرقم#
-    const ussd = `#7115*7*${amount}*${myNumber}%23`;
+    // الكود المطلوب: #7115*7*المبلغ*الرقم#
+    const ussd = `%237115*7*${amount}*${myNumber}%23`;
     window.location.href = `tel:${ussd}`;
     closeOrangeCash();
 }
