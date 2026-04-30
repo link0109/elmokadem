@@ -18,7 +18,6 @@
             font-family: 'Montserrat', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
-            overflow-x: hidden;
         }
 
         .overlay {
@@ -26,29 +25,29 @@
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             background: rgba(0, 0, 0, 0.7);
             width: 100%; min-height: 100vh;
-            padding: 20px 20px; box-sizing: border-box;
+            padding: 40px 20px; /* رجعنا المسافة القديمة 40 */
+            box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center;
-            position: relative;
         }
 
         .profile {
-            width: 110px; height: 110px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 15px;
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
         }
 
-        .brand-container { text-align: center; margin-bottom: 20px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 30px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
-        .brand-sub { color: var(--gold); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-top: 5px; }
+        .brand-container { text-align: center; margin-bottom: 30px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
 
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
-            text-decoration: none; margin: 5px 0; width: 100%; max-width: 360px;
+            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
         }
 
-        .icon-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 17px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 14px; padding-right: 40px; }
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -60,7 +59,7 @@
         .booking-btn { 
             border: 2px solid var(--gold); 
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
@@ -82,10 +81,14 @@
         .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
 
+        /* حقوق النشر في أسفل الصفحة */
         .copyright {
-            position: absolute; bottom: 8px; color: rgba(255, 255, 255, 0.2);
-            font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
-            pointer-events: none;
+            margin-top: 40px; /* مسافة واضحة بعد آخر زرار */
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
         }
     </style>
 </head>
@@ -147,7 +150,7 @@
 <div id="booking-modal">
     <div class="modal-content">
         <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">تفاصيل الحجز</h3>
-        <p style="text-align:center; color:#fff; font-size:13px; margin: 0 0 10px 0;">ألف مبروك يا فندم 🎉</p>
+        <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
@@ -161,16 +164,16 @@
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
             <option value="حافلة تخرج (Graduation)">حافلة تخرج (Graduation)</option>
         </select>
-        <label style="display:block; margin-top:10px;">التاريخ:</label>
+        <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
-        <div id="time-selection" style="display:none; margin-top:10px;">
+        <div id="time-selection" style="display:none; margin-top:15px;">
             <label>موعد كتب الكتاب:</label>
             <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
         </div>
-        <label style="display:block; margin-top:10px;">اسم حضرتك:</label>
+        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:10px;">إغلاق</p>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
@@ -292,7 +295,7 @@ function makeOrangeCashCall() {
     amount = convertNumbers(amount); 
     if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
     const myNumber = "01210425901";
-    // الكود المطلوب: #7115*7*المبلغ*الرقم#
+    // الكود بيبدأ بـ شباك
     const ussd = `%237115*7*${amount}*${myNumber}%23`;
     window.location.href = `tel:${ussd}`;
     closeOrangeCash();
