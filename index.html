@@ -74,11 +74,9 @@
             box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
         }
 
-        /* تحسين شكل خيارات الـ Select */
         select option {
             background: #1a1a1a;
             color: #fff;
-            padding: 10px;
         }
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
@@ -133,21 +131,21 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 24px;">تفاصيل الحجز</h3>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 26px;">تفاصيل الحجز</h3>
         <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
         
         <label>المناسبة (Event Type):</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار المناسبة</option>
-            <option value="جلسة تصوير زفاف (Wedding Session)">جلسة تصوير زفاف &#10;(Wedding Session)</option>
-            <option value="زفاف كامل مع القاعة (Full Wedding & Party)">زفاف كامل مع القاعة &#10;(Full Wedding & Party)</option>
-            <option value="جلسة تصوير خطوبة (Engagement Session)">جلسة تصوير خطوبة &#10;(Engagement Session)</option>
-            <option value="خطوبة كاملة مع القاعة (Engagement & Party)">خطوبة كاملة مع القاعة &#10;(Engagement & Party)</option>
-            <option value="تغطية مناسبة بالقاعة (Event & Party Coverage)">تغطية مناسبة بالقاعة &#10;(Event & Party Coverage)</option>
-            <option value="جلسة تصوير عيد ميلاد (Birthday Session)">جلسة تصوير عيد ميلاد &#10;(Birthday Session)</option>
-            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه &#10;(Home or Cafe Engagement)</option>
-            <option value="جلسة تصوير كتب كتاب (Katb Ktab Session)">جلسة تصوير كتب كتاب &#10;(Katb Ktab Session)</option>
-            <option value="حفلة تخرج (Graduation Party)">حفلة تخرج &#10;(Graduation Party)</option>
+            <option value="سيشن زفاف (Wedding Session)">💍 سيشن زفاف (Wedding Session)</option>
+            <option value="سيشن زفاف وقاعة (Wedding Session & Party)">👰 سيشن زفاف وقاعة (Wedding Session & Party)</option>
+            <option value="سيشن كتب كتاب (Katb Ktab Session)">🤍 سيشن كتب كتاب (Katb Ktab Session)</option>
+            <option value="كتب كتاب (Katb Ktab)">📜 كتب كتاب (Katb Ktab)</option>
+            <option value="سيشن خطوبة (Engagement Session)">💎 سيشن خطوبة (Engagement Session)</option>
+            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">🏠 خطوبة في البيت أو كافيه (Home or Cafe Engagement)</option>
+            <option value="قاعة أو فرح (Party)">🎉 قاعة أو فرح (Party)</option>
+            <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد (Birthday)</option>
+            <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج (Graduation Party)</option>
         </select>
 
         <label style="display:block; margin-top:15px;">التاريخ (Date):</label>
