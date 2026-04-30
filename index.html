@@ -228,7 +228,7 @@ function closeVFCash() { document.getElementById('vfcash-modal').style.display =
 function handleInstaPay() {
     const num = "01092217287";
     navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وكتابة المبلغ المراد تحويلة.");
+        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وارسال المبلغ المراد تحويلة.");
         closePaymentSelection();
     });
 }
