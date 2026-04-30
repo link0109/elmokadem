@@ -25,7 +25,7 @@
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             background: rgba(0, 0, 0, 0.7);
             width: 100%; min-height: 100vh;
-            padding: 40px 20px; /* رجعنا المسافة القديمة 40 */
+            padding: 40px 20px;
             box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center;
         }
@@ -80,16 +80,6 @@
         .vf-style { background: #e60000; color: white; }
         .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
-
-        /* حقوق النشر في أسفل الصفحة */
-        .copyright {
-            margin-top: 40px; /* مسافة واضحة بعد آخر زرار */
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -133,8 +123,6 @@
     <div class="button vfcash" onclick="openPaymentSelection()">
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
-
-    <div class="copyright">ELMOKADEM Photography ©️</div>
 </div>
 
 <div id="payment-selection-modal">
@@ -149,7 +137,7 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">تفاصيل الحجز</h3>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 24px;">تفاصيل الحجز</h3>
         <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
@@ -160,7 +148,7 @@
             <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
             <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
             <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
+            <option value="خطوبة في البيت أو كافيه (Home Engagement/Cafe)">خطوبة في البيت أو كافيه</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
             <option value="حافلة تخرج (Graduation)">حافلة تخرج (Graduation)</option>
         </select>
@@ -295,7 +283,6 @@ function makeOrangeCashCall() {
     amount = convertNumbers(amount); 
     if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
     const myNumber = "01210425901";
-    // الكود بيبدأ بـ شباك
     const ussd = `%237115*7*${amount}*${myNumber}%23`;
     window.location.href = `tel:${ussd}`;
     closeOrangeCash();
