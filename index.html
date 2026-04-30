@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المقدم فوتوغرافر | ELMOKADEM Photography</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -15,7 +15,7 @@
 
         body {
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', 'Cairo', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
         }
@@ -71,12 +71,18 @@
         select, input { 
             width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
             background: #000; color: white; border: 1px solid #333; 
-            box-sizing: border-box; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none;
+            box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
+        }
+
+        /* تحسين شكل خيارات الـ Select */
+        select option {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 10px;
         }
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
-
-        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 14px; }
+        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
         .vf-style { background: #e60000; color: white; }
         .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
@@ -125,6 +131,45 @@
     </div>
 </div>
 
+<div id="booking-modal">
+    <div class="modal-content">
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 24px;">تفاصيل الحجز</h3>
+        <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
+        
+        <label>المناسبة (Event Type):</label>
+        <select id="session-type" onchange="toggleTime()">
+            <option value="" disabled selected>اضغط لاختيار المناسبة</option>
+            <option value="جلسة تصوير زفاف (Wedding Session)">جلسة تصوير زفاف &#10;(Wedding Session)</option>
+            <option value="زفاف كامل مع القاعة (Full Wedding & Party)">زفاف كامل مع القاعة &#10;(Full Wedding & Party)</option>
+            <option value="جلسة تصوير خطوبة (Engagement Session)">جلسة تصوير خطوبة &#10;(Engagement Session)</option>
+            <option value="خطوبة كاملة مع القاعة (Engagement & Party)">خطوبة كاملة مع القاعة &#10;(Engagement & Party)</option>
+            <option value="تغطية مناسبة بالقاعة (Event & Party Coverage)">تغطية مناسبة بالقاعة &#10;(Event & Party Coverage)</option>
+            <option value="جلسة تصوير عيد ميلاد (Birthday Session)">جلسة تصوير عيد ميلاد &#10;(Birthday Session)</option>
+            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه &#10;(Home or Cafe Engagement)</option>
+            <option value="جلسة تصوير كتب كتاب (Katb Ktab Session)">جلسة تصوير كتب كتاب &#10;(Katb Ktab Session)</option>
+            <option value="حفلة تخرج (Graduation Party)">حفلة تخرج &#10;(Graduation Party)</option>
+        </select>
+
+        <label style="display:block; margin-top:15px;">التاريخ (Date):</label>
+        <input type="date" id="session-date">
+
+        <div id="time-selection" style="display:none; margin-top:15px;">
+            <label>موعد كتب الكتاب (Timing):</label>
+            <select id="session-time">
+                <option value="بعد صلاة العصر">بعد صلاة العصر (After Asr)</option>
+                <option value="بعد صلاة المغرب">بعد صلاة المغرب (After Maghrib)</option>
+                <option value="بعد صلاة العشاء">بعد صلاة العشاء (After Isha)</option>
+            </select>
+        </div>
+
+        <label style="display:block; margin-top:15px;">الاسم (Full Name):</label>
+        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
+        
+        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
@@ -132,36 +177,6 @@
         <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
         <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
         <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
-    </div>
-</div>
-
-<div id="booking-modal">
-    <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 24px;">تفاصيل الحجز</h3>
-        <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
-        <label>المناسبة:</label>
-        <select id="session-type" onchange="toggleTime()">
-            <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف (Wedding Session)</option>
-            <option value="سيشن زفاف وقاعة (Wedding and Party)">سيشن زفاف وقاعة (Wedding and Party)</option>
-            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة (Engagement Session)</option>
-            <option value="سيشن خطوبة وقاعة (Engagement and Party)">سيشن خطوبة وقاعة (Engagement and Party)</option>
-            <option value="قاعة أو فرح (Party)">قاعة أو فرح (Party)</option>
-            <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
-            <option value="خطوبة في البيت أو كافيه (Home Engagement/Cafe)">خطوبة في البيت أو كافيه</option>
-            <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
-            <option value="حافلة تخرج (Graduation)">حافلة تخرج (Graduation)</option>
-        </select>
-        <label style="display:block; margin-top:15px;">التاريخ:</label>
-        <input type="date" id="session-date">
-        <div id="time-selection" style="display:none; margin-top:15px;">
-            <label>موعد كتب الكتاب:</label>
-            <select id="session-time"><option value="بعد صلاة العصر">بعد صلاة العصر</option><option value="بعد صلاة المغرب">بعد صلاة المغرب</option><option value="بعد صلاة العشاء">بعد صلاة العشاء</option></select>
-        </div>
-        <label style="display:block; margin-top:15px;">اسم حضرتك:</label>
-        <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
-        <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
