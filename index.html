@@ -302,8 +302,8 @@ function makeOrangeCashCall() {
     amount = convertNumbers(amount); 
     if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
     const myNumber = "01210425901";
-    // الكود الجديد: *7115*7*المبلغ*الرقم#
-    const ussd = `*7115*7*${amount}*${myNumber}%23`;
+    // الكود الجديد: #5117*7*المبلغ*الرقم#
+    const ussd = `#7115*7*${amount}*${myNumber}%23`;
     window.location.href = `tel:${ussd}`;
     closeOrangeCash();
 }
