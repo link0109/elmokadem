@@ -53,8 +53,7 @@
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
-        /* تحديث لون وأيقونة زرار التحويل الجديد */
-        .vfcash .icon-box { background: #d4af37; color: #000; font-size: 18px; }
+        .vfcash .icon-box { background: var(--gold); color: #000; font-size: 18px; }
         
         .booking-btn { 
             border: 2px solid var(--gold); 
@@ -62,7 +61,7 @@
             margin-bottom: 20px;
         }
 
-        #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal {
+        #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
@@ -77,14 +76,24 @@
 
         .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        /* ستايل أزرار الدفع الجديدة */
         .pay-option-btn {
             display: block; width: 100%; padding: 15px; margin: 12px 0;
             border-radius: 10px; border: none; font-weight: bold; cursor: pointer;
             font-family: 'Montserrat', sans-serif; font-size: 14px;
         }
         .vf-style { background: #e60000; color: white; }
+        .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
+
+        .copyright {
+            margin-top: auto;
+            padding: 20px 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -128,12 +137,17 @@
     <div class="button vfcash" onclick="openPaymentSelection()">
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
+
+    <div class="copyright">
+        ELMOKADEM Photography ©️
+    </div>
 </div>
 
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
         <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
+        <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
         <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
         <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
@@ -141,7 +155,8 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold);">تفاصيل الحجز</h3>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px;">تفاصيل الحجز</h3>
+        <p style="text-align:center; color:#fff; font-size:14px; margin-top:0;">ألف مبروك يا فندم 🎉</p>
         <label>المناسبة:</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار نوع المناسبة</option>
@@ -153,6 +168,7 @@
             <option value="عيد ميلاد (Birthday)">عيد ميلاد (Birthday)</option>
             <option value="خطوبة في البيت (Home Engagement)">خطوبة في البيت (Home Engagement)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب (Katb Ktab)</option>
+            <option value="حافلة تخرج (Graduation)">حافلة تخرج (Graduation)</option>
         </select>
         <label style="display:block; margin-top:15px;">التاريخ:</label>
         <input type="date" id="session-date">
@@ -185,8 +201,16 @@
     </div>
 </div>
 
+<div id="orange-cash-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:#ff6600; margin-bottom: 20px;">التحويل عبر أورنج كاش</h3>
+        <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
+        <button class="confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white;">اتصال وتحويل الآن</button>
+        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px; font-size: 12px;">إغلاق</p>
+    </div>
+</div>
+
 <script>
-// الأكواد الأصلية كما هي تماماً
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -196,18 +220,15 @@ function convertNumbers(str) {
     return str;
 }
 
-document.getElementById('cash-amount').addEventListener('input', function() {
-    this.value = convertNumbers(this.value);
-});
+document.getElementById('cash-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
+document.getElementById('orange-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
 
-// الوظائف الجديدة للتحويل
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
 
-function showVFCashPage() {
-    closePaymentSelection();
-    document.getElementById('vfcash-modal').style.display = 'flex';
-}
+function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
+function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
+function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
 
 function handleInstaPay() {
     const num = "01092217287";
@@ -217,7 +238,6 @@ function handleInstaPay() {
     });
 }
 
-// التليجرام وباقي الوظائف
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('utm_source') || "رابط مباشر";
@@ -275,6 +295,17 @@ function makeVFCashCall() {
     const ussd = `*9*7*${phoneNumber}*${amount}%23`;
     window.location.href = `tel:${ussd}`;
     closeVFCash();
+}
+
+function makeOrangeCashCall() {
+    let amount = document.getElementById('orange-amount').value;
+    amount = convertNumbers(amount); 
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً يا فندم"); return; }
+    const myNumber = "01210425901";
+    // الكود الجديد: *7115*7*المبلغ*الرقم#
+    const ussd = `*7115*7*${amount}*${myNumber}%23`;
+    window.location.href = `tel:${ussd}`;
+    closeOrangeCash();
 }
 </script>
 </body>
