@@ -74,10 +74,11 @@
             box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
         }
 
-        /* تعديل لعرض النص العربي فوق الإنجليزي في الـ Select */
+        /* تعديلات العرض المطلوبة للفصل بين اللغتين */
         select {
             text-align: center;
-            white-space: pre-line; /* للسماح بنزول السطر */
+            white-space: pre-line; /* للسماح بنزول النص الإنجليزي تحت العربي */
+            line-height: 1.5;
         }
 
         select option {
@@ -146,16 +147,16 @@
         <label>المناسبة (Event Type):</label>
         <select id="session-type" onchange="toggleTime()">
             <option value="" disabled selected>اضغط لاختيار المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف&#10;(Wedding Session)</option>
-            <option value="سيشن زفاف و قاعة (Session & Party)">سيشن زفاف وقاعة&#10;(Session & Party)</option>
-            <option value="سيشن كتب كتاب (Katb Ktab Session)">سيشن كتب كتاب&#10;(Katb Ktab Session)</option>
-            <option value="كتب كتاب (Katb Ktab)">كتب كتاب&#10;(Katb Ktab)</option>
-            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة&#10;(Engagement Session)</option>
-            <option value=" سيشن خطوبة و قاعة (Session & Party)">سيشن خطوبة و قاعة&#10;(Session & Party)</option>
-            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه&#10;(Home or Cafe)</option>
-            <option value="قاعة أو فرح (Party)">قاعة أو فرح&#10;(Party)</option>
-            <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد&#10;(Birthday)</option>
-            <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج&#10;(Graduation Party)</option>
+            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف &#10; (Wedding Session)</option>
+            <option value="سيشن زفاف و قاعة (Session & Party)">سيشن زفاف وقاعة &#10; (Session & Party)</option>
+            <option value="سيشن كتب كتاب (Katb Ktab Session)">سيشن كتب كتاب &#10; (Katb Ktab Session)</option>
+            <option value="كتب كتاب (Katb Ktab)">كتب كتاب &#10; (Katb Ktab)</option>
+            <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة &#10; (Engagement Session)</option>
+            <option value=" سيشن خطوبة و قاعة (Session & Party)">سيشن خطوبة و قاعة &#10; (Session & Party)</option>
+            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه &#10; (Home or Cafe Engagement)</option>
+            <option value="قاعة أو فرح (Party)">قاعة أو فرح &#10; (Party)</option>
+            <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد &#10; (Birthday)</option>
+            <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج &#10; (Graduation Party)</option>
         </select>
 
         <label style="display:block; margin-top:15px;">التاريخ (Date):</label>
@@ -285,8 +286,9 @@ function sendToWhatsApp() {
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
-    // تنظيف الرسالة من الرموز البرمجية للسطر الجديد لتبدو نظيفة في الواتساب
-    let cleanType = type.replace('&#10;', ' ');
+    // تنظيف النص من رمز السطر الجديد قبل الإرسال للواتساب
+    let cleanType = type.replace('&#10;', '').replace(/\s+/g, ' ');
+
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${cleanType}\nالتاريخ: ${date}`;
     if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
