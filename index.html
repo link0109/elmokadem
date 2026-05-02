@@ -259,9 +259,14 @@ function closeBooking() { document.getElementById('booking-modal').style.display
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
+// تم تعديل هذه الدالة لتظهر الموعد فقط في كتب كتاب البيت
 function toggleTime() {
     const val = document.getElementById('session-type').value;
-    document.getElementById('time-selection').style.display = val.includes("كتب كتاب") ? "block" : "none";
+    if (val === "كتب كتاب في البيت (Katb Ktab)") {
+        document.getElementById('time-selection').style.display = "block";
+    } else {
+        document.getElementById('time-selection').style.display = "none";
+    }
 }
 
 function sendToWhatsApp() {
@@ -277,7 +282,12 @@ function sendToWhatsApp() {
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
-    if(type.includes("كتب كتاب")) msg += `\nالموعد: ${time}`;
+    
+    // تم التعديل هنا ليرسل الموعد في الواتساب فقط لو كانت المناسبة كتب كتاب في البيت
+    if(type === "كتب كتاب في البيت (Katb Ktab)") {
+        msg += `\nالموعد: ${time}`;
+    }
+    
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
 }
