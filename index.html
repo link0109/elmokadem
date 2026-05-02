@@ -62,6 +62,17 @@
             margin-bottom: 20px;
         }
 
+        /* تنسيق حقوق النشر الجديد */
+        .footer-copyrights {
+            margin-top: auto; /* يخليها تنزل لآخر المساحة المتاحة */
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
@@ -127,6 +138,11 @@
     <div class="button vfcash" onclick="openPaymentSelection()">
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
+
+    <!-- إضافة الحقوق هنا -->
+    <div class="footer-copyrights">
+        © ELMOKADEM Photographer
+    </div>
 </div>
 
 <div id="booking-modal">
@@ -142,7 +158,7 @@
             <option value="سيشن كتب كتاب (Katb Ktab Session)"> سيشن كتب كتاب (Katb Ktab Session)</option>
             <option value="كتب كتاب في البيت (Katb Ktab)"> كتب كتاب في البيت  (Katb Ktab)</option>
             <option value="سيشن خطوبة (Engagement Session)"> سيشن خطوبة (Engagement Session)</option>
-           <option value=" سيشن خطوبة و قاعة (Session & Party)"> سيشن خطوبة و قاعة (Session & Party)</option>
+            <option value=" سيشن خطوبة و قاعة (Session & Party)"> سيشن خطوبة و قاعة (Session & Party)</option>
             <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)"> خطوبة في البيت أو كافيه (Home or Cafe Engagement)</option>
             <option value="قاعة أو فرح (Party)"> قاعة أو فرح (Party)</option>
             <option value="عيد ميلاد (Birthday)"> عيد ميلاد (Birthday)</option>
@@ -259,7 +275,6 @@ function closeBooking() { document.getElementById('booking-modal').style.display
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
-// تم تعديل هذه الدالة لتظهر الموعد فقط في كتب كتاب البيت
 function toggleTime() {
     const val = document.getElementById('session-type').value;
     if (val === "كتب كتاب في البيت (Katb Ktab)") {
@@ -283,7 +298,6 @@ function sendToWhatsApp() {
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     
-    // تم التعديل هنا ليرسل الموعد في الواتساب فقط لو كانت المناسبة كتب كتاب في البيت
     if(type === "كتب كتاب في البيت (Katb Ktab)") {
         msg += `\nالموعد: ${time}`;
     }
