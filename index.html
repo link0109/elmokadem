@@ -2,7 +2,8 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- منع الزووم التلقائي في هواتف الآيفون -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>المقدم فوتوغرافر | ELMOKADEM Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,6 +19,13 @@
             font-family: 'Montserrat', 'Cairo', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
+        }
+
+        /* منع الزووم عن طريق جعل الخط 16 بيكسل عند التفاعل في الموبايل */
+        @media screen and (max-width: 768px) {
+            select, input, textarea {
+                font-size: 16px !important;
+            }
         }
 
         .overlay {
@@ -71,13 +79,12 @@
         select, input { 
             width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
             background: #000; color: white; border: 1px solid #333; 
-            box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
+            box-sizing: border-box; font-family: 'Cairo', sans-serif; outline: none;
         }
 
-        /* تعديلات العرض المطلوبة للفصل بين اللغتين */
         select {
             text-align: center;
-            white-space: pre-line; /* للسماح بنزول النص الإنجليزي تحت العربي */
+            white-space: pre-line;
             line-height: 1.5;
         }
 
@@ -85,7 +92,6 @@
             background: #1a1a1a;
             color: #fff;
             padding: 10px;
-            font-size: 14px;
             text-align: center;
         }
 
@@ -152,8 +158,8 @@
             <option value="سيشن كتب كتاب (Katb Ktab Session)">سيشن كتب كتاب &#10; (Katb Ktab Session)</option>
             <option value="كتب كتاب (Katb Ktab)">كتب كتاب &#10; (Katb Ktab)</option>
             <option value="سيشن خطوبة (Engagement Session)">سيشن خطوبة &#10; (Engagement Session)</option>
-            <option value=" سيشن خطوبة و قاعة (Session & Party)">سيشن خطوبة و قاعة &#10; (Session & Party)</option>
-            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه &#10; (Home or Cafe Engagement)</option>
+            <option value="سيشن خطوبة و قاعة (Session & Party)">سيشن خطوبة و قاعة &#10; (Session & Party)</option>
+            <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)">خطوبة في البيت أو كافيه &#10; (Home or Cafe)</option>
             <option value="قاعة أو فرح (Party)">قاعة أو فرح &#10; (Party)</option>
             <option value="عيد ميلاد (Birthday)">🎂 عيد ميلاد &#10; (Birthday)</option>
             <option value="حفلة تخرج (Graduation Party)">🎓 حفلة تخرج &#10; (Graduation Party)</option>
@@ -179,6 +185,7 @@
     </div>
 </div>
 
+<!-- بقية المودالات (الاتصال والتحويل) -->
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
@@ -217,6 +224,7 @@
 </div>
 
 <script>
+// أكواد الروابط والـ Scripts
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
@@ -286,7 +294,6 @@ function sendToWhatsApp() {
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
-    // تنظيف النص من رمز السطر الجديد قبل الإرسال للواتساب
     let cleanType = type.replace('&#10;', '').replace(/\s+/g, ' ');
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${cleanType}\nالتاريخ: ${date}`;
