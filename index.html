@@ -62,9 +62,8 @@
             margin-bottom: 20px;
         }
 
-        /* تنسيق حقوق النشر الجديد */
         .footer-copyrights {
-            margin-top: auto; /* يخليها تنزل لآخر المساحة المتاحة */
+            margin-top: auto;
             padding-top: 0px;
             text-align: center;
             color: rgba(255, 255, 255, 0.4);
@@ -139,7 +138,6 @@
         <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
     </div>
 
-    <!-- إضافة الحقوق هنا -->
     <div class="footer-copyrights">
         © ELMOKADEM Photographer
     </div>
@@ -242,12 +240,10 @@ function showOrangeCashPage() { closePaymentSelection(); document.getElementById
 function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
 function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
+// التعديل الجديد لفتح رابط انستا باي مباشرة
 function handleInstaPay() {
-    const num = "01092217287";
-    navigator.clipboard.writeText(num).then(() => {
-        alert("تم نسخ الرقم بنجاح.\nبرجاء التوجه إلى تطبيق إنستا باي ولصق الرقم وارسال المبلغ المراد تحويلة.");
-        closePaymentSelection();
-    });
+    const instaPayLink = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
+    window.location.href = instaPayLink;
 }
 
 window.onload = function() {
