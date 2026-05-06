@@ -9,7 +9,7 @@
         :root {
             --gold: #D4AF37;
             --dark: #0a0a0a;
-            --glass: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.1);
         }
         body {
             background-color: var(--dark);
@@ -52,17 +52,16 @@
         .package-card {
             position: relative;
             height: 95px;
-            border-radius: 25px; /* تنعيم الحواف */
+            border-radius: 25px;
             overflow: hidden;
             display: flex;
             align-items: center;
             text-decoration: none;
             color: white;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s ease; /* حركة التفاعل */
-            backdrop-filter: blur(5px); /* تأثير اللمعان */
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(8px);
         }
-        .package-card:active { transform: scale(0.98); }
         .package-card:hover { transform: scale(1.02); }
 
         .bg-img {
@@ -103,18 +102,32 @@
         .info h3 { margin: 0; font-size: 16px; font-weight: 700; color: #fff; }
         .info p { margin: 2px 0 0 0; font-size: 10px; color: rgba(255,255,255,0.8); line-height: 1.3; }
 
+        /* تعديل زرار احجز ليكون زجاجي */
         .btn-book {
-            background: linear-gradient(135deg, var(--gold), #fff); /* تدرج الألوان */
-            border: none;
-            padding: 7px 12px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 15px;
             font-size: 11px;
             font-weight: bold;
-            color: #000;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .btn-book:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
         .vip-card { border: 1.5px solid var(--gold); }
-        .vip-card .price-tag { background: #fff; }
+        .vip-card .btn-book { 
+            background: rgba(212, 175, 55, 0.15); 
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
 
         .note-box {
             background: rgba(212, 175, 55, 0.05);
@@ -146,7 +159,7 @@
                 <div class="price-tag">2500 <span>LE</span></div>
                 <div class="info">
                     <h3>PACKAGE 1</h3>
-                    <p>سيشن • ألبوم 30*45 • تابلوه 50*60 • 2 ميدالية[cite: 1]</p>
+                    <p>سيشن • ألبوم 30*45 • تابلوه 50*60 • 2 ميدالية</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
@@ -158,7 +171,7 @@
                 <div class="price-tag">3500 <span>LE</span></div>
                 <div class="info">
                     <h3>PACKAGE 2</h3>
-                    <p>سيشن • قاعة • ألبوم 30*45 • تابلوه 50*70 • 2 ميدالية[cite: 1]</p>
+                    <p>سيشن • قاعة • ألبوم 30*45 • تابلوه 50*70 • 2 ميدالية</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
@@ -170,20 +183,19 @@
                 <div class="price-tag">4500 <span>LE</span></div>
                 <div class="info">
                     <h3>PACKAGE 3</h3>
-                    <p>سيشن • قاعة • ألبوم 30*60 • تابلوه 50*70 • 20 كرت • 2 ميدالية[cite: 1]</p>
+                    <p>سيشن • قاعة • ألبوم 30*60 • تابلوه 50*70 • 20 كرت • 2 ميدالية</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
         </a>
 
         <a href="#" onclick="goToBooking('VIP')" class="package-card vip-card">
-            <!-- صورة إكسسوارات العروسة -->
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">6000 <span>LE</span></div>
                 <div class="info">
                     <h3 style="color: var(--gold);">ViP FULL DAY</h3>
-                    <p style="color:#fff;">تجهيزات • سيشن • قاعة • ألبوم كبير وصغير • تابلوه وستاند[cite: 1]</p>
+                    <p style="color:#fff;">تجهيزات • سيشن • قاعة • ألبوم كبير وصغير • تابلوه وستاند</p>
                 </div>
                 <div class="btn-book">احجز الآن</div>
             </div>
@@ -197,20 +209,19 @@
                 <div class="price-tag">1500 <span>LE</span></div>
                 <div class="info">
                     <h3>سيشن فقط</h3>
-                    <p>تصوير سيشن احترافي خارجي[cite: 1]</p>
+                    <p>تصوير سيشن احترافي خارجي</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
         </a>
 
         <a href="#" onclick="goToBooking('قاعة فقط')" class="package-card">
-            <!-- صورة حافلة/قاعة احتفالات -->
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1478146896981-b80fe463b33e?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">800 <span>LE</span></div>
                 <div class="info">
                     <h3>تصوير القاعة فقط</h3>
-                    <p>تغطية كاملة لمراسم القاعة[cite: 1]</p>
+                    <p>تغطية كاملة لمراسم القاعة</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
@@ -222,21 +233,21 @@
                 <div class="price-tag">800 <span>LE</span></div>
                 <div class="info">
                     <h3>كتب كتاب / خطوبة</h3>
-                    <p>في البيت أو كافية[cite: 1]</p>
+                    <p>في البيت أو كافية</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
         </a>
 
         <div class="note-box">
-            خصم 20% عند طلب مصور فيديو لتصوير برومو فديوو للسيشن[cite: 1]
+            خصم 20% عند طلب مصور فيديو لتصوير برومو فديوو للسيشن
         </div>
 
         <div class="footer">
-            يتم دفع 50% أو 500ج بحد أدنى لتأكيد الحجز[cite: 1]<br>
-            العربون لا يُسترد في حالة إلغاء الحجز[cite: 1]<br>
-            تسليم الصور من 10 لـ 20 يوم[cite: 1]<br>
-            الأسعار لا تشمل رسوم دخول أماكن التصوير[cite: 1]
+            يتم دفع 50% أو 500ج بحد أدنى لتأكيد الحجز<br>
+            العربون لا يُسترد في حالة إلغاء الحجز<br>
+            تسليم الصور من 10 لـ 20 يوم<br>
+            الأسعار لا تشمل رسوم دخول أماكن التصوير
         </div>
     </div>
 
