@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>باقات ELMOKADEM 2026</title>
+    <style>
+        :root {
+            --gold: #c5a059;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: white;
+            margin: 0;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { letter-spacing: 5px; font-size: 28px; margin: 0; text-transform: uppercase; }
+        .header p { color: var(--gold); letter-spacing: 2px; font-size: 14px; margin-top: 5px; }
+        .section-title { color: var(--gold); font-size: 1.2em; margin: 30px 0 15px 0; border-bottom: 1px solid var(--gold); padding-bottom: 5px; width: 100%; max-width: 500px; text-align: center; }
+        .container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
+        .card { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s ease; }
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .package-title { color: var(--gold); font-size: 18px; font-weight: bold; margin-bottom: 10px; display: block; }
+        .price { font-size: 28px; margin: 15px 0; font-weight: bold; color: #fff; }
+        .features { list-style: none; padding: 0; margin: 15px 0; font-size: 14px; color: #eee; line-height: 1.8; text-align: center; }
+        .btn { background: none; border: 1px solid var(--gold); color: white; padding: 12px 30px; border-radius: 12px; text-decoration: none; display: inline-block; transition: 0.3s; font-weight: bold; margin-top: 10px; width: 80%; }
+        .btn:hover { background: var(--gold); color: black; }
+        .special-card { border: 1px solid white; background: rgba(255, 255, 255, 0.2); }
+        .footer-notes { margin-top: 40px; font-size: 13px; text-align: center; background: rgba(197, 160, 89, 0.1); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); color: #eee; max-width: 500px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="header"><h1>ELMOKADEM</h1><p>WEDDING PHOTOGRAPHER</p></div>
+    <div class="container">
+        <div class="section-title">الباقات الأساسية | Main Packages</div>
+        <div class="card"><span class="package-title">PACKAGE 1</span><ul class="features"><li>تصوير السيشن • ألبوم 30*45</li><li>تابلوه 50*60 • 2 مدليا هدية</li></ul><div class="price">2500 LE</div><a href="#" onclick="goToBooking('باكيدج 1')" class="btn">حجز الآن</a></div>
+        <div class="card"><span class="package-title">PACKAGE 2</span><ul class="features"><li>تصوير السيشن • تصوير القاعة</li><li>ألبوم 30*45 • تابلوه 50*70</li><li>2 مدليا هدية</li></ul><div class="price">3500 LE</div><a href="#" onclick="goToBooking('باكيدج 2')" class="btn">حجز الآن</a></div>
+        <div class="card"><span class="package-title">PACKAGE 3</span><ul class="features"><li>تصوير السيشن • تصوير القاعة</li><li>ألبوم 30*60 • تابلوه 50*70</li><li>20 كرت • 2 مدليا هدية</li></ul><div class="price">4000 LE</div><a href="#" onclick="goToBooking('باكيدج 3')" class="btn">حجز الآن</a></div>
+        <div class="card special-card"><span class="package-title">FULL DAY</span><ul class="features"><li>تصوير التجهيزات • السيشن • القاعة</li><li>ألبوم كبير وألبوم صغير</li><li>تابلوه وستاند</li></ul><div class="price">5000 LE</div><a href="#" onclick="goToBooking('فول داي')" class="btn" style="background:white; color:black;">حجز الآن</a></div>
+        <div class="section-title">باكيتجات فردية | Individual</div>
+        <div class="card"><span class="package-title">سيشن زفاف فقط</span><div class="price">1500 LE</div><a href="#" onclick="goToBooking('سيشن زفاف فقط')" class="btn">حجز الآن</a></div>
+        <div class="card"><span class="package-title">تصوير القاعة فقط</span><div class="price">800 LE</div><a href="#" onclick="goToBooking('تصوير قاعة فقط')" class="btn">حجز الآن</a></div>
+        <div class="card"><span class="package-title">كتب كتاب / خطوبة</span><p style="font-size: 13px; color: #ccc;">(في البيت أو كافيه)</p><div class="price">800 LE</div><a href="#" onclick="goToBooking('كتب كتاب أو خطوبة')" class="btn">حجز الآن</a></div>
+        <div class="footer-notes">• يتم دفع 50% أو 500ج بحد أدنى لتأكيد الحجز<br>• العربون لا يُسترد في حالة إلغاء الحجز<br>• تسليم الصور من 10 لـ 20 يوم</div>
+    </div>
+    <script>
+        function goToBooking(packageName) {
+            // هنا بنبعت العميل لصفحة index.html ومعاه اسم الباكدج
+            window.location.href = "index.html?package=" + encodeURIComponent(packageName);
+        }
+    </script>
+</body>
+</html>
