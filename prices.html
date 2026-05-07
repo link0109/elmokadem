@@ -207,13 +207,13 @@
             </div>
         </a>
 
-        <a href="#" onclick="goToBooking('(Engagement) خطوبة في البيت')" class="package-card">
+        <a href="#" onclick="goToBooking('خطوبة في البيت')" class="package-card">
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">800 <span>LE</span></div>
                 <div class="info">
                     <h3>خطوبة</h3>
-                    <p>خطوبة في البيت أو كافيه وتغطية المناسبة</p>
+                    <p>خطوبة ف البيت او كافية وتغطية المناسبة</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
@@ -240,7 +240,6 @@
 
     <script>
         function goToBooking(packageName) {
-            // يتم إرسال اسم الباكدج بالتحديد لفتح الحقول المرتبطة به في صفحة الحجز
             window.location.href = "index.html?package=" + encodeURIComponent(packageName);
         }
     </script>
