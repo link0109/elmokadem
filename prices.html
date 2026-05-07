@@ -120,17 +120,6 @@
             color: var(--gold);
         }
 
-        .note-box {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px dashed var(--gold);
-            padding: 12px;
-            border-radius: 15px;
-            font-size: 11px;
-            text-align: center;
-            color: #ddd;
-            margin-top: 10px;
-        }
-
         .footer { margin-top: 20px; text-align: center; font-size: 11px; color: #666; padding-bottom: 30px; }
     </style>
 </head>
@@ -206,31 +195,7 @@
             </div>
         </a>
 
-        <a href="#" onclick="goToBooking('سيشن خطوبة وقاعة')" class="package-card">
-            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=500');"></div>
-            <div class="card-content">
-                <div class="price-tag">2300 <span>LE</span></div>
-                <div class="info">
-                    <h3>سيشن خطوبة وقاعة</h3>
-                    <p>تصوير سيشن خطوبة مع تغطية القاعة</p>
-                </div>
-                <div class="btn-book">احجز</div>
-            </div>
-        </a>
-
-        <a href="#" onclick="goToBooking('قاعة فقط')" class="package-card">
-            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=500');"></div>
-            <div class="card-content">
-                <div class="price-tag">800 <span>LE</span></div>
-                <div class="info">
-                    <h3>تصوير القاعة فقط</h3>
-                    <p>تغطية كاملة لمراسم القاعة</p>
-                </div>
-                <div class="btn-book">احجز</div>
-            </div>
-        </a>
-
-        <a href="#" onclick="goToBooking('كتب كتاب في البيت')" class="package-card">
+        <a href="#" onclick="goToBooking('(Katb Ktab) كتب كتاب في البيت')" class="package-card">
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1585036156171-384164a8c675?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">800 <span>LE</span></div>
@@ -242,13 +207,13 @@
             </div>
         </a>
 
-        <a href="#" onclick="goToBooking('خطوبة في البيت')" class="package-card">
+        <a href="#" onclick="goToBooking('(Engagement) خطوبة في البيت')" class="package-card">
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">800 <span>LE</span></div>
                 <div class="info">
                     <h3>خطوبة</h3>
-                    <p>خطوبة ف البيت او كافية وتغطية المناسبة</p>
+                    <p>خطوبة في البيت أو كافيه وتغطية المناسبة</p>
                 </div>
                 <div class="btn-book">احجز</div>
             </div>
@@ -266,22 +231,6 @@
             </div>
         </a>
 
-        <a href="#" onclick="goToBooking('حفلة تخرج')" class="package-card">
-            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500');"></div>
-            <div class="card-content">
-                <div class="price-tag">800 <span>LE</span></div>
-                <div class="info">
-                    <h3>حفلة تخرج</h3>
-                    <p>تصوير حافلة التخرج فردي وجماعي</p>
-                </div>
-                <div class="btn-book">احجز</div>
-            </div>
-        </a>
-
-        <div class="note-box">
-            خصم 20% عند طلب مصور فيديو لتصوير برومو فديوو للسيشن
-        </div>
-
         <div class="footer">
             يتم دفع 50% أو 500ج بحد أدنى لتأكيد الحجز<br>
             العربون لا يُسترد في حالة إلغاء الحجز<br>
@@ -291,6 +240,7 @@
 
     <script>
         function goToBooking(packageName) {
+            // يتم إرسال اسم الباكدج بالتحديد لفتح الحقول المرتبطة به في صفحة الحجز
             window.location.href = "index.html?package=" + encodeURIComponent(packageName);
         }
     </script>
