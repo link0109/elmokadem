@@ -91,6 +91,16 @@
             </div>
         </a>
 
+        <!-- البند الجديد المضاف -->
+        <a href="#" onclick="goToBooking('قاعة فقط')" class="package-card">
+            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500');"></div>
+            <div class="card-content">
+                <div class="price-tag">800 <span>LE</span></div>
+                <div class="info"><h3>قاعة فقط</h3><p>تغطية فوتوغرافية احترافية داخل القاعة</p></div>
+                <div class="btn-book">احجز</div>
+            </div>
+        </a>
+
         <a href="#" onclick="goToBooking('كتب كتاب')" class="package-card">
             <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1585036156171-384164a8c675?w=500');"></div>
             <div class="card-content">
@@ -138,7 +148,6 @@
     <script>
         function goToBooking(packageName) {
             let finalName = packageName;
-            // ده الكود اللي بيخلي صفحة الحجز تفتح الموعد لما تدوس على كتب كتاب
             if (packageName === "كتب كتاب") {
                 finalName = "(Katb Ktab) كتب كتاب في البيت";
             } else if (packageName === "خطوبة") {
