@@ -156,7 +156,7 @@
             <option value="سيشن كتب كتاب (Katb Ktab Session)"> سيشن كتب كتاب (Katb Ktab Session)</option>
             <option value="كتب كتاب في البيت (Katb Ktab)"> كتب كتاب في البيت  (Katb Ktab)</option>
             <option value="سيشن خطوبة (Engagement Session)"> سيشن خطوبة (Engagement Session)</option>
-            <option value=" سيشن خطوبة و قاعة (Session & Party)"> سيشن خطوبة و قاعة (Session & Party)</option>
+            <option value="سيشن خطوبة و قاعة (Session & Party)"> سيشن خطوبة و قاعة (Session & Party)</option>
             <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)"> خطوبة في البيت أو كافيه (Home or Cafe Engagement)</option>
             <option value="قاعة أو فرح (Party)"> قاعة أو فرح (Party)</option>
             <option value="عيد ميلاد (Birthday)"> عيد ميلاد (Birthday)</option>
@@ -246,15 +246,17 @@ function handleInstaPay() {
 }
 
 window.onload = function() {
-    // --- كود استقبال الباكدج من الرابط (تعديل المقدم) ---
+    // --- كود استقبال الباكدج من الرابط (تعديل المقدم الاحترافي) ---
     const urlParams = new URLSearchParams(window.location.search);
     const selectedPackage = urlParams.get('package');
     if (selectedPackage) {
         openBooking(); // فتح الفورم فوراً
         const sessionSelect = document.getElementById('session-type');
         let found = false;
+        
         for (let i = 0; i < sessionSelect.options.length; i++) {
-            if (sessionSelect.options[i].value.includes(selectedPackage)) {
+            // مطابقة دقيقة للاسم القادم من الرابط لتفادي التكرار
+            if (sessionSelect.options[i].value.trim().startsWith(selectedPackage.trim())) {
                 sessionSelect.selectedIndex = i;
                 found = true;
                 break;
@@ -265,6 +267,9 @@ window.onload = function() {
             sessionSelect.add(newOption);
             sessionSelect.value = selectedPackage;
         }
+        
+        // تشغيل الدالة للتأكد من ظهور خانة الموعد لو الباكدج كتب كتاب
+        toggleTime();
     }
     // --- نهاية تعديل الباكدج ---
 
@@ -293,7 +298,8 @@ function closeCallModal() { document.getElementById('call-modal').style.display 
 
 function toggleTime() {
     const val = document.getElementById('session-type').value;
-    if (val === "كتب كتاب في البيت (Katb Ktab)") {
+    // مطابقة ذكية للخيار الصحيح كتب كتاب في البيت
+    if (val.includes("كتب كتاب في البيت")) {
         document.getElementById('time-selection').style.display = "block";
     } else {
         document.getElementById('time-selection').style.display = "none";
@@ -314,7 +320,7 @@ function sendToWhatsApp() {
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     
-    if(type === "كتب كتاب في البيت (Katb Ktab)") {
+    if(type.includes("كتب كتاب في البيت")) {
         msg += `\nالموعد: ${time}`;
     }
     
