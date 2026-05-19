@@ -80,7 +80,7 @@
         <div class="section-label">باكيدجات فردية</div>
 
         <a href="#" onclick="goToBooking('سيشن فقط')" class="package-card">
-            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=500');"></div>
+            <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1533633552985-df8429e8048b?w=500');"></div>
             <div class="card-content">
                 <div class="price-tag">1500 <span>LE</span></div>
                 <div class="info"><h3>سيشن فقط</h3><p>تصوير سيشن احترافي خارجي</p></div>
@@ -154,11 +154,18 @@
     <script>
         function goToBooking(packageName) {
             let finalName = packageName;
+            
+            // هنا بنطابق الاختيار المظبوط علشان يروح لصفحة الـ index بالملي
             if (packageName === "كتب كتاب") {
-                finalName = "(Katb Ktab) كتب كتاب في البيت";
+                finalName = "كتب كتاب في البيت";
             } else if (packageName === "خطوبة") {
-                finalName = "خطوبة في البيت";
+                finalName = "خطوبة في البيت أو كافيه";
+            } else if (packageName === "قاعة فقط") {
+                finalName = "قاعة أو فرح";
+            } else if (packageName === "سيشن خطوبة وقاعة") {
+                finalName = "سيشن خطوبة و قاعة";
             }
+            
             window.location.href = "index.html?package=" + encodeURIComponent(finalName);
         }
     </script>
