@@ -140,7 +140,7 @@
 
         .premium-input {
             width: 100%;
-            padding: 14px 16px 14px 45px; 
+            padding: 14px 16px; 
             border-radius: 14px;
             background: var(--input-bg);
             color: white;
@@ -163,25 +163,25 @@
             background: rgba(212, 175, 55, 0.06);
         }
 
+        /* تنسيق خاص للتواريخ */
+        input[type="date"] {
+            padding-right: 45px;
+        }
+
         input[type="date"]::before {
             content: attr(placeholder);
-            width: 100%;
-            color: rgba(255, 255, 255, 0.5);
+            position: absolute;
+            right: 16px;
+            top: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
         }
+        
         input[type="date"]:focus::before,
         input[type="date"]:valid::before {
             display: none;
         }
 
-        input[type="date"]::-webkit-date-and-time-value {
-            text-align: right;
-            min-height: 20px;
-        }
-
-        input[type="date"] {
-            position: relative;
-        }
-        
         input[type="date"]::-webkit-calendar-picker-indicator {
             background: transparent;
             bottom: 0;
@@ -212,7 +212,7 @@
         .date-type::after { content: "\f133"; }
         .name-type::after { content: "\f007"; }
         .address-type::after { content: "\f3c5"; }
-        .hall-type::after { content: "\f0f4"; } /* أيقونة مميزة ومناسبة للقاعات والفرح */
+        .hall-type::after { content: "\f0f4"; }
 
         .premium-input option {
             background: #282828;
@@ -334,7 +334,7 @@
         <div id="time-selection" class="input-group select-type" style="display:none;">
             <label>موعد كتب الكتاب (Timing):</label>
             <select id="session-time" class="premium-input">
-                <option value="" disabled selected>اضغط لاختيار موعد كتب الكتاب</option>
+                <option value="" disabled selected>اضغط لتحديد الموعد</option>
                 <option value="بعد صلاة العصر">بعد صلاة العصر </option>
                 <option value="بعد صلاة المغرب">بعد صلاة المغرب </option>
                 <option value="بعد صلاة العشاء">بعد صلاة العشاء </option>
@@ -414,16 +414,12 @@ document.getElementById('orange-amount').addEventListener('input', function() { 
 
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
-
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
-
 function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
 function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
-
 function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
 function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
 
@@ -432,25 +428,18 @@ function handleInstaPay() {
     window.location.href = instaPayLink;
 }
 
-// 👑 دالة ذكية محدثة للتحكم في الحقول الديناميكية بالكامل 👑
 function handleConditionalFields() {
     const val = document.getElementById('session-type').value;
-    
-    // 1. إظهار وإخفاء موعد كتب الكتاب
     if (val && val.includes("كتب كتاب في البيت")) {
         document.getElementById('time-selection').style.display = "block";
     } else {
         document.getElementById('time-selection').style.display = "none";
     }
-
-    // 2. إظهار وإخفاء خانة العنوان 
     if (val && (val.includes("كتب كتاب في البيت") || val.includes("خطوبة في البيت أو كافيه"))) {
         document.getElementById('address-selection').style.display = "block";
     } else {
         document.getElementById('address-selection').style.display = "none";
     }
-
-    // 3. إظهار وإخفاء خانة اسم القاعة / مكان الفرح أوتوماتيكياً
     if (val && (val.includes("قاعة") || val.includes("فرح"))) {
         document.getElementById('hall-selection').style.display = "block";
     } else {
@@ -467,43 +456,22 @@ function sendToWhatsApp() {
     const hall = document.getElementById('hall-name').value;
     
     if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
-    
-    if(type.includes("كتب كتاب في البيت") && !time) {
-        alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
-        return;
-    }
+    if(type.includes("كتب كتاب في البيت") && !time) { alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم"); return; }
 
     const needsAddress = type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه");
-    if(needsAddress && !address.trim()) {
-        alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم");
-        return;
-    }
+    if(needsAddress && !address.trim()) { alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم"); return; }
 
-    // شرط إجبار العميل على إدخال اسم القاعة لو اختار الفرح أو القاعة
     const needsHall = type.includes("قاعة") || type.includes("فرح");
-    if(needsHall && !hall.trim()) {
-        alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
-        return;
-    }
+    if(needsHall && !hall.trim()) { alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
     
     const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time, address: address, hall: hall });
-    
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
-    
-    if(type.includes("كتب كتاب في البيت")) {
-        msg += `\nالموعد: ${time}`;
-    }
-
-    if(needsAddress) {
-        msg += `\nالعنوان: ${address}`;
-    }
-
-    if(needsHall) {
-        msg += `\nمكان الفرح/القاعة: ${hall}`;
-    }
+    if(type.includes("كتب كتاب في البيت")) { msg += `\nالموعد: ${time}`; }
+    if(needsAddress) { msg += `\nالعنوان: ${address}`; }
+    if(needsHall) { msg += `\nمكان الفرح/القاعة: ${hall}`; }
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
@@ -532,12 +500,10 @@ function makeOrangeCashCall() {
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const selectedPackage = urlParams.get('package');
-    
     if (selectedPackage) {
         openBooking(); 
         const sessionSelect = document.getElementById('session-type');
         let found = false;
-        
         for (let i = 0; i < sessionSelect.options.length; i++) {
             if (sessionSelect.options[i].value.trim().startsWith(selectedPackage.trim())) {
                 sessionSelect.selectedIndex = i;
@@ -550,14 +516,11 @@ window.onload = function() {
             sessionSelect.add(newOption);
             sessionSelect.value = selectedPackage;
         }
-        
         handleConditionalFields();
     }
-
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
     const chat_id = "720656827";
-
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(data => {
