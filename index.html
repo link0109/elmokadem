@@ -141,7 +141,7 @@ function sendToWhatsApp() {
     
     if(!name || !type || !date) { alert("من فضلك أكمل البيانات الأساسية"); return; }
     
-    let msg = `حجز جديد:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    let msg = `تم الحجز يا مقدم :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     if(document.getElementById('time-selection').style.display !== "none") msg += `\nالموعد: ${time}`;
     if(document.getElementById('address-selection').style.display !== "none") msg += `\nالعنوان: ${address}`;
     if(document.getElementById('hall-selection').style.display !== "none") msg += `\nمكان الفرح: ${hall}`;
