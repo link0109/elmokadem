@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
+            --bg-blur: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
             --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
         }
 
         body {
@@ -18,12 +19,13 @@
             font-family: 'Montserrat', 'Cairo', sans-serif;
             background: #0f0f0f url('background.jpeg') no-repeat center center/cover fixed;
             display: flex; justify-content: center;
+            scroll-behavior: smooth;
         }
 
         .overlay {
-            backdrop-filter: blur(15px) saturate(160%);
-            -webkit-backdrop-filter: blur(15px) saturate(160%);
-            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(15, 15, 15, 0.9) 100%);
             width: 100%; min-height: 100vh;
             padding: 40px 20px;
             box-sizing: border-box;
@@ -33,6 +35,7 @@
         .profile {
             width: 120px; height: 120px; border-radius: 50%;
             object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
         }
 
         .brand-container { text-align: center; margin-bottom: 30px; }
@@ -42,12 +45,22 @@
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
-            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
-            border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
+            text-decoration: none; margin: 10px 0; width: 100%; max-width: 360px;
+            border-radius: 14px; padding: 8px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-sizing: border-box;
+        }
+
+        /* تأثير التفاعل الفخم عند تحريك الماوس أو اللمس */
+        .button:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; font-weight: 500; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -57,31 +70,69 @@
         .vfcash .icon-box { background: var(--gold); color: #000; }
         
         .booking-btn { 
-            border: 2px solid var(--gold); 
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            margin-bottom: 20px;
+            border: 1px solid var(--gold); 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.02) 100%);
+            margin-bottom: 25px;
+        }
+        
+        .booking-btn:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2) !important;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.05) 100%) !important;
         }
 
         .footer-copyrights {
             margin-top: auto;
-            padding-top: 0px;
+            padding-top: 30px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 11px;
             letter-spacing: 2px;
             font-family: 'Montserrat', sans-serif;
         }
 
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 5000; justify-content: center; align-items: center;
         }
-        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
+        
+        /* نوافذ منبثقة بتصميم زجاجي عصري وحواف ناعمة */
+        .modal-content { 
+            background: rgba(26, 26, 26, 0.95); 
+            padding: 30px 25px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            width: 85%; max-width: 380px; 
+            text-align: right; color: white; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+            animation: modalFadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 12px;
+            display: block;
+        }
         
         select, input { 
-            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
-            background: #000; color: white; border: 1px solid #333; 
+            width: 100%; padding: 12px 15px; margin-top: 8px; border-radius: 12px; 
+            background: rgba(0, 0, 0, 0.6); color: white; border: 1px solid rgba(255, 255, 255, 0.1); 
             box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* تأثير الوهج الذهبي الفخم عند تفاعل العميل مع الخانات */
+        select:focus, input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+            background: rgba(0, 0, 0, 0.8);
         }
 
         select option {
@@ -89,11 +140,35 @@
             color: #fff;
         }
 
-        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
-        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .vf-style { background: #e60000; color: white; }
-        .orange-style { background: #ff6600; color: white; }
-        .insta-style { background: white; color: black; }
+        .confirm-btn { 
+            background: var(--gold); color: #000; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 25px; cursor: pointer; 
+            font-family: 'Cairo', sans-serif; font-size: 15px; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .pay-option-btn { 
+            display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; 
+            font-family: 'Cairo', sans-serif; transition: 0.3s; box-sizing: border-box;
+        }
+        
+        .pay-option-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        
+        .vf-style { background: #e60000; color: white; box-shadow: 0 4px 12px rgba(230, 0, 0, 0.2); }
+        .orange-style { background: #ff6600; color: white; box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2); }
+        .insta-style { background: white; color: black; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); }
+        
+        .call-link {
+            display: block; padding: 15px; color: white; border-radius: 12px; text-decoration: none; margin: 12px 0; font-weight: bold; font-size: 15px; transition: 0.3s;
+        }
+        .call-link:hover { transform: translateY(-2px); filter: brightness(1.1); }
     </style>
 </head>
 <body>
@@ -145,7 +220,7 @@
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 26px;">تفاصيل الحجز</h3>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 26px; font-family:'Cairo';">تفاصيل الحجز</h3>
         <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
         
         <label>المناسبة (Event Type):</label>
@@ -163,7 +238,7 @@
             <option value="حفلة تخرج (Graduation Party)"> حفلة تخرج (Graduation Party)</option>
         </select>
 
-        <label style="display:block; margin-top:15px;">التاريخ (Date):</label>
+        <label style="margin-top:15px;">التاريخ (Date):</label>
         <input type="date" id="session-date">
 
         <div id="time-selection" style="display:none; margin-top:15px;">
@@ -175,48 +250,48 @@
             </select>
         </div>
 
-        <label style="display:block; margin-top:15px;">الاسم (Full Name):</label>
+        <label style="margin-top:15px;">الاسم (Full Name):</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
         
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+        <p onclick="closeBooking()" style="text-align:center; color:#aaa; cursor:pointer; margin-top:15px; font-size: 14px;">إغلاق</p>
     </div>
 </div>
 
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
+        <h3 style="color:var(--gold); margin-bottom: 20px; font-family:'Cairo';">اختر وسيلة التحويل</h3>
         <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
         <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
         <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
-        <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+        <p onclick="closePaymentSelection()" style="color:#aaa; cursor:pointer; margin-top:15px; font-size: 14px;">إغلاق</p>
     </div>
 </div>
 
 <div id="call-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
-        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
-        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
-        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+        <h3 style="color:var(--gold); font-family:'Cairo'; margin-bottom: 20px;">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" class="call-link" style="background:#e60000;">01092217287</a>
+        <a href="tel:01210425901" class="call-link" style="background:#FF6600;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#aaa; cursor:pointer; margin-top:15px; font-size: 14px;">إغلاق</p>
     </div>
 </div>
 
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-bottom: 20px;">فودافون كاش</h3>
+        <h3 style="color:var(--gold); margin-bottom: 20px; font-family:'Cairo';">فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
+        <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white; box-shadow: 0 5px 15px rgba(230,0,0,0.2);">اتصال وتحويل الآن</button>
+        <p onclick="closeVFCash()" style="color:#aaa; cursor:pointer; margin-top:20px; font-size: 14px;">إغلاق</p>
     </div>
 </div>
 
 <div id="orange-cash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:#ff6600; margin-bottom: 20px;">أورنج كاش</h3>
+        <h3 style="color:#ff6600; margin-bottom: 20px; font-family:'Cairo';">أورنج كاش</h3>
         <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        <button class="confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
+        <button class="confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white; box-shadow: 0 5px 15px rgba(255,102,0,0.2);">اتصال وتحويل الآن</button>
+        <p onclick="closeOrangeCash()" style="color:#aaa; cursor:pointer; margin-top:20px; font-size: 14px;">إغلاق</p>
     </div>
 </div>
 
@@ -246,16 +321,14 @@ function handleInstaPay() {
 }
 
 window.onload = function() {
-    // --- كود استقبال الباكدج من الرابط (تعديل المقدم الاحترافي) ---
     const urlParams = new URLSearchParams(window.location.search);
     const selectedPackage = urlParams.get('package');
     if (selectedPackage) {
-        openBooking(); // فتح الفورم فوراً
+        openBooking();
         const sessionSelect = document.getElementById('session-type');
         let found = false;
         
         for (let i = 0; i < sessionSelect.options.length; i++) {
-            // مطابقة دقيقة للاسم القادم من الرابط لتفادي التكرار
             if (sessionSelect.options[i].value.trim().startsWith(selectedPackage.trim())) {
                 sessionSelect.selectedIndex = i;
                 found = true;
@@ -268,10 +341,8 @@ window.onload = function() {
             sessionSelect.value = selectedPackage;
         }
         
-        // تشغيل الدالة للتأكد من ظهور خانة الموعد لو الباكدج كتب كتاب
         toggleTime();
     }
-    // --- نهاية تعديل الباكدج ---
 
     const source = urlParams.get('utm_source') || "رابط مباشر";
     const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
@@ -298,7 +369,6 @@ function closeCallModal() { document.getElementById('call-modal').style.display 
 
 function toggleTime() {
     const val = document.getElementById('session-type').value;
-    // مطابقة ذكية للخيار الصحيح كتب كتاب في البيت
     if (val.includes("كتب كتاب في البيت")) {
         document.getElementById('time-selection').style.display = "block";
     } else {
