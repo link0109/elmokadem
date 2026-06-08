@@ -9,93 +9,86 @@
     <style>
         :root { --bg-blur: rgba(255, 255, 255, 0.08); --border-color: rgba(255, 255, 255, 0.2); --gold: #d4af37; --gold-glow: rgba(212, 175, 55, 0.35); --input-bg: rgba(255, 255, 255, 0.07); }
         body { margin: 0; font-family: 'Montserrat', 'Cairo', sans-serif; background: #0f0f0f url('background.jpeg') no-repeat center center/cover; display: flex; justify-content: center; min-height: 100vh; overflow-y: auto; }
-        .overlay { backdrop-filter: blur(15px) saturate(160%); -webkit-backdrop-filter: blur(15px) saturate(160%); background: rgba(0, 0, 0, 0.7); width: 100%; min-height: 100vh; padding: 30px 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .overlay { backdrop-filter: blur(15px) saturate(160%); background: rgba(0, 0, 0, 0.7); width: 100%; min-height: 100vh; padding: 30px 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .profile { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px; }
         .brand-container { text-align: center; margin-bottom: 12px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; margin: 0; }
         .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
         .button { display: flex; align-items: center; background: var(--bg-blur); border: 1px solid var(--border-color); color: white; text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px; border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer; }
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
         .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
-        .premium-modal-content { background: linear-gradient(145deg, rgba(40, 40, 40, 0.95) 0%, rgba(25, 25, 25, 0.98) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.35); padding: 35px 25px 25px 25px; border-radius: 28px; width: 90%; max-width: 390px; text-align: right; color: white; box-sizing: border-box; }
-        .modal-header-title { text-align: center; color: var(--gold); margin: 0 0 25px 0; font-size: 25px; font-family: 'Cairo', sans-serif; }
-        .input-group { position: relative; margin-bottom: 18px; }
-        .input-group label { font-family: 'Cairo', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.75); margin-bottom: 6px; display: block; }
-        .premium-input { width: 100%; padding: 14px 16px; border-radius: 14px; background: var(--input-bg); color: white; border: 1px solid rgba(255, 255, 255, 0.2); box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 15px; outline: none; }
-        .premium-confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 14px; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; }
-        #booking-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; }
+        .footer-copyrights { margin-top: 15px; color: rgba(255, 255, 255, 0.4); font-size: 12px; }
+        .premium-modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 90%; max-width: 390px; text-align: right; color: white; }
+        .input-group { margin-bottom: 15px; }
+        .premium-input { width: 100%; padding: 12px; border-radius: 10px; background: var(--input-bg); color: white; border: 1px solid #444; box-sizing: border-box; font-family: 'Cairo'; }
+        .premium-confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        #booking-modal, #call-modal, #payment-selection-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
 
 <div class="overlay">
-    <img src="profile.jpg" class="profile" alt="ELMOKADEM">
+    <img src="profile.jpg" class="profile">
     <div class="brand-container">
         <h1 class="brand-name">ELMOKADEM</h1>
         <div class="brand-sub">Wedding Photographer</div>
     </div>
-    <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div>
-        <div class="btn-text">احجز الآن | Book Now</div>
-    </div>
-    <!-- باقي الأزرار كما هي -->
+
+    <div class="button" onclick="openBooking()" style="border: 1px solid var(--gold);"><div class="icon-box" style="background:var(--gold); color:black;"><i class="fas fa-calendar-check"></i></div><div class="btn-text">احجز الآن</div></div>
+    <a class="button" href="#"><div class="icon-box" style="background:#1877F2;"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div></a>
+    <a class="button" href="#"><div class="icon-box" style="background:linear-gradient(45deg, #f09433, #dc2743);"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div></a>
+    <div class="button" onclick="openCallModal()"><div class="icon-box" style="background:#444;"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا</div></div>
+    <div class="button" onclick="openPaymentSelection()"><div class="icon-box" style="background:var(--gold); color:#000;"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ</div></div>
+
+    <div class="footer-copyrights">© ELMOKADEM Photographer</div>
 </div>
 
 <div id="booking-modal">
     <div class="premium-modal-content">
-        <h3 class="modal-header-title">تفاصيل الحجز</h3>
-        
+        <h3 style="color:var(--gold); text-align:center;">تفاصيل الحجز</h3>
         <div class="input-group">
             <label>المناسبة:</label>
             <select id="session-type" class="premium-input" onchange="handleConditionalFields()">
-                <option value="" disabled selected>اختر المناسبة</option>
+                <option value="" disabled selected>اضغط لاختيار المناسبة</option>
                 <option value="سيشن زفاف">سيشن زفاف</option>
                 <option value="سيشن زفاف وقاعة">سيشن زفاف وقاعة</option>
-                <option value="عيد ميلاد">عيد ميلاد</option>
                 <option value="كتب كتاب في البيت">كتب كتاب في البيت</option>
+                <option value="خطوبة في البيت أو كافيه">خطوبة في البيت أو كافيه</option>
+                <option value="قاعة أو فرح">قاعة أو فرح</option>
+                <option value="عيد ميلاد">عيد ميلاد</option>
             </select>
         </div>
-
-        <div id="address-selection" class="input-group" style="display:none;">
-            <label>العنوان / اللوكيشن:</label>
-            <div style="display: flex; gap: 5px;">
-                <input type="text" id="user-address" class="premium-input" placeholder="اكتب العنوان أو الصق اللوكيشن">
-                <button type="button" onclick="openGoogleMaps()" style="background:var(--gold); border:none; border-radius:10px; padding:0 15px; cursor:pointer;"><i class="fas fa-map-marked-alt"></i></button>
-            </div>
+        <div class="input-group">
+            <label>التاريخ:</label>
+            <input type="date" id="session-date" class="premium-input" placeholder="اضغط لتحديد تاريخ المناسبة">
         </div>
-
+        <div id="address-selection" class="input-group" style="display:none;">
+            <label>العنوان:</label>
+            <input type="text" id="user-address" class="premium-input" placeholder="ادخل العنوان">
+        </div>
         <div id="hall-selection" class="input-group" style="display:none;">
             <label>اسم القاعة / مكان الفرح:</label>
-            <input type="text" id="hall-name" class="premium-input" placeholder="اسم المكان">
+            <input type="text" id="hall-name" class="premium-input" placeholder="ادخل اسم القاعة">
         </div>
-
         <div class="input-group">
             <label>الاسم:</label>
-            <input type="text" id="user-name" class="premium-input" placeholder="اسم حضرتك">
+            <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسمك">
         </div>
-        
         <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:10px;">إغلاق</p>
     </div>
 </div>
 
 <script>
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-
-function openGoogleMaps() {
-    window.open("https://www.google.com/maps", "_blank");
-    alert("بعد تحديد موقعك، اضغط على مشاركة (Share) وانسخ الرابط، ثم ضعه في خانة العنوان.");
-}
+function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
+function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 
 function handleConditionalFields() {
     const val = document.getElementById('session-type').value;
-    
-    // إظهار العنوان في حالة البيت أو عيد الميلاد
     document.getElementById('address-selection').style.display = 
-        (val.includes("بيت") || val.includes("عيد ميلاد")) ? "block" : "none";
-        
-    // إظهار القاعة في حالة الفرح
+        (val.includes("بيت") || val.includes("عيد ميلاد") || val.includes("خطوبة")) ? "block" : "none";
     document.getElementById('hall-selection').style.display = 
         (val.includes("قاعة") || val.includes("فرح")) ? "block" : "none";
 }
@@ -103,12 +96,13 @@ function handleConditionalFields() {
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
     const type = document.getElementById('session-type').value;
+    const date = document.getElementById('session-date').value;
     const address = document.getElementById('user-address').value;
     const hall = document.getElementById('hall-name').value;
     
-    let msg = `حجز جديد يا فندم:\nالاسم: ${name}\nالمناسبة: ${type}`;
-    if(address) msg += `\nالعنوان/اللوكيشن: ${address}`;
-    if(hall) msg += `\nاسم القاعة: ${hall}`;
+    let msg = `حجز جديد:\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    if(address) msg += `\nالعنوان: ${address}`;
+    if(hall) msg += `\nالقاعة: ${hall}`;
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
 }
