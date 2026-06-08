@@ -8,12 +8,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --gold: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.35);
-            --input-bg: rgba(255, 255, 255, 0.07);
-        }
+    --bg-blur: rgba(255, 255, 255, 0.08);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --gold: #d4af37;
+    /* أضف هذه الأسطر الجديدة */
+    --vfcash-color: #e60000;
+    --orange-color: #ff6600;
+}
+.modal-content {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 25px;
+    width: 85%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-content input {
+    background: #000;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.premium-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 
         body {
             margin: 0;
@@ -384,7 +420,7 @@
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold); margin-bottom: 20px;">فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        <button class="premium-confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white; margin-top:20px; box-shadow:0 6px 20px rgba(230,0,0,0.3);">اتصال وتحويل الآن</button>
+        <button class="premium-btn" style="background: var(--vfcash-color);" onclick="makeVFCashCall()">اتصال وتحويل الآن</button>
         <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
@@ -393,7 +429,7 @@
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:#ff6600; margin-bottom: 20px;">أورنج كاش</h3>
         <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
-        <button class="premium-confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white; margin-top:20px; box-shadow:0 6px 20px rgba(255,102,0,0.3);">اتصال وتحويل الآن</button>
+        <button class="premium-btn" style="background: var(--orange-color);" onclick="makeOrangeCashCall()">اتصال وتحويل الآن</button>
         <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
