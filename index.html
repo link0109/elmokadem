@@ -31,27 +31,23 @@
         }
 
         .profile {
-            width: 130px; height: 130px; border-radius: 50%;
+            width: 120px; height: 120px; border-radius: 50%;
             object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
         .brand-container { text-align: center; margin-bottom: 30px; }
-        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 28px; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
-        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-top: 5px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
 
         .button {
             display: flex; align-items: center; background: var(--bg-blur);
             border: 1px solid var(--border-color); color: white;
             text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
-            box-sizing: border-box;
         }
 
-        .button:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.2); }
-
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
-        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; font-weight: bold; }
+        .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
 
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -68,52 +64,45 @@
 
         .footer-copyrights {
             margin-top: auto;
+            padding-top: 20px;
             text-align: center;
             color: rgba(255, 255, 255, 0.4);
-            font-size: 11px;
-            letter-spacing: 1px;
-            padding-top: 30px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
         }
 
         #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
         }
-        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.5); box-sizing: border-box; }
-        
-        label { font-size: 13px; color: #aaa; margin-top: 10px; display: block; font-family: 'Cairo', sans-serif; }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; }
         
         select, input { 
-            width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 5px; border-radius: 8px; 
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; 
             background: #000; color: white; border: 1px solid #333; 
             box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; outline: none;
-            text-align: right;
         }
-        select option { background: #1a1a1a; color: #fff; }
 
-        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 16px; transition: 0.3s; }
-        .confirm-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-        
-        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; font-family: 'Cairo', sans-serif; text-align: center; transition: 0.3s; }
-        .pay-option-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+        select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
         .vf-style { background: #e60000; color: white; }
         .orange-style { background: #ff6600; color: white; }
         .insta-style { background: white; color: black; }
-        
-        .call-link {
-            display: block; padding: 15px; color: white; border-radius: 10px; text-decoration: none; margin: 12px 0; font-weight: bold; font-size: 14px; text-align: center; transition: 0.3s;
-        }
-        .call-link:hover { transform: translateY(-1px); filter: brightness(1.1); }
     </style>
 </head>
 <body>
 
 <div class="overlay">
     <img src="profile.jpg" class="profile" alt="ELMOKADEM">
-    
     <div class="brand-container">
         <h1 class="brand-name">ELMOKADEM</h1>
-        <div class="brand-sub">Professional Photographer</div>
+        <div class="brand-sub">Wedding Photographer</div>
     </div>
 
     <div class="button booking-btn" onclick="openBooking()">
@@ -150,14 +139,14 @@
     </div>
 
     <div class="footer-copyrights">
-        © ELMOKADEM Photography
+        © ELMOKADEM Photographer
     </div>
 </div>
 
 <div id="booking-modal">
     <div class="modal-content">
-        <h3 style="text-align:center; color:var(--gold); margin-top: 0;">تفاصيل الحجز</h3>
-        <p style="text-align:center; color:#fff; font-family:'Cairo', sans-serif; font-size: 14px; margin: 0 0 10px 0;">ألف مبروك يا فندم 🎉</p>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom: 5px; font-size: 26px;">تفاصيل الحجز</h3>
+        <p style="text-align:center; color:#fff; font-size:14px; margin-bottom: 15px;">ألف مبروك يا فندم 🎉</p>
         
         <label>المناسبة (Event Type):</label>
         <select id="session-type" onchange="toggleTime()">
@@ -174,10 +163,10 @@
             <option value="حفلة تخرج (Graduation Party)"> حفلة تخرج (Graduation Party)</option>
         </select>
 
-        <label>التاريخ (Date):</label>
+        <label style="display:block; margin-top:15px;">التاريخ (Date):</label>
         <input type="date" id="session-date">
 
-        <div id="time-selection" style="display:none; margin-top:10px;">
+        <div id="time-selection" style="display:none; margin-top:15px;">
             <label>موعد كتب الكتاب (Timing):</label>
             <select id="session-time">
                 <option value="بعد صلاة العصر">بعد صلاة العصر </option>
@@ -186,86 +175,154 @@
             </select>
         </div>
 
-        <label>الاسم (Full Name):</label>
+        <label style="display:block; margin-top:15px;">الاسم (Full Name):</label>
         <input type="text" id="user-name" placeholder="اكتب اسم حضرتك هنا">
         
         <button class="confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
-        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px; margin-bottom: 0; font-family:'Cairo'; font-size:14px;">إغلاق</p>
-    </div>
-</div>
-
-<div id="call-modal">
-    <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-top: 0;">اتصل بنا</h3>
-        <a href="tel:01092217287" class="call-link" style="background:#e60000;">01092217287</a>
-        <a href="tel:01210425901" class="call-link" style="background:#ff6600;">01210425901</a>
-        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px; margin-bottom: 0; font-family:'Cairo'; font-size:14px;">إغلاق</p>
+        <p onclick="closeBooking()" style="text-align:center; color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-top: 0; margin-bottom: 20px;">اختر وسيلة التحويل</h3>
+        <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
         <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
         <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
         <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
-        <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px; margin-bottom: 0; font-family:'Cairo'; font-size:14px;">إغلاق</p>
+        <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="call-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
+        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
     </div>
 </div>
 
 <div id="vfcash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold); margin-top: 0; margin-bottom: 20px;">فودافون كاش</h3>
+        <h3 style="color:var(--gold); margin-bottom: 20px;">فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeVFCashCall()" style="background:#e60000; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px; margin-bottom: 0; font-family:'Cairo'; font-size:14px;">إغلاق</p>
+        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
 
 <div id="orange-cash-modal">
     <div class="modal-content" style="text-align:center;">
-        <h3 style="color:#ff6600; margin-top: 0; margin-bottom: 20px;">أورنج كاش</h3>
+        <h3 style="color:#ff6600; margin-bottom: 20px;">أورنج كاش</h3>
         <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
         <button class="confirm-btn" onclick="makeOrangeCashCall()" style="background:#ff6600; color:white;">اتصال وتحويل الآن</button>
-        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px; margin-bottom: 0; font-family:'Cairo'; font-size:14px;">إغلاق</p>
+        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
     </div>
 </div>
 
 <script>
+// 1. المتغيرات والروابط الأساسية
 const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
 
+// 2. دالة تحويل الأرقام العربية إلى إنجليزية لضمان عمل العمليات الحسابية والـ USSD
 function convertNumbers(str) {
+    if (!str) return "";
     const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
     for (let i = 0; i < 10; i++) { str = str.replace(arabicNums[i], i); }
     return str;
 }
 
+// 3. ربط أحداث الإدخال للتحويل التلقائي للأرقام
 document.getElementById('cash-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
 document.getElementById('orange-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
 
+// 4. التحكم في النوافذ المنبثقة (Modals)
 function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
+// تفادي تعارض الأكواد أثناء تحميل الصفحة
 function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
+
 function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
 
 function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
+
 function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
+function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
+
 function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
 function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
-function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
 
 function handleInstaPay() {
     const instaPayLink = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
     window.location.href = instaPayLink;
 }
 
+// 5. إظهار/إخفاء موعد كتب الكتاب بناءً على نوع المناسبة
+function toggleTime() {
+    const val = document.getElementById('session-type').value;
+    if (val && val.includes("كتب كتاب في البيت")) {
+        document.getElementById('time-selection').style.display = "block";
+    } else {
+        document.getElementById('time-selection').style.display = "none";
+    }
+}
+
+// 6. تجميع البيانات وإرسالها لـ WhatsApp وجداول Google Sheets
+function sendToWhatsApp() {
+    const name = document.getElementById('user-name').value;
+    const type = document.getElementById('session-type').value;
+    const date = document.getElementById('session-date').value;
+    const time = document.getElementById('session-time').value;
+    
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
+    
+    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+
+    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    
+    if(type.includes("كتب كتاب في البيت")) {
+        msg += `\nالموعد: ${time}`;
+    }
+    
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
+}
+
+// 7. دوال تحويل الكاش باستخدام أكواد الـ USSD المشفرة لتعمل على الهواتف مباشرة
+function makeVFCashCall() {
+    let amount = document.getElementById('cash-amount').value;
+    amount = convertNumbers(amount); 
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
+    const phoneNumber = "01092217287";
+    // استخدام تشفير URL لرموز الاتصال لضمان التمرير لتطبيق الهاتف بنجاح
+    const ussd = encodeURIComponent(`*9*7*${phoneNumber}*${amount}#`);
+    window.location.href = `tel:${ussd}`;
+    closeVFCash();
+}
+
+function makeOrangeCashCall() {
+    let amount = document.getElementById('orange-amount').value;
+    amount = convertNumbers(amount); 
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
+    const myNumber = "01210425901";
+    // تعديل وتشفير الكود الخاص بأورنج كاش ليعمل تلقائياً
+    const ussd = encodeURIComponent(`#7115*7*${amount}*${myNumber}#`);
+    window.location.href = `tel:${ussd}`;
+    closeOrangeCash();
+}
+
+// 8. حدث تحميل الصفحة الرئيسي للتحقق من الروابط والـ Telegram Bot Tracker
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const selectedPackage = urlParams.get('package');
+    
     if (selectedPackage) {
-        openBooking();
+        openBooking(); 
         const sessionSelect = document.getElementById('session-type');
         let found = false;
         
@@ -302,57 +359,6 @@ window.onload = function() {
         });
     }).catch(e => console.log("Log Error"));
 };
-
-function toggleTime() {
-    const val = document.getElementById('session-type').value;
-    if (val.includes("كتب كتاب في البيت")) {
-        document.getElementById('time-selection').style.display = "block";
-    } else {
-        document.getElementById('time-selection').style.display = "none";
-    }
-}
-
-function sendToWhatsApp() {
-    const name = document.getElementById('user-name').value;
-    const type = document.getElementById('session-type').value;
-    const date = document.getElementById('session-date').value;
-    const time = document.getElementById('session-time').value;
-    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
-    
-    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time });
-    
-    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
-    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
-
-    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
-    
-    if(type.includes("كتب كتاب في البيت")) {
-        msg += `\nالموعد: ${time}`;
-    }
-    
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
-    closeBooking();
-}
-
-function makeVFCashCall() {
-    let amount = document.getElementById('cash-amount').value;
-    amount = convertNumbers(amount); 
-    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
-    const phoneNumber = "01092217287";
-    const ussd = `*9*7*${phoneNumber}*${amount}%23`;
-    window.location.href = `tel:${ussd}`;
-    closeVFCash();
-}
-
-function makeOrangeCashCall() {
-    let amount = document.getElementById('orange-amount').value;
-    amount = convertNumbers(amount); 
-    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
-    const myNumber = "01210425901";
-    const ussd = `%237115*7*${amount}*${myNumber}%23`;
-    window.location.href = `tel:${ussd}`;
-    closeOrangeCash();
-}
 </script>
 </body>
 </html>
