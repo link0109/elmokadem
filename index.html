@@ -13,85 +13,109 @@
             --gold: #d4af37;
             --gold-glow: rgba(212, 175, 55, 0.35);
             --input-bg: rgba(255, 255, 255, 0.07);
-            --placeholder-color: rgba(255, 255, 255, 0.4); /* اللون الرصاصي الموحد */
+            --hint-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* تنسيق عام للخانات */
-        .premium-input {
-            width: 100%;
-            padding: 14px 45px 14px 16px; 
-            border-radius: 14px;
-            background: var(--input-bg);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-            font-size: 15px;
-            outline: none;
-            min-height: 52px;
-            text-align: right;
-        }
+        body { margin: 0; font-family: 'Montserrat', 'Cairo', sans-serif; background: #0f0f0f; display: flex; justify-content: center; }
+        .overlay { width: 100%; min-height: 100vh; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; }
+        .profile { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); margin-bottom: 20px; }
+        .brand-container { text-align: center; margin-bottom: 12px; }
+        .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; margin: 0; }
+        .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; }
 
-        /* إصلاح خانة التاريخ */
-        input[type="date"] {
-            position: relative;
-        }
-        
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            position: absolute;
-            left: 10px;
-            cursor: pointer;
-            opacity: 0.6;
-        }
+        .button { display: flex; align-items: center; background: var(--bg-blur); border: 1px solid var(--border-color); color: white; margin: 8px 0; width: 100%; max-width: 360px; border-radius: 12px; padding: 6px; cursor: pointer; }
+        .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+        .btn-text { flex-grow: 1; text-align: center; }
 
-        /* ضمان توحيد لون النص البديل (Placeholder) */
-        ::placeholder { color: var(--placeholder-color) !important; opacity: 1; }
-        
-        /* جعل النص داخل الـ select الموعد باللون الرصاصي قبل الاختيار */
-        select:invalid { color: var(--placeholder-color); }
+        #booking-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; }
+        .premium-modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 90%; max-width: 380px; text-align: right; }
 
         .input-group { position: relative; margin-bottom: 18px; }
-        .input-group label { font-family: 'Cairo', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.75); margin-bottom: 6px; display: block; padding-right: 4px; }
+        .input-group label { color: rgba(255,255,255,0.7); font-size: 13px; margin-bottom: 5px; display: block; }
         
-        /* الأيقونات */
-        .input-group::after {
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            position: absolute;
-            right: 16px; /* نقل الأيقونة لليمين لتجنب التداخل */
-            bottom: 15px;
-            color: var(--gold);
-            font-size: 15px;
-            pointer-events: none;
-        }
-        .date-type::after { content: "\f133"; }
-        .select-type::after { content: "\f0db"; }
-        .name-type::after { content: "\f007"; }
-        .address-type::after { content: "\f3c5"; }
-        .hall-type::after { content: "\f0f4"; }
+        .premium-input { width: 100%; padding: 14px; padding-right: 45px; border-radius: 14px; background: var(--input-bg); color: white; border: 1px solid rgba(255,255,255,0.2); box-sizing: border-box; font-size: 15px; }
+        
+        /* ضبط أيقونات الحقول */
+        .input-group::before { font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; right: 15px; bottom: 15px; color: var(--gold); pointer-events: none; }
+        .date-type::before { content: "\f133"; }
+        .select-type::before { content: "\f0db"; }
+        .name-type::before { content: "\f007"; }
+        .address-type::before { content: "\f3c5"; }
+        .hall-type::before { content: "\f0f4"; }
+
+        /* توحيد لون النص الرصاصي */
+        ::placeholder { color: var(--hint-color); }
+        select { color: var(--hint-color); }
+        select option { color: #fff; background: #282828; }
+
+        .premium-confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 14px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .close-modal-text { text-align: center; color: rgba(255,255,255,0.5); cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <!-- محتوى الـ Modal المحدث -->
-    <div id="booking-modal">
-        <div class="premium-modal-content">
-            <!-- باقي الكود كما هو -->
-            <div class="input-group date-type">
-                <label>التاريخ (Date):</label>
-                <input type="date" id="session-date" class="premium-input" required>
-            </div>
 
-            <div id="time-selection" class="input-group select-type" style="display:none;">
-                <label>موعد كتب الكتاب (Timing):</label>
-                <select id="session-time" class="premium-input">
-                    <option value="" disabled selected>اضغط لتحديد الموعد</option>
-                    <option value="بعد صلاة العصر">بعد صلاة العصر </option>
-                    <option value="بعد صلاة المغرب">بعد صلاة المغرب </option>
-                    <option value="بعد صلاة العشاء">بعد صلاة العشاء </option>
-                </select>
-            </div>
-            <!-- باقي الكود -->
-        </div>
+<div class="overlay">
+    <img src="profile.jpg" class="profile">
+    <div class="brand-container">
+        <h1 class="brand-name">ELMOKADEM</h1>
+        <div class="brand-sub">Wedding Photographer</div>
     </div>
+    <div class="button" onclick="document.getElementById('booking-modal').style.display='flex'">
+        <div class="icon-box" style="background:var(--gold);"><i class="fas fa-calendar-check"></i></div>
+        <div class="btn-text">احجز الآن | Book Now</div>
+    </div>
+</div>
+
+<div id="booking-modal">
+    <div class="premium-modal-content">
+        <h3 style="color:var(--gold); text-align:center;">تفاصيل الحجز</h3>
+        
+        <div class="input-group select-type">
+            <label>المناسبة:</label>
+            <select id="session-type" class="premium-input" onchange="handleConditionalFields()">
+                <option value="" disabled selected>اضغط لاختيار المناسبة</option>
+                <option value="كتب كتاب في البيت">كتب كتاب في البيت</option>
+                <option value="قاعة">قاعة</option>
+            </select>
+        </div>
+
+        <div class="input-group date-type">
+            <label>التاريخ:</label>
+            <input type="date" id="session-date" class="premium-input">
+        </div>
+
+        <div id="time-selection" class="input-group select-type" style="display:none;">
+            <label>موعد كتب الكتاب:</label>
+            <select id="session-time" class="premium-input">
+                <option value="" disabled selected>اضغط لتحديد الموعد</option>
+                <option value="عصر">بعد صلاة العصر</option>
+            </select>
+        </div>
+
+        <div class="input-group name-type">
+            <label>الاسم:</label>
+            <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسم حضرتك هنا">
+        </div>
+        
+        <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز</button>
+        <p class="close-modal-text" onclick="document.getElementById('booking-modal').style.display='none'">إغلاق</p>
+    </div>
+</div>
+
+<script>
+    function handleConditionalFields() {
+        const val = document.getElementById('session-type').value;
+        document.getElementById('time-selection').style.display = (val === "كتب كتاب في البيت") ? "block" : "none";
+    }
+
+    function sendToWhatsApp() {
+        const name = document.getElementById('user-name').value;
+        const type = document.getElementById('session-type').value;
+        const date = document.getElementById('session-date').value;
+        if(!name || !type || !date) { alert("من فضلك كمل البيانات"); return; }
+        const msg = `الحجز: ${type}\nالاسم: ${name}\nالتاريخ: ${date}`;
+        window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+</script>
 </body>
 </html>
