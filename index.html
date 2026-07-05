@@ -7,31 +7,290 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg-blur: rgba(255, 255, 255, 0.08); --border-color: rgba(255, 255, 255, 0.2); --gold: #d4af37; --vfcash-color: #e60000; --orange-color: #ff6600; }
-        body { margin: 0; font-family: 'Montserrat', 'Cairo', sans-serif; background: #0f0f0f url('background.jpeg') no-repeat center center/cover; display: flex; justify-content: center; overflow-y: auto; }
-        .overlay { backdrop-filter: blur(15px) saturate(160%); -webkit-backdrop-filter: blur(15px) saturate(160%); background: rgba(0, 0, 0, 0.7); width: 100%; min-height: 100vh; padding: 30px 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        .profile { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px; }
+        :root {
+    --bg-blur: rgba(255, 255, 255, 0.08);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --gold: #d4af37;
+    /* أضف هذه الأسطر الجديدة */
+    --vfcash-color: #e60000;
+    --orange-color: #ff6600;
+}
+.modal-content {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 25px;
+    width: 85%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-content input {
+    background: #000;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.premium-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Cairo', sans-serif;
+            background: #0f0f0f url('background.jpeg') no-repeat center center/cover;
+            display: flex; 
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .overlay {
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%; 
+            min-height: 100vh;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        .profile {
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px;
+        }
+
         .brand-container { text-align: center; margin-bottom: 12px; }
         .brand-name { font-family: 'Cinzel', serif; color: #fff; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
         .brand-sub { color: var(--gold); font-size: 11px; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
-        .button { display: flex; align-items: center; background: var(--bg-blur); border: 1px solid var(--border-color); color: white; text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px; border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer; }
+
+        .button {
+            display: flex; align-items: center; background: var(--bg-blur);
+            border: 1px solid var(--border-color); color: white;
+            text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
+            border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
+        }
+
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
         .btn-text { flex-grow: 1; text-align: center; font-size: 15px; padding-right: 42px; }
+
         .fb .icon-box { background: #1877F2; }
         .ig .icon-box { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .tk .icon-box { background: #000; border: 1px solid rgba(255,255,255,0.2); }
         .wa .icon-box { background: #25D366; }
         .call .icon-box { background: #444; }
         .vfcash .icon-box { background: var(--gold); color: #000; }
-        .booking-btn { border: 2px solid var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%); box-sizing: border-box; }
-        .footer-copyrights { margin-top: 10px; text-align: center; color: rgba(255, 255, 255, 0.4); font-size: 12px; }
-        #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); z-index: 5000; justify-content: center; align-items: center; }
-        .premium-modal-content { background: linear-gradient(145deg, rgba(40, 40, 40, 0.95) 0%, rgba(25, 25, 25, 0.98) 100%); border: 1px solid rgba(212, 175, 55, 0.35); padding: 35px 25px 25px 25px; border-radius: 28px; width: 90%; max-width: 390px; text-align: right; color: white; box-sizing: border-box; }
-        .modal-header-title { text-align: center; color: var(--gold); margin: 0 0 20px 0; font-size: 25px; }
-        .input-group { margin-bottom: 18px; }
-        .premium-input { width: 100%; padding: 14px; border-radius: 14px; background: #000; color: white; border: 1px solid rgba(255, 255, 255, 0.2); font-family: 'Cairo', sans-serif; text-align: right; }
-        .premium-confirm-btn { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 14px; font-weight: 700; cursor: pointer; }
-        .close-modal-text { text-align: center; color: #888; cursor: pointer; margin-top: 15px; }
+        
+        .booking-btn {
+            border: 2px solid var(--gold);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
+            box-sizing: border-box;
+        }
+
+        .footer-copyrights {
+            margin-top: 0px;
+            padding-top: 5px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #booking-modal, #call-modal, #payment-selection-modal, #vfcash-modal, #orange-cash-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 5000; justify-content: center; align-items: center;
+        }
+        
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 380px; text-align: right; color: white; box-sizing: border-box; }
+
+        .premium-modal-content {
+            background: linear-gradient(145deg, rgba(40, 40, 40, 0.95) 0%, rgba(25, 25, 25, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.1);
+            padding: 35px 25px 25px 25px;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 390px;
+            text-align: right;
+            color: white;
+            box-sizing: border-box;
+            animation: modalScaleUp 0.3s ease-out;
+        }
+
+        @keyframes modalScaleUp {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header-title {
+            text-align: center; 
+            color: var(--gold); 
+            margin: 0 0 4px 0; 
+            font-size: 25px; 
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+        }
+
+        .modal-header-sub {
+            text-align: center; 
+            color: rgba(255, 255, 255, 0.8); 
+            font-size: 14px; 
+            margin: 0 0 25px 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 6px;
+            display: block;
+            padding-right: 4px;
+        }
+
+        .premium-input {
+            width: 100%;
+            padding: 14px 16px 14px 45px; 
+            border-radius: 14px;
+            background: var(--input-bg);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            min-height: 52px;
+            text-align: right;
+        }
+
+        .premium-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+            background: rgba(212, 175, 55, 0.06);
+        }
+
+        input[type="date"]::before {
+            content: attr(placeholder);
+            width: 100%;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before {
+            display: none;
+        }
+
+        input[type="date"]::-webkit-date-and-time-value {
+            text-align: right;
+            min-height: 20px;
+        }
+
+        input[type="date"] {
+            position: relative;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background: transparent;
+            bottom: 0;
+            color: transparent;
+            cursor: pointer;
+            height: auto;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: auto;
+            z-index: 2;
+        }
+
+        .input-group::after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 16px;
+            bottom: 15px;
+            color: var(--gold);
+            font-size: 15px;
+            pointer-events: none;
+            opacity: 0.85;
+            z-index: 1;
+        }
+        .select-type::after { content: "\f0db"; }
+        .date-type::after { content: "\f133"; }
+        .name-type::after { content: "\f007"; }
+        .address-type::after { content: "\f3c5"; }
+        .hall-type::after { content: "\f0f4"; } /* أيقونة مميزة ومناسبة للقاعات والفرح */
+
+        .premium-input option {
+            background: #282828;
+            color: #fff;
+        }
+
+        .premium-confirm-btn {
+            background: linear-gradient(135deg, #f3d47a 0%, var(--gold) 100%);
+            color: #000;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 14px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+        }
+
+        .premium-confirm-btn:active {
+            transform: scale(0.97);
+        }
+
+        .close-modal-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 0;
+            font-size: 14px;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+        .close-modal-text:hover { color: white; }
+
+        .pay-option-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
+        .vf-style { background: #e60000; color: white; }
+        .orange-style { background: #ff6600; color: white; }
+        .insta-style { background: white; color: black; }
     </style>
 </head>
 <body>
@@ -48,52 +307,307 @@
         <div class="btn-text">احجز الآن | Book Now</div>
     </div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank"><div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div></a>
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank"><div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div></a>
-    <a class="button ig" href="https://www.instagram.com/elmokadem_ph" target="_blank"><div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div></a>
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank"><div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div></a>
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank"><div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div></a>
-    <div class="button call" onclick="openCallModal()"><div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div></div>
-    <div class="button vfcash" onclick="openPaymentSelection()"><div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div></div>
+    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fas fa-user-circle"></i></div><div class="btn-text">Personal Profile</div>
+    </a>
 
-    <div class="footer-copyrights">© ELMOKADEM Photographer</div>
+    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
+        <div class="icon-box"><i class="fab fa-facebook-f"></i></div><div class="btn-text">Facebook Page</div>
+    </a>
+
+    <a class="button ig" href="https://www.instagram.com/elmokadem_ph" target="_blank">
+        <div class="icon-box"><i class="fab fa-instagram"></i></div><div class="btn-text">Instagram</div>
+    </a>
+
+    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
+        <div class="icon-box"><i class="fab fa-tiktok"></i></div><div class="btn-text">TikTok</div>
+    </a>
+
+    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div><div class="btn-text">WhatsApp</div>
+    </a>
+
+    <div class="button call" onclick="openCallModal()">
+        <div class="icon-box"><i class="fas fa-phone-alt"></i></div><div class="btn-text">اتصل بنا | Call Me</div>
+    </div>
+
+    <div class="button vfcash" onclick="openPaymentSelection()">
+        <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><div class="btn-text">تحويل المبلغ | Transfer Money</div>
+    </div>
+
+    <div class="footer-copyrights">
+        © ELMOKADEM Photographer
+    </div>
 </div>
 
 <div id="booking-modal">
     <div class="premium-modal-content">
         <h3 class="modal-header-title">تفاصيل الحجز</h3>
-        <select id="session-type" class="premium-input" onchange="handleConditionalFields()" style="margin-bottom:15px;">
-            <option value="" disabled selected>اضغط لاختيار المناسبة</option>
-            <option value="سيشن زفاف (Wedding Session)">سيشن زفاف</option>
-            <option value="سيشن كاجول (Casual Session)">سيشن كاجول (Casual Session)</option>
-            <option value="عيد ميلاد (Birthday)">عيد ميلاد</option>
+        <p class="modal-header-sub">ألف مبروك يا فندم 🎉</p>
+        
+        <div class="input-group select-type">
+            <label>المناسبة (Event Type):</label>
+            <select id="session-type" class="premium-input" onchange="handleConditionalFields()">
+                <option value="" disabled selected>اضغط لاختيار المناسبة</option>
+                <option value="سيشن زفاف (Wedding Session)"> سيشن زفاف (Wedding Session)</option>
+                <option value="سيشن زفاف و قاعة (Session & Party)"> سيشن زفاف وقاعة (Session & Party)</option>
+                <option value="سيشن كتب كتاب (Katb Ktab Session)"> سيشن كتب كتاب (Katb Ktab Session)</option>
+                <option value="كتب كتاب في البيت (Katb Ktab)"> كتب كتاب في البيت  (Katb Ktab)</option>
+                <option value="سيشن خطوبة (Engagement Session)"> سيشن خطوبة (Engagement Session)</option>
+                <option value="سيشن خطوبة و قاعة (Session & Party)"> سيشن خطوبة و قاعة (Session & Party)</option>
+                <option value="خطوبة في البيت أو كافيه (Home or Cafe Engagement)"> خطوبة في البيت أو كافيه (Home or Cafe Engagement)</option>
+                <option value="قاعة أو فرح (Party)"> قاعة أو فرح (Party)</option>
+                <option value="سيشن كاجول (Casual Session)">سيشن كاجول (Casual Session)</option>
+                <option value="عيد ميلاد (Birthday)"> عيد ميلاد (Birthday)</option>
+                <option value="حفلة تخرج (Graduation Party)"> حفلة تخرج (Graduation Party)</option>
             </select>
-        <input type="date" id="session-date" class="premium-input" style="margin-bottom:15px;">
-        <input type="text" id="hall-name" class="premium-input" placeholder="اسم القاعة أو المكان" style="margin-bottom:15px; display:none;">
-        <input type="text" id="user-name" class="premium-input" placeholder="اسم حضرتك" style="margin-bottom:15px;">
-        <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز</button>
+        </div>
+
+        <div class="input-group date-type">
+            <label>التاريخ (Date):</label>
+            <input type="date" id="session-date" class="premium-input" placeholder="اضغط لتحديد التاريخ " required>
+        </div>
+
+        <div id="time-selection" class="input-group select-type" style="display:none;">
+            <label>موعد كتب الكتاب (Timing):</label>
+            <select id="session-time" class="premium-input">
+                <option value="" disabled selected>اضغط لاختيار موعد كتب الكتاب</option>
+                <option value="بعد صلاة العصر">بعد صلاة العصر </option>
+                <option value="بعد صلاة المغرب">بعد صلاة المغرب </option>
+                <option value="بعد صلاة العشاء">بعد صلاة العشاء </option>
+            </select>
+        </div>
+
+        <div id="address-selection" class="input-group address-type" style="display:none;">
+            <label>العنوان (Address):</label>
+            <input type="text" id="user-address" class="premium-input" placeholder="ادخل العنوان بالتفصيل هنا">
+        </div>
+
+        <div id="hall-selection" class="input-group hall-type" style="display:none;">
+            <label>اسم القاعة / مكان الفرح (Hall Name):</label>
+            <input type="text" id="hall-name" class="premium-input" placeholder="ادخل اسم القاعة أو مكان الفرح">
+        </div>
+
+        <div class="input-group name-type">
+            <label>الاسم (Full Name):</label>
+            <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسم حضرتك هنا">
+        </div>
+        
+        <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" class="close-modal-text">إغلاق</p>
     </div>
 </div>
 
+<div id="payment-selection-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold); margin-bottom: 20px;">اختر وسيلة التحويل</h3>
+        <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
+        <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
+        <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
+        <p onclick="closePaymentSelection()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="call-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);">اختر الخط للاتصال</h3>
+        <a href="tel:01092217287" style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01092217287</a>
+        <a href="tel:01210425901" style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;">01210425901</a>
+        <p onclick="closeCallModal()" style="color:#888; cursor:pointer; margin-top:15px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="vfcash-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold); margin-bottom: 20px;">فودافون كاش</h3>
+        <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
+        <button class="premium-btn" style="background: var(--vfcash-color);" onclick="makeVFCashCall()">اتصال وتحويل الآن</button>
+        <p onclick="closeVFCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
+    </div>
+</div>
+
+<div id="orange-cash-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:#ff6600; margin-bottom: 20px;">أورنج كاش</h3>
+        <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا " style="text-align:center; font-size:18px;">
+        <button class="premium-btn" style="background: var(--orange-color);" onclick="makeOrangeCashCall()">اتصال وتحويل الآن</button>
+        <p onclick="closeOrangeCash()" style="color:#888; cursor:pointer; margin-top:20px;">إغلاق</p>
+    </div>
+</div>
+
 <script>
-    function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
-    function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-    function handleConditionalFields() {
-        const type = document.getElementById('session-type').value;
-        const hallField = document.getElementById('hall-name');
-        if(type.includes("زفاف") || type.includes("كاجول") || type.includes("فرح")) { hallField.style.display = "block"; }
-        else { hallField.style.display = "none"; }
+const calendarURL = 'https://script.google.com/macros/s/AKfycbwnadXjg8Sm57vCNWXNKQuU7MV8FUqz4TO1FG2buopRie47OSx2G1_UhmV23RzExGRj/exec';
+const accountsURL = 'https://script.google.com/macros/s/AKfycbwgwjNIU7xL4Z5D_-XJpXL5VbBI_F9udzAxMuxQPMuQsVpaTWr5MI65-L-JqANTnss/exec';
+
+function convertNumbers(str) {
+    if (!str) return "";
+    const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+    for (let i = 0; i < 10; i++) { str = str.replace(arabicNums[i], i); }
+    return str;
+}
+
+document.getElementById('cash-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
+document.getElementById('orange-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
+
+function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
+function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
+
+function openCallModal() { document.getElementById('call-modal').style.display = 'flex'; }
+function closeCallModal() { document.getElementById('call-modal').style.display = 'none'; }
+
+function openPaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'flex'; }
+function closePaymentSelection() { document.getElementById('payment-selection-modal').style.display = 'none'; }
+
+function showVFCashPage() { closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
+function closeVFCash() { document.getElementById('vfcash-modal').style.display = 'none'; }
+
+function showOrangeCashPage() { closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
+function closeOrangeCash() { document.getElementById('orange-cash-modal').style.display = 'none'; }
+
+function handleInstaPay() {
+    const instaPayLink = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
+    window.location.href = instaPayLink;
+}
+
+// 👑 دالة ذكية محدثة للتحكم في الحقول الديناميكية بالكامل 👑
+function handleConditionalFields() {
+    const val = document.getElementById('session-type').value;
+    
+    // 1. إظهار وإخفاء موعد كتب الكتاب
+    if (val && val.includes("كتب كتاب في البيت")) {
+        document.getElementById('time-selection').style.display = "block";
+    } else {
+        document.getElementById('time-selection').style.display = "none";
     }
-    function sendToWhatsApp() {
-        const name = document.getElementById('user-name').value;
-        const type = document.getElementById('session-type').value;
-        const date = document.getElementById('session-date').value;
-        const hall = document.getElementById('hall-name').value;
-        // إرسال البيانات للـ Apps Script (الذي سأعطيك كوده) ثم الواتساب
-        fetch('URL_YOUR_APPS_SCRIPT_HERE', { method: 'POST', mode: 'no-cors', body: JSON.stringify({name, type, date, hall}) });
-        window.open(`https://wa.me/201210425901?text=حجز جديد: ${name} - ${type} - ${date} - القاعة: ${hall}`, '_blank');
+
+    // 2. إظهار وإخفاء خانة العنوان 
+    if (val && (val.includes("كتب كتاب في البيت") || val.includes("خطوبة في البيت أو كافيه"))) {
+        document.getElementById('address-selection').style.display = "block";
+    } else {
+        document.getElementById('address-selection').style.display = "none";
     }
+
+    // 3. إظهار وإخفاء خانة اسم القاعة / مكان الفرح أوتوماتيكياً
+    if (val && (val.includes("قاعة") || val.includes("فرح"))) {
+        document.getElementById('hall-selection').style.display = "block";
+    } else {
+        document.getElementById('hall-selection').style.display = "none";
+    }
+}
+
+function sendToWhatsApp() {
+    const name = document.getElementById('user-name').value;
+    const type = document.getElementById('session-type').value;
+    const date = document.getElementById('session-date').value;
+    const time = document.getElementById('session-time').value;
+    const address = document.getElementById('user-address').value;
+    const hall = document.getElementById('hall-name').value;
+    
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    
+    if(type.includes("كتب كتاب في البيت") && !time) {
+        alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
+        return;
+    }
+
+    const needsAddress = type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه");
+    if(needsAddress && !address.trim()) {
+        alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم");
+        return;
+    }
+
+    // شرط إجبار العميل على إدخال اسم القاعة لو اختار الفرح أو القاعة
+    const needsHall = type.includes("قاعة") || type.includes("فرح");
+    if(needsHall && !hall.trim()) {
+        alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
+        return;
+    }
+    
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time, address: address, hall: hall });
+    
+    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+
+    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    
+    if(type.includes("كتب كتاب في البيت")) {
+        msg += `\nالموعد: ${time}`;
+    }
+
+    if(needsAddress) {
+        msg += `\nالعنوان: ${address}`;
+    }
+
+    if(needsHall) {
+        msg += `\nمكان الفرح/القاعة: ${hall}`;
+    }
+    
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
+}
+
+function makeVFCashCall() {
+    let amount = document.getElementById('cash-amount').value;
+    amount = convertNumbers(amount); 
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
+    const phoneNumber = "01092217287";
+    const ussd = encodeURIComponent(`*9*7*${phoneNumber}*${amount}#`);
+    window.location.href = `tel:${ussd}`;
+    closeVFCash();
+}
+
+function makeOrangeCashCall() {
+    let amount = document.getElementById('orange-amount').value;
+    amount = convertNumbers(amount); 
+    if(!amount) { alert("يرجى كتابة المبلغ أولاً"); return; }
+    const myNumber = "01210425901";
+    const ussd = encodeURIComponent(`#7115*7*${amount}*${myNumber}#`);
+    window.location.href = `tel:${ussd}`;
+    closeOrangeCash();
+}
+
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPackage = urlParams.get('package');
+    
+    if (selectedPackage) {
+        openBooking(); 
+        const sessionSelect = document.getElementById('session-type');
+        let found = false;
+        
+        for (let i = 0; i < sessionSelect.options.length; i++) {
+            if (sessionSelect.options[i].value.trim().startsWith(selectedPackage.trim())) {
+                sessionSelect.selectedIndex = i;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            const newOption = new Option(selectedPackage, selectedPackage);
+            sessionSelect.add(newOption);
+            sessionSelect.value = selectedPackage;
+        }
+        
+        handleConditionalFields();
+    }
+
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+    const chat_id = "720656827";
+
+    fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
+        const now = new Date().toLocaleString('ar-EG');
+        const msg = `📸 زائر جديد يا مقدم\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chat_id, text: msg })
+        });
+    }).catch(e => console.log("Log Error"));
+};
 </script>
 </body>
 </html>
