@@ -505,20 +505,25 @@ function sendToWhatsApp() {
     
     if(!typeFull || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
-    // استخراج العربي فقط
+    // 1. استخراج العربي فقط
     const typeArabic = typeFull.split('(')[0].trim();
     
-    // هنا قمنا بتجهيز "العنوان" الذي سيظهر في التقويم ليحتوي فقط على (الاسم - القاعة) بدون أي إنجليزي
-    const calendarTitle = hall.trim() !== "" ? `${name} - ${hall}` : `${name} - ${typeArabic}`;
+    // 2. تنسيق العنوان للتقويم: (الاسم - المناسبة - القاعة/العنوان)
+    let calendarTitle = `${name} - ${typeArabic}`;
+    if (hall.trim() !== "") {
+        calendarTitle += ` - ${hall}`;
+    } else if (address.trim() !== "") {
+        calendarTitle += ` - ${address}`;
+    }
 
-    // إرسال للتقويم: نرسل الـ calendarTitle في خانة الاسم
+    // إرسال للتقويم (الاسم المنسق في خانة name)
     const calendarData = { 
         name: calendarTitle, 
         type: typeArabic, 
         date: date 
     };
     
-    // إرسال للشيت: كما هي بالتفصيل
+    // 3. إرسال للشيت (كل البيانات بما فيها القاعة والعنوان ستصل للشيت)
     const sheetData = { 
         name: name, 
         type: typeArabic, 
