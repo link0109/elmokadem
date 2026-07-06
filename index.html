@@ -505,25 +505,23 @@ function sendToWhatsApp() {
     
     if(!typeFull || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
-    // 1. استخراج العربي فقط
+    // استخراج العربي فقط
     const typeArabic = typeFull.split('(')[0].trim();
     
-    // 2. تنسيق العنوان للتقويم: (الاسم - المناسبة - القاعة/العنوان)
+    // الترتيب المطلوب: (الاسم - المناسبة - القاعة)
     let calendarTitle = `${name} - ${typeArabic}`;
     if (hall.trim() !== "") {
         calendarTitle += ` - ${hall}`;
-    } else if (address.trim() !== "") {
-        calendarTitle += ` - ${address}`;
     }
 
-    // إرسال للتقويم (الاسم المنسق في خانة name)
+    // إرسال للتقويم
     const calendarData = { 
         name: calendarTitle, 
         type: typeArabic, 
         date: date 
     };
     
-    // 3. إرسال للشيت (كل البيانات بما فيها القاعة والعنوان ستصل للشيت)
+    // إرسال للشيت
     const sheetData = { 
         name: name, 
         type: typeArabic, 
@@ -534,7 +532,7 @@ function sendToWhatsApp() {
     };
     
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(calendarData) });
-    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: sheetData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(sheetData) });
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${typeArabic}\nالتاريخ: ${date}`;
     if(time) msg += `\nالموعد: ${time}`;
