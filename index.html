@@ -530,7 +530,13 @@ function sendToWhatsApp() {
     };
     
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(calendarData) });
-    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: sheetData });
+    fetch(accountsURL, { 
+    method: 'POST', 
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(sheetData) 
+});
+
 
     let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${typeArabic}\nالتاريخ: ${date}`;
     if(time) msg += `\nالموعد: ${time}`;
