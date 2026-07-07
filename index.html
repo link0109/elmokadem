@@ -497,56 +497,54 @@ function handleConditionalFields() {
 
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
-    const typeFull = document.getElementById('session-type').value;
+    const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     const address = document.getElementById('user-address').value;
     const hall = document.getElementById('hall-name').value;
     
-    if(!typeFull || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
-    const typeArabic = typeFull.replace(/\(.*\)/, "").trim();
-    
-    // التنسيق النهائي: الاسم - المناسبة - القاعة
-    let calendarTitle = `${name} - ${typeArabic}`;
-    if (hall.trim() !== "") {
-        calendarTitle += ` - ${hall}`;
+    if(type.includes("كتب كتاب في البيت") && !time) {
+        alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
+        return;
     }
 
-    // التعديل هنا: نرسل نصاً فارغاً في خانة "type" لمنع التكرار في السيرفر
-    const calendarData = { 
-        name: calendarTitle, 
-        type: " ", 
-        date: date 
-    };
-    
-    const sheetData = { 
-        name: name, 
-        type: typeArabic, 
-        date: date, 
-        time: time, 
-        address: address, 
-        hall: hall 
-    };
-    
-    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(calendarData) });
-    fetch(accountsURL, { 
-    method: 'POST', 
-    mode: 'no-cors', 
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(sheetData) 
-});
+    const needsAddress = type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه");
+    if(needsAddress && !address.trim()) {
+        alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم");
+        return;
+    }
 
+    // شرط إجبار العميل على إدخال اسم القاعة لو اختار الفرح أو القاعة
+    const needsHall = type.includes("قاعة") || type.includes("فرح");
+    if(needsHall && !hall.trim()) {
+        alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
+        return;
+    }
+    
+    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time, address: address, hall: hall });
+    
+    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
-    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${typeArabic}\nالتاريخ: ${date}`;
-    if(time) msg += `\nالموعد: ${time}`;
-    if(address) msg += `\nالعنوان: ${address}`;
-    if(hall) msg += `\nمكان الفرح/القاعة: ${hall}`;
+    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    
+    if(type.includes("كتب كتاب في البيت")) {
+        msg += `\nالموعد: ${time}`;
+    }
+
+    if(needsAddress) {
+        msg += `\nالعنوان: ${address}`;
+    }
+
+    if(needsHall) {
+        msg += `\nمكان الفرح/القاعة: ${hall}`;
+    }
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
 }
-
 
 function makeVFCashCall() {
     let amount = document.getElementById('cash-amount').value;
