@@ -8,47 +8,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-    --bg-blur: rgba(255, 255, 255, 0.08);
-    --border-color: rgba(255, 255, 255, 0.2);
-    --gold: #d4af37;
-    --vfcash-color: #e60000;
-    --orange-color: #ff6600;
-}
-.modal-content {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 25px;
-    width: 85%;
-    max-width: 380px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
+            --bg-blur: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --gold: #d4af37;
+            --vfcash-color: #e60000;
+            --orange-color: #ff6600;
+        }
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 25px;
+            width: 85%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-.modal-content input {
-    background: #000;
-    color: #fff;
-    border: 1px solid #444;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 12px;
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-    box-sizing: border-box;
-}
+        .modal-content input {
+            background: #000;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 12px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
 
-.premium-btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
+        .premium-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
         body {
             margin: 0;
@@ -86,6 +85,7 @@
             border: 1px solid var(--border-color); color: white;
             text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
+            box-sizing: border-box; /* توحيد طريقة حساب الأبعاد لجميع الأزرار */
         }
 
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
@@ -101,7 +101,6 @@
         .booking-btn {
             border: 2px solid var(--gold);
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0,0,0,0) 100%);
-            box-sizing: border-box;
         }
 
         .footer-copyrights {
@@ -393,7 +392,6 @@
             <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسم حضرتك هنا">
         </div>
 
-        <!-- 📞 تم نقل خانة رقم الهاتف لتكون الأخيرة هنا -->
         <div class="input-group phone-type">
             <label>رقم الهاتف للتواصل (Phone Number):</label>
             <input type="tel" id="user-phone" class="premium-input" placeholder="اكتب رقم حضرتك للتواصل هنا" required>
