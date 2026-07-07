@@ -505,7 +505,7 @@ function sendToWhatsApp() {
     
     if(!typeFull || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
-    const typeArabic = typeFull.split('(')[0].trim();
+    const typeArabic = typeFull.replace(/\(.*\)/, "").trim();
     
     // التنسيق النهائي: الاسم - المناسبة - القاعة
     let calendarTitle = `${name} - ${typeArabic}`;
