@@ -11,7 +11,6 @@
     --bg-blur: rgba(255, 255, 255, 0.08);
     --border-color: rgba(255, 255, 255, 0.2);
     --gold: #d4af37;
-    /* أضف هذه الأسطر الجديدة */
     --vfcash-color: #e60000;
     --orange-color: #ff6600;
 }
@@ -178,7 +177,7 @@
             width: 100%;
             padding: 14px 16px 14px 45px; 
             border-radius: 14px;
-            background: var(--input-bg);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-sizing: border-box;
@@ -195,7 +194,7 @@
 
         .premium-input:focus {
             border-color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
             background: rgba(212, 175, 55, 0.06);
         }
 
@@ -248,7 +247,8 @@
         .date-type::after { content: "\f133"; }
         .name-type::after { content: "\f007"; }
         .address-type::after { content: "\f3c5"; }
-        .hall-type::after { content: "\f0f4"; } /* أيقونة مميزة ومناسبة للقاعات والفرح */
+        .hall-type::after { content: "\f0f4"; }
+        .phone-type::after { content: "\f095"; }
 
         .premium-input option {
             background: #282828;
@@ -392,6 +392,12 @@
             <label>الاسم (Full Name):</label>
             <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسم حضرتك هنا">
         </div>
+
+        <!-- 📞 تم نقل خانة رقم الهاتف لتكون الأخيرة هنا -->
+        <div class="input-group phone-type">
+            <label>رقم الهاتف للتواصل (Phone Number):</label>
+            <input type="tel" id="user-phone" class="premium-input" placeholder="اكتب رقم حضرتك للتواصل هنا" required>
+        </div>
         
         <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
         <p onclick="closeBooking()" class="close-modal-text">إغلاق</p>
@@ -469,25 +475,21 @@ function handleInstaPay() {
     window.location.href = instaPayLink;
 }
 
-// 👑 دالة ذكية محدثة للتحكم في الحقول الديناميكية بالكامل 👑
 function handleConditionalFields() {
     const val = document.getElementById('session-type').value;
     
-    // 1. إظهار وإخفاء موعد كتب الكتاب
     if (val && val.includes("كتب كتاب في البيت")) {
         document.getElementById('time-selection').style.display = "block";
     } else {
         document.getElementById('time-selection').style.display = "none";
     }
 
-    // 2. إظهار وإخفاء خانة العنوان 
     if (val && (val.includes("كتب كتاب في البيت") || val.includes("خطوبة في البيت أو كافيه"))) {
         document.getElementById('address-selection').style.display = "block";
     } else {
         document.getElementById('address-selection').style.display = "none";
     }
 
-    // 3. إظهار وإخفاء خانة اسم القاعة / مكان الفرح أوتوماتيكياً
     if (val && (val.includes("قاعة") || val.includes("فرح"))) {
         document.getElementById('hall-selection').style.display = "block";
     } else {
@@ -497,13 +499,14 @@ function handleConditionalFields() {
 
 function sendToWhatsApp() {
     const name = document.getElementById('user-name').value;
+    const phone = document.getElementById('user-phone').value;
     const type = document.getElementById('session-type').value;
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     const address = document.getElementById('user-address').value;
     const hall = document.getElementById('hall-name').value;
     
-    if(!type || !date || !name) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    if(!type || !date || !name || !phone) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
     if(type.includes("كتب كتاب في البيت") && !time) {
         alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
@@ -516,19 +519,18 @@ function sendToWhatsApp() {
         return;
     }
 
-    // شرط إجبار العميل على إدخال اسم القاعة لو اختار الفرح أو القاعة
     const needsHall = type.includes("قاعة") || type.includes("فرح");
     if(needsHall && !hall.trim()) {
         alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
         return;
     }
     
-    const bookingData = JSON.stringify({ name: name, type: type, date: date, time: time, address: address, hall: hall });
+    const bookingData = JSON.stringify({ name: name, phone: phone, type: type, date: date, time: time, address: address, hall: hall });
     
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
 
-    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
+    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالرقم: ${phone}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
     
     if(type.includes("كتب كتاب في البيت")) {
         msg += `\nالموعد: ${time}`;
