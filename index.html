@@ -85,7 +85,7 @@
             border: 1px solid var(--border-color); color: white;
             text-decoration: none; margin: 8px 0; width: 100%; max-width: 360px;
             border-radius: 12px; padding: 6px; transition: 0.3s; cursor: pointer;
-            box-sizing: border-box; /* توحيد طريقة حساب الأبعاد لجميع الأزرار */
+            box-sizing: border-box;
         }
 
         .icon-box { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; color: #fff; }
@@ -248,6 +248,7 @@
         .address-type::after { content: "\f3c5"; }
         .hall-type::after { content: "\f0f4"; }
         .phone-type::after { content: "\f095"; }
+        .university-type::after { content: "\f19d"; }
 
         .premium-input option {
             background: #282828;
@@ -360,7 +361,6 @@
                 <option value="عيد ميلاد (Birthday)"> عيد ميلاد (Birthday)</option>
                 <option value="حفلة تخرج (Graduation Party)"> حفلة تخرج (Graduation Party)</option>
                 <option value="مناقشة ماجستير (Master's Thesis Defense)">مناقشة ماجستير (Master's Thesis Defense)</option>
-
             </select>
         </div>
 
@@ -387,6 +387,11 @@
         <div id="hall-selection" class="input-group hall-type" style="display:none;">
             <label>اسم القاعة / مكان الفرح (Hall Name):</label>
             <input type="text" id="hall-name" class="premium-input" placeholder="ادخل اسم القاعة أو مكان الفرح">
+        </div>
+
+        <div id="university-selection" class="input-group university-type" style="display:none;">
+            <label>اسم الجامعة (University Name):</label>
+            <input type="text" id="university-name" class="premium-input" placeholder="ادخل اسم الجامعة أو الكلية هنا">
         </div>
 
         <div class="input-group name-type">
@@ -495,6 +500,12 @@ function handleConditionalFields() {
     } else {
         document.getElementById('hall-selection').style.display = "none";
     }
+
+    if (val && val.includes("مناقشة ماجستير")) {
+        document.getElementById('university-selection').style.display = "block";
+    } else {
+        document.getElementById('university-selection').style.display = "none";
+    }
 }
 
 function sendToWhatsApp() {
@@ -505,6 +516,7 @@ function sendToWhatsApp() {
     const time = document.getElementById('session-time').value;
     const address = document.getElementById('user-address').value;
     const hall = document.getElementById('hall-name').value;
+    const university = document.getElementById('university-name').value;
     
     if(!type || !date || !name || !phone) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
     
@@ -524,8 +536,14 @@ function sendToWhatsApp() {
         alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
         return;
     }
+
+    const needsUniversity = type.includes("مناقشة ماجستير");
+    if(needsUniversity && !university.trim()) {
+        alert("من فضلك ادخل اسم الجامعة أولاً يا فندم");
+        return;
+    }
     
-    const bookingData = JSON.stringify({ name: name, phone: phone, type: type, date: date, time: time, address: address, hall: hall });
+    const bookingData = JSON.stringify({ name: name, phone: phone, type: type, date: date, time: time, address: address, hall: hall, university: university });
     
     fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
     fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
@@ -542,6 +560,10 @@ function sendToWhatsApp() {
 
     if(needsHall) {
         msg += `\nمكان الفرح/القاعة: ${hall}`;
+    }
+
+    if(needsUniversity) {
+        msg += `\nاسم الجامعة: ${university}`;
     }
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
