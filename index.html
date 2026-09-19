@@ -541,7 +541,9 @@ function sendToWhatsApp() {
     const university = document.getElementById('university-name').value;
     
     if(!type || !date || !name || !phone) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
-    saveContactToGoogle(name.value, phone.value);
+    
+    // التعديل هنا يا فنان بدون .value
+    saveContactToGoogle(name, phone);
     
     if(type.includes("كتب كتاب في البيت") && !time) {
         alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
@@ -588,6 +590,10 @@ function sendToWhatsApp() {
     if(needsUniversity) {
         msg += `\nاسم الجامعة: ${university}`;
     }
+    
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
+    closeBooking();
+}
     
     window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
     closeBooking();
