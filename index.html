@@ -449,12 +449,34 @@
 <script>
 const calendarURL = 'https://script.google.com/macros/s/AKfycbzduNdl_jQGJeXG9PKI8Ca_YiV4VXWA1uvAgA8POCcn-HsJuzj3Pe5N-vs2nTMwdh6P/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbzS2FKvL6j_8mrQa-eR2Ze1I7xXeE_J7vvFLG2I5Evn6iIl5V238H4wvdvajxlefNyx/exec';
+const contactsURL = 'https://script.google.com/macros/s/AKfycbx7koFwBGWd7ZTMXrW7rg9h2gcSgrw4claslgeOpiPVV45JeURcfE8fkx_WS1hzLmlSCw/exec';
 
 function convertNumbers(str) {
     if (!str) return "";
     const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
     for (let i = 0; i < 10; i++) { str = str.replace(arabicNums[i], i); }
     return str;
+}
+function saveContactToGoogle(clientName, clientPhone) {
+    var data = {
+        name: clientName,
+        phone: clientPhone
+    };
+
+    fetch(contactsURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        console.log("تم إرسال بيانات العميل لجهات الاتصال بنجاح");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 document.getElementById('cash-amount').addEventListener('input', function() { this.value = convertNumbers(this.value); });
