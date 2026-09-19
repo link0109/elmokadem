@@ -541,6 +541,7 @@ function sendToWhatsApp() {
     const university = document.getElementById('university-name').value;
     
     if(!type || !date || !name || !phone) { alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    saveContactToGoogle(name.value, phone.value);
     
     if(type.includes("كتب كتاب في البيت") && !time) {
         alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
