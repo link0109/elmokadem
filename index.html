@@ -1,482 +1,654 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المقدم فوتوغرافر | ELMOKADEM Photography</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
 
-    <style>
-        :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --gold: #d4af37;
-            --vfcash-color: #e60000;
-            --orange-color: #ff6600;
-        }
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-        .modal-content {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 20px;
-            padding: 25px;
-            width: 85%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+<title>
+المقدم فوتوغرافر | ELMOKADEM Photography
+</title>
 
-        .modal-content input {
-            background: #000;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 12px;
-            width: 100%;
-            text-align: center;
-            font-size: 18px;
-            box-sizing: border-box;
-        }
+<link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;700&family=Cairo:wght@400;700&display=swap"
+    rel="stylesheet"
+>
 
-        .premium-btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-        }
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+>
 
-        body {
-            margin: 0;
-            font-family: 'Montserrat', 'Cairo', sans-serif;
-            background: #0f0f0f url('background.jpeg') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            overflow-y: auto;
-        }
 
-        .overlay {
-            backdrop-filter: blur(15px) saturate(160%);
-            -webkit-backdrop-filter: blur(15px) saturate(160%);
-            background: rgba(0, 0, 0, 0.7);
-            width: 100%;
-            min-height: 100vh;
-            padding: 30px 15px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+<style>
 
-        .profile {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            margin-bottom: 20px;
-        }
+:root {
+    --bg-blur: rgba(255,255,255,0.08);
+    --border-color: rgba(255,255,255,0.2);
+    --gold: #d4af37;
+    --vfcash-color: #e60000;
+    --orange-color: #ff6600;
+}
 
-        .brand-container {
-            text-align: center;
-            margin-bottom: 12px;
-        }
+.modal-content {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 25px;
+    width: 85%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
-        .brand-name {
-            font-family: 'Cinzel', serif;
-            color: #fff;
-            font-size: 32px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin: 0;
-        }
+.modal-content input {
+    background: #000;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    box-sizing: border-box;
+}
 
-        .brand-sub {
-            color: var(--gold);
-            font-size: 11px;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
+.premium-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        .button {
-            display: flex;
-            align-items: center;
-            background: var(--bg-blur);
-            border: 1px solid var(--border-color);
-            color: white;
-            text-decoration: none;
-            margin: 8px 0;
-            width: 100%;
-            max-width: 360px;
-            border-radius: 12px;
-            padding: 6px;
-            transition: 0.3s;
-            cursor: pointer;
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    font-family: 'Montserrat','Cairo',sans-serif;
+    background: #0f0f0f url('background.jpeg')
+        no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
 
-        .icon-box {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            font-size: 18px;
-            color: #fff;
-        }
+.overlay {
+    backdrop-filter: blur(15px) saturate(160%);
+    -webkit-backdrop-filter: blur(15px) saturate(160%);
+    background: rgba(0,0,0,0.7);
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .btn-text {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 15px;
-            padding-right: 42px;
-        }
+.profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold);
+    margin-bottom: 20px;
+}
 
-        .fb .icon-box { background: #1877F2; }
+.brand-container {
+    text-align: center;
+    margin-bottom: 12px;
+}
 
-        .ig .icon-box {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-        }
+.brand-name {
+    font-family: 'Cinzel',serif;
+    color: #fff;
+    font-size: 32px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0;
+}
 
-        .tk .icon-box {
-            background: #000;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
+.brand-sub {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
 
-        .wa .icon-box { background: #25D366; }
-        .call .icon-box { background: #444; }
-        .vfcash .icon-box {
-            background: var(--gold);
-            color: #000;
-        }
+.button {
+    display: flex;
+    align-items: center;
+    background: var(--bg-blur);
+    border: 1px solid var(--border-color);
+    color: white;
+    text-decoration: none;
+    margin: 8px 0;
+    width: 100%;
+    max-width: 360px;
+    border-radius: 12px;
+    padding: 6px;
+    transition: 0.3s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
 
-        .booking-btn {
-            border: 2px solid var(--gold);
-            background: linear-gradient(
-                135deg,
-                rgba(212, 175, 55, 0.2) 0%,
-                rgba(0,0,0,0) 100%
-            );
-        }
+.icon-box {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #fff;
+}
 
-        .footer-copyrights {
-            margin-top: 0px;
-            padding-top: 5px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            letter-spacing: 2px;
-            font-family: 'Montserrat', sans-serif;
-        }
+.btn-text {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 15px;
+    padding-right: 42px;
+}
 
-        #booking-modal,
-        #call-modal,
-        #payment-selection-modal,
-        #vfcash-modal,
-        #orange-cash-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 5000;
-            justify-content: center;
-            align-items: center;
-        }
+.fb .icon-box {
+    background: #1877F2;
+}
 
-        .modal-content {
-            background: #1a1a1a;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--gold);
-            width: 85%;
-            max-width: 380px;
-            text-align: right;
-            color: white;
-            box-sizing: border-box;
-        }
+.ig .icon-box {
+    background:
+        linear-gradient(
+            45deg,
+            #f09433,
+            #e6683c,
+            #dc2743,
+            #cc2366,
+            #bc1888
+        );
+}
 
-        .premium-modal-content {
-            background: linear-gradient(
-                145deg,
-                rgba(40, 40, 40, 0.95) 0%,
-                rgba(25, 25, 25, 0.98) 100%
-            );
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow:
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(212, 175, 55, 0.1);
-            padding: 35px 25px 25px 25px;
-            border-radius: 28px;
-            width: 90%;
-            max-width: 390px;
-            text-align: right;
-            color: white;
-            box-sizing: border-box;
-            animation: modalScaleUp 0.3s ease-out;
-        }
+.tk .icon-box {
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.2);
+}
 
-        @keyframes modalScaleUp {
-            from {
-                transform: scale(0.95);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+.wa .icon-box {
+    background: #25D366;
+}
 
-        .modal-header-title {
-            text-align: center;
-            color: var(--gold);
-            margin: 0 0 4px 0;
-            font-size: 25px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-        }
+.call .icon-box {
+    background: #444;
+}
 
-        .modal-header-sub {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            margin: 0 0 25px 0;
-            font-family: 'Cairo', sans-serif;
-        }
+.vfcash .icon-box {
+    background: var(--gold);
+    color: #000;
+}
 
-        .input-group {
-            position: relative;
-            margin-bottom: 18px;
-        }
+.booking-btn {
+    border: 2px solid var(--gold);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212,175,55,0.2) 0%,
+            rgba(0,0,0,0) 100%
+        );
+}
 
-        .input-group label {
-            font-family: 'Cairo', sans-serif;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 6px;
-            display: block;
-            padding-right: 4px;
-        }
+.footer-copyrights {
+    margin-top: 0;
+    padding-top: 5px;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: 'Montserrat',sans-serif;
+}
 
-        .premium-input {
-            width: 100%;
-            padding: 14px 16px 14px 45px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.3s ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            min-height: 52px;
-            text-align: right;
-        }
+#booking-modal,
+#call-modal,
+#payment-selection-modal,
+#vfcash-modal,
+#orange-cash-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 5000;
+    justify-content: center;
+    align-items: center;
+}
 
-        .premium-input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-            background: rgba(212, 175, 55, 0.06);
-        }
+.modal-content {
+    background: #1a1a1a;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid var(--gold);
+    width: 85%;
+    max-width: 380px;
+    text-align: right;
+    color: white;
+    box-sizing: border-box;
+}
 
-        input[type="date"]::before {
-            content: attr(placeholder);
-            width: 100%;
-            color: rgba(255, 255, 255, 0.5);
-        }
+.premium-modal-content {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(40,40,40,0.95) 0%,
+            rgba(25,25,25,0.98) 100%
+        );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212,175,55,0.35);
+    box-shadow:
+        0 25px 50px rgba(0,0,0,0.5),
+        0 0 30px rgba(212,175,55,0.1);
+    padding: 35px 25px 25px 25px;
+    border-radius: 28px;
+    width: 90%;
+    max-width: 390px;
+    text-align: right;
+    color: white;
+    box-sizing: border-box;
+    animation: modalScaleUp 0.3s ease-out;
+}
 
-        input[type="date"]:focus::before,
-        input[type="date"]:valid::before {
-            display: none;
-        }
+@keyframes modalScaleUp {
 
-        input[type="date"]::-webkit-date-and-time-value {
-            text-align: right;
-            min-height: 20px;
-        }
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
 
-        input[type="date"] {
-            position: relative;
-        }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            background: transparent;
-            bottom: 0;
-            color: transparent;
-            cursor: pointer;
-            height: auto;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: auto;
-            z-index: 2;
-        }
+}
 
-        .input-group::after {
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            position: absolute;
-            left: 16px;
-            bottom: 15px;
-            color: var(--gold);
-            font-size: 15px;
-            pointer-events: none;
-            opacity: 0.85;
-            z-index: 1;
-        }
+.modal-header-title {
+    text-align: center;
+    color: var(--gold);
+    margin: 0 0 4px 0;
+    font-size: 25px;
+    font-family: 'Cairo',sans-serif;
+    font-weight: 700;
+}
 
-        .select-type::after { content: "\f0db"; }
-        .date-type::after { content: "\f133"; }
-        .name-type::after { content: "\f007"; }
-        .address-type::after { content: "\f3c5"; }
-        .hall-type::after { content: "\f0f4"; }
-        .phone-type::after { content: "\f095"; }
-        .university-type::after { content: "\f19d"; }
+.modal-header-sub {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    margin: 0 0 25px 0;
+    font-family: 'Cairo',sans-serif;
+}
 
-        .premium-input option {
-            background: #282828;
-            color: #fff;
-        }
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
 
-        .premium-confirm-btn {
-            background: linear-gradient(
-                135deg,
-                #f3d47a 0%,
-                var(--gold) 100%
-            );
-            color: #000;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 14px;
-            font-weight: 700;
-            font-family: 'Cairo', sans-serif;
-            font-size: 16px;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
-        }
+.input-group label {
+    font-family: 'Cairo',sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 6px;
+    display: block;
+    padding-right: 4px;
+}
 
-        .premium-confirm-btn:active {
-            transform: scale(0.97);
-        }
+.premium-input {
+    width: 100%;
+    padding: 14px 16px 14px 45px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-sizing: border-box;
+    font-family: 'Cairo',sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 52px;
+    text-align: right;
+}
 
-        .close-modal-text {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 0;
-            font-size: 14px;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-        }
+.premium-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212,175,55,0.2);
+    background: rgba(212,175,55,0.06);
+}
 
-        .close-modal-text:hover {
-            color: white;
-        }
+input[type="date"]::before {
+    content: attr(placeholder);
+    width: 100%;
+    color: rgba(255,255,255,0.5);
+}
 
-        .pay-option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
+    display: none;
+}
 
-        .vf-style {
-            background: #e60000;
-            color: white;
-        }
+input[type="date"]::-webkit-date-and-time-value {
+    text-align: right;
+    min-height: 20px;
+}
 
-        .orange-style {
-            background: #ff6600;
-            color: white;
-        }
+input[type="date"] {
+    position: relative;
+}
 
-        .insta-style {
-            background: white;
-            color: black;
-        }
-    </style>
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    z-index: 2;
+}
+
+.input-group::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 16px;
+    bottom: 15px;
+    color: var(--gold);
+    font-size: 15px;
+    pointer-events: none;
+    opacity: 0.85;
+    z-index: 1;
+}
+
+.select-type::after {
+    content: "\f0db";
+}
+
+.date-type::after {
+    content: "\f133";
+}
+
+.name-type::after {
+    content: "\f007";
+}
+
+.address-type::after {
+    content: "\f3c5";
+}
+
+.hall-type::after {
+    content: "\f0f4";
+}
+
+.phone-type::after {
+    content: "\f095";
+}
+
+.university-type::after {
+    content: "\f19d";
+}
+
+.premium-input option {
+    background: #282828;
+    color: #fff;
+}
+
+.premium-confirm-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #f3d47a 0%,
+            var(--gold) 100%
+        );
+    color: #000;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 14px;
+    font-weight: 700;
+    font-family: 'Cairo',sans-serif;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 6px 20px rgba(212,175,55,0.25);
+}
+
+.premium-confirm-btn:active {
+    transform: scale(0.97);
+}
+
+.close-modal-text {
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 14px;
+    transition: 0.2s;
+    font-family: 'Cairo',sans-serif;
+}
+
+.close-modal-text:hover {
+    color: white;
+}
+
+.pay-option-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.vf-style {
+    background: #e60000;
+    color: white;
+}
+
+.orange-style {
+    background: #ff6600;
+    color: white;
+}
+
+.insta-style {
+    background: white;
+    color: black;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <div class="overlay">
 
-    <img src="profile.jpg" class="profile" alt="ELMOKADEM">
+    <img
+        src="profile.jpg"
+        class="profile"
+        alt="ELMOKADEM"
+    >
 
     <div class="brand-container">
-        <h1 class="brand-name">ELMOKADEM</h1>
-        <div class="brand-sub">Wedding Photographer</div>
-    </div>
 
-    <div class="button booking-btn" onclick="openBooking()">
-        <div class="icon-box" style="background:var(--gold); color:black;">
-            <i class="fas fa-calendar-check"></i>
+        <h1 class="brand-name">
+            ELMOKADEM
+        </h1>
+
+        <div class="brand-sub">
+            Wedding Photographer
         </div>
-        <div class="btn-text">احجز الآن | Book Now</div>
+
     </div>
 
-    <a class="button fb" href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-        <div class="btn-text">Personal Profile</div>
-    </a>
 
-    <a class="button fb" href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr" target="_blank">
-        <div class="icon-box"><i class="fab fa-facebook-f"></i></div>
-        <div class="btn-text">Facebook Page</div>
-    </a>
+    <div
+        class="button booking-btn"
+        onclick="openBooking()"
+    >
 
-    <a class="button ig" href="https://www.instagram.com/elmokadem_ph" target="_blank">
-        <div class="icon-box"><i class="fab fa-instagram"></i></div>
-        <div class="btn-text">Instagram</div>
-    </a>
+        <div
+            class="icon-box"
+            style="background:var(--gold);color:black;"
+        >
 
-    <a class="button tk" href="https://www.tiktok.com/@elmokadem.photographar" target="_blank">
-        <div class="icon-box"><i class="fab fa-tiktok"></i></div>
-        <div class="btn-text">TikTok</div>
-    </a>
+            <i class="fas fa-calendar-check"></i>
 
-    <a class="button wa" href="https://wa.me/201210425901" target="_blank">
-        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-        <div class="btn-text">WhatsApp</div>
-    </a>
+        </div>
 
-    <div class="button call" onclick="openCallModal()">
-        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
-        <div class="btn-text">اتصل بنا | Call Me</div>
+        <div class="btn-text">
+            احجز الآن | Book Now
+        </div>
+
     </div>
 
-    <div class="button vfcash" onclick="openPaymentSelection()">
-        <div class="icon-box"><i class="fas fa-money-bill-wave"></i></div>
-        <div class="btn-text">تحويل المبلغ | Transfer Money</div>
+
+    <a
+        class="button fb"
+        href="https://www.facebook.com/share/1ZXYjBxA2C/?mibextid=wwXIfr"
+        target="_blank"
+    >
+
+        <div class="icon-box">
+            <i class="fas fa-user-circle"></i>
+        </div>
+
+        <div class="btn-text">
+            Personal Profile
+        </div>
+
+    </a>
+
+
+    <a
+        class="button fb"
+        href="https://www.facebook.com/share/1AsaePx6C3/?mibextid=wwXIfr"
+        target="_blank"
+    >
+
+        <div class="icon-box">
+            <i class="fab fa-facebook-f"></i>
+        </div>
+
+        <div class="btn-text">
+            Facebook Page
+        </div>
+
+    </a>
+
+
+    <a
+        class="button ig"
+        href="https://www.instagram.com/elmokadem_ph"
+        target="_blank"
+    >
+
+        <div class="icon-box">
+            <i class="fab fa-instagram"></i>
+        </div>
+
+        <div class="btn-text">
+            Instagram
+        </div>
+
+    </a>
+
+
+    <a
+        class="button tk"
+        href="https://www.tiktok.com/@elmokadem.photographar"
+        target="_blank"
+    >
+
+        <div class="icon-box">
+            <i class="fab fa-tiktok"></i>
+        </div>
+
+        <div class="btn-text">
+            TikTok
+        </div>
+
+    </a>
+
+
+    <a
+        class="button wa"
+        href="https://wa.me/201210425901"
+        target="_blank"
+    >
+
+        <div class="icon-box">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+
+        <div class="btn-text">
+            WhatsApp
+        </div>
+
+    </a>
+
+
+    <div
+        class="button call"
+        onclick="openCallModal()"
+    >
+
+        <div class="icon-box">
+            <i class="fas fa-phone-alt"></i>
+        </div>
+
+        <div class="btn-text">
+            اتصل بنا | Call Me
+        </div>
+
     </div>
+
+
+    <div
+        class="button vfcash"
+        onclick="openPaymentSelection()"
+    >
+
+        <div class="icon-box">
+            <i class="fas fa-money-bill-wave"></i>
+        </div>
+
+        <div class="btn-text">
+            تحويل المبلغ | Transfer Money
+        </div>
+
+    </div>
+
 
     <div class="footer-copyrights">
         © ELMOKADEM Photographer
@@ -485,23 +657,33 @@
 </div>
 
 
+
 <!-- BOOKING MODAL -->
 
 <div id="booking-modal">
 
     <div class="premium-modal-content">
 
-        <h3 class="modal-header-title">تفاصيل الحجز</h3>
+        <h3 class="modal-header-title">
+            تفاصيل الحجز
+        </h3>
 
         <p class="modal-header-sub">
             ألف مبروك يا فندم 🎉
         </p>
 
+
         <div class="input-group select-type">
 
-            <label>المناسبة (Event Type):</label>
+            <label>
+                المناسبة (Event Type):
+            </label>
 
-            <select id="session-type" class="premium-input" onchange="handleConditionalFields()">
+            <select
+                id="session-type"
+                class="premium-input"
+                onchange="handleConditionalFields()"
+            >
 
                 <option value="" disabled selected>
                     اضغط لاختيار المناسبة
@@ -562,7 +744,9 @@
 
         <div class="input-group date-type">
 
-            <label>التاريخ (Date):</label>
+            <label>
+                التاريخ (Date):
+            </label>
 
             <input
                 type="date"
@@ -575,13 +759,20 @@
         </div>
 
 
-        <div id="time-selection"
-             class="input-group select-type"
-             style="display:none;">
+        <div
+            id="time-selection"
+            class="input-group select-type"
+            style="display:none;"
+        >
 
-            <label>موعد كتب الكتاب (Timing):</label>
+            <label>
+                موعد كتب الكتاب (Timing):
+            </label>
 
-            <select id="session-time" class="premium-input">
+            <select
+                id="session-time"
+                class="premium-input"
+            >
 
                 <option value="" disabled selected>
                     اضغط لاختيار موعد كتب الكتاب
@@ -604,11 +795,15 @@
         </div>
 
 
-        <div id="address-selection"
-             class="input-group address-type"
-             style="display:none;">
+        <div
+            id="address-selection"
+            class="input-group address-type"
+            style="display:none;"
+        >
 
-            <label>العنوان (Address):</label>
+            <label>
+                العنوان (Address):
+            </label>
 
             <input
                 type="text"
@@ -620,11 +815,15 @@
         </div>
 
 
-        <div id="hall-selection"
-             class="input-group hall-type"
-             style="display:none;">
+        <div
+            id="hall-selection"
+            class="input-group hall-type"
+            style="display:none;"
+        >
 
-            <label>اسم القاعة / مكان الفرح (Hall Name):</label>
+            <label>
+                اسم القاعة / مكان الفرح (Hall Name):
+            </label>
 
             <input
                 type="text"
@@ -636,11 +835,15 @@
         </div>
 
 
-        <div id="university-selection"
-             class="input-group university-type"
-             style="display:none;">
+        <div
+            id="university-selection"
+            class="input-group university-type"
+            style="display:none;"
+        >
 
-            <label>اسم الجامعة (University Name):</label>
+            <label>
+                اسم الجامعة (University Name):
+            </label>
 
             <input
                 type="text"
@@ -654,7 +857,9 @@
 
         <div class="input-group name-type">
 
-            <label>الاسم (Full Name):</label>
+            <label>
+                الاسم (Full Name):
+            </label>
 
             <input
                 type="text"
@@ -668,7 +873,9 @@
 
         <div class="input-group phone-type">
 
-            <label>رقم الهاتف للتواصل (Phone Number):</label>
+            <label>
+                رقم الهاتف للتواصل (Phone Number):
+            </label>
 
             <input
                 type="tel"
@@ -701,15 +908,22 @@
 </div>
 
 
+
 <!-- PAYMENT SELECTION -->
 
 <div id="payment-selection-modal">
 
-    <div class="modal-content" style="text-align:center;">
+    <div
+        class="modal-content"
+        style="text-align:center;"
+    >
 
-        <h3 style="color:var(--gold); margin-bottom:20px;">
+        <h3
+            style="color:var(--gold);margin-bottom:20px;"
+        >
             اختر وسيلة التحويل
         </h3>
+
 
         <button
             class="pay-option-btn vf-style"
@@ -718,12 +932,14 @@
             فودافون كاش | Vodafone Cash
         </button>
 
+
         <button
             class="pay-option-btn orange-style"
             onclick="showOrangeCashPage()"
         >
             أورنج كاش | Orange Cash
         </button>
+
 
         <button
             class="pay-option-btn insta-style"
@@ -732,9 +948,10 @@
             إنستا باي | InstaPay
         </button>
 
+
         <p
             onclick="closePaymentSelection()"
-            style="color:#888; cursor:pointer; margin-top:15px;"
+            style="color:#888;cursor:pointer;margin-top:15px;"
         >
             إغلاق
         </p>
@@ -742,35 +959,62 @@
     </div>
 
 </div>
+
 
 
 <!-- CALL MODAL -->
 
 <div id="call-modal">
 
-    <div class="modal-content" style="text-align:center;">
+    <div
+        class="modal-content"
+        style="text-align:center;"
+    >
 
         <h3 style="color:var(--gold);">
             اختر الخط للاتصال
         </h3>
 
+
         <a
             href="tel:01092217287"
-            style="display:block; background:#e60000; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;"
+            style="
+                display:block;
+                background:#e60000;
+                padding:15px;
+                color:white;
+                border-radius:10px;
+                text-decoration:none;
+                margin:10px 0;
+            "
         >
             01092217287
         </a>
 
+
         <a
             href="tel:01210425901"
-            style="display:block; background:#FF6600; padding:15px; color:white; border-radius:10px; text-decoration:none; margin:10px 0;"
+            style="
+                display:block;
+                background:#FF6600;
+                padding:15px;
+                color:white;
+                border-radius:10px;
+                text-decoration:none;
+                margin:10px 0;
+            "
         >
             01210425901
         </a>
 
+
         <p
             onclick="closeCallModal()"
-            style="color:#888; cursor:pointer; margin-top:15px;"
+            style="
+                color:#888;
+                cursor:pointer;
+                margin-top:15px;
+            "
         >
             إغلاق
         </p>
@@ -780,23 +1024,37 @@
 </div>
 
 
+
 <!-- VODAFONE CASH -->
 
 <div id="vfcash-modal">
 
-    <div class="modal-content" style="text-align:center;">
+    <div
+        class="modal-content"
+        style="text-align:center;"
+    >
 
-        <h3 style="color:var(--gold); margin-bottom:20px;">
+        <h3
+            style="
+                color:var(--gold);
+                margin-bottom:20px;
+            "
+        >
             فودافون كاش
         </h3>
+
 
         <input
             type="text"
             inputmode="decimal"
             id="cash-amount"
             placeholder=" أدخل المبلغ هنا "
-            style="text-align:center; font-size:18px;"
+            style="
+                text-align:center;
+                font-size:18px;
+            "
         >
+
 
         <button
             class="premium-btn"
@@ -806,9 +1064,14 @@
             اتصال وتحويل الآن
         </button>
 
+
         <p
             onclick="closeVFCash()"
-            style="color:#888; cursor:pointer; margin-top:20px;"
+            style="
+                color:#888;
+                cursor:pointer;
+                margin-top:20px;
+            "
         >
             إغلاق
         </p>
@@ -818,23 +1081,37 @@
 </div>
 
 
+
 <!-- ORANGE CASH -->
 
 <div id="orange-cash-modal">
 
-    <div class="modal-content" style="text-align:center;">
+    <div
+        class="modal-content"
+        style="text-align:center;"
+    >
 
-        <h3 style="color:#ff6600; margin-bottom:20px;">
+        <h3
+            style="
+                color:#ff6600;
+                margin-bottom:20px;
+            "
+        >
             أورنج كاش
         </h3>
+
 
         <input
             type="text"
             inputmode="decimal"
             id="orange-amount"
             placeholder=" أدخل المبلغ هنا "
-            style="text-align:center; font-size:18px;"
+            style="
+                text-align:center;
+                font-size:18px;
+            "
         >
+
 
         <button
             class="premium-btn"
@@ -844,9 +1121,14 @@
             اتصال وتحويل الآن
         </button>
 
+
         <p
             onclick="closeOrangeCash()"
-            style="color:#888; cursor:pointer; margin-top:20px;"
+            style="
+                color:#888;
+                cursor:pointer;
+                margin-top:20px;
+            "
         >
             إغلاق
         </p>
@@ -856,20 +1138,31 @@
 </div>
 
 
+
 <script>
 
+
 /* =========================================================
-   الروابط الأساسية
+   الروابط الحالية
    ========================================================= */
 
 const calendarURL =
 'https://script.google.com/macros/s/AKfycbzduNdl_jQGJeXG9PKI8Ca_YiV4VXWA1uvAgA8POCcn-HsJuzj3Pe5N-vs2nTMwdh6P/exec';
 
+
 const accountsURL =
 'https://script.google.com/macros/s/AKfycbzS2FKvL6j_8mrQa-eR2Ze1I7xXeE_J7vvFLG2I5Evn6iIl5V238H4wvdvajxlefNyx/exec';
 
+
+/*
+   رابط Google Apps Script الجديد الخاص بالـVCF
+   بعد ما تعمل Deploy للكود الثاني
+   حط الرابط هنا
+*/
+
 const contactsURL =
-'https://script.google.com/macros/s/AKfycbwjbV7W0VhwHiVFK318UL4-Q7PjabCkF_k84rfmG2_iOU4QZ8IVUP0vTNVl66nGCODl1A/exec';
+'https://script.google.com/macros/s/PUT_YOUR_NEW_VCF_WEB_APP_URL_HERE/exec';
+
 
 
 /* =========================================================
@@ -877,53 +1170,182 @@ const contactsURL =
    ========================================================= */
 
 function convertNumbers(str) {
+
     if (!str) return "";
-    const arabicNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+
+    const arabicNums = [
+        /٠/g,
+        /١/g,
+        /٢/g,
+        /٣/g,
+        /٤/g,
+        /٥/g,
+        /٦/g,
+        /٧/g,
+        /٨/g,
+        /٩/g
+    ];
+
     for (let i = 0; i < 10; i++) {
-        str = str.replace(arabicNums[i], i);
+
+        str =
+            str.replace(
+                arabicNums[i],
+                i
+            );
+
     }
+
     return str;
 }
 
 
+
 /* =========================================================
-   حفظ العميل في Google Contacts
+   إنشاء رابط VCF مختصر
    ========================================================= */
 
-function saveContactToGoogle(clientName, clientPhone) {
-    if (!contactsURL || contactsURL === 'PUT_CONTACTS_WEB_APP_URL_HERE') {
-        return;
-    }
-    const cleanName = String(clientName || '').trim();
-    const cleanPhone = convertNumbers(String(clientPhone || '').trim());
-    if (!cleanName || !cleanPhone) return;
+function createVCFLink(
+    clientName,
+    clientPhone,
+    callback
+) {
 
-    const data = {
-        name: cleanName,
-        phone: cleanPhone
-    };
+    const callbackName =
+        "vcfCallback_" +
+        Date.now();
 
-    fetch(contactsURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(data)
-    }).catch(error => {
-        console.error('Google Contacts Error:', error);
-    });
+    window[callbackName] =
+        function(data) {
+
+            try {
+
+                delete window[callbackName];
+
+                if (
+                    script.parentNode
+                ) {
+
+                    script.parentNode.removeChild(
+                        script
+                    );
+
+                }
+
+            } catch(e) {}
+
+            if (
+                data &&
+                data.success &&
+                data.link
+            ) {
+
+                callback(
+                    null,
+                    data.link
+                );
+
+            } else {
+
+                callback(
+                    new Error(
+                        data && data.error
+                            ? data.error
+                            : "VCF Error"
+                    ),
+                    null
+                );
+
+            }
+
+        };
+
+
+    const script =
+        document.createElement("script");
+
+
+    script.src =
+        contactsURL +
+        "?action=create" +
+        "&name=" +
+        encodeURIComponent(clientName) +
+        "&phone=" +
+        encodeURIComponent(clientPhone) +
+        "&callback=" +
+        callbackName;
+
+
+    script.onerror =
+        function() {
+
+            try {
+
+                delete window[callbackName];
+
+                if (
+                    script.parentNode
+                ) {
+
+                    script.parentNode.removeChild(
+                        script
+                    );
+
+                }
+
+            } catch(e) {}
+
+            callback(
+                new Error(
+                    "تعذر إنشاء رابط VCF"
+                ),
+                null
+            );
+
+        };
+
+
+    document
+        .head
+        .appendChild(script);
+
 }
 
 
+
 /* =========================================================
-   تحويل أرقام المبالغ أثناء الكتابة
+   تحويل أرقام المبالغ
    ========================================================= */
 
-document.getElementById('cash-amount').addEventListener('input', function() {
-    this.value = convertNumbers(this.value);
-});
+document
+    .getElementById('cash-amount')
+    .addEventListener(
+        'input',
+        function() {
 
-document.getElementById('orange-amount').addEventListener('input', function() {
-    this.value = convertNumbers(this.value);
-});
+            this.value =
+                convertNumbers(
+                    this.value
+                );
+
+        }
+    );
+
+
+document
+    .getElementById('orange-amount')
+    .addEventListener(
+        'input',
+        function() {
+
+            this.value =
+                convertNumbers(
+                    this.value
+                );
+
+        }
+    );
+
 
 
 /* =========================================================
@@ -931,46 +1353,98 @@ document.getElementById('orange-amount').addEventListener('input', function() {
    ========================================================= */
 
 function openBooking() {
-    document.getElementById('booking-modal').style.display = 'flex';
+
+    document
+        .getElementById('booking-modal')
+        .style.display = 'flex';
+
 }
+
 
 function closeBooking() {
-    document.getElementById('booking-modal').style.display = 'none';
+
+    document
+        .getElementById('booking-modal')
+        .style.display = 'none';
+
 }
+
 
 function openCallModal() {
-    document.getElementById('call-modal').style.display = 'flex';
+
+    document
+        .getElementById('call-modal')
+        .style.display = 'flex';
+
 }
+
 
 function closeCallModal() {
-    document.getElementById('call-modal').style.display = 'none';
+
+    document
+        .getElementById('call-modal')
+        .style.display = 'none';
+
 }
+
 
 function openPaymentSelection() {
-    document.getElementById('payment-selection-modal').style.display = 'flex';
+
+    document
+        .getElementById('payment-selection-modal')
+        .style.display = 'flex';
+
 }
+
 
 function closePaymentSelection() {
-    document.getElementById('payment-selection-modal').style.display = 'none';
+
+    document
+        .getElementById('payment-selection-modal')
+        .style.display = 'none';
+
 }
+
 
 function showVFCashPage() {
+
     closePaymentSelection();
-    document.getElementById('vfcash-modal').style.display = 'flex';
+
+    document
+        .getElementById('vfcash-modal')
+        .style.display = 'flex';
+
 }
+
 
 function closeVFCash() {
-    document.getElementById('vfcash-modal').style.display = 'none';
+
+    document
+        .getElementById('vfcash-modal')
+        .style.display = 'none';
+
 }
+
 
 function showOrangeCashPage() {
+
     closePaymentSelection();
-    document.getElementById('orange-cash-modal').style.display = 'flex';
+
+    document
+        .getElementById('orange-cash-modal')
+        .style.display = 'flex';
+
 }
 
+
 function closeOrangeCash() {
-    document.getElementById('orange-cash-modal').style.display = 'none';
+
+    document
+        .getElementById('orange-cash-modal')
+        .style.display = 'none';
+
 }
+
 
 
 /* =========================================================
@@ -978,9 +1452,15 @@ function closeOrangeCash() {
    ========================================================= */
 
 function handleInstaPay() {
-    const instaPayLink = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
-    window.location.href = instaPayLink;
+
+    const instaPayLink =
+        "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
+
+    window.location.href =
+        instaPayLink;
+
 }
+
 
 
 /* =========================================================
@@ -988,208 +1468,679 @@ function handleInstaPay() {
    ========================================================= */
 
 function handleConditionalFields() {
-    const val = document.getElementById('session-type').value;
 
-    if (val && val.includes("كتب كتاب في البيت")) {
-        document.getElementById('time-selection').style.display = "block";
+    const val =
+        document
+            .getElementById('session-type')
+            .value;
+
+
+    if (
+        val &&
+        val.includes("كتب كتاب في البيت")
+    ) {
+
+        document
+            .getElementById('time-selection')
+            .style.display = "block";
+
     } else {
-        document.getElementById('time-selection').style.display = "none";
+
+        document
+            .getElementById('time-selection')
+            .style.display = "none";
+
     }
 
-    if (val && (val.includes("كتب كتاب في البيت") || val.includes("خطوبة في البيت أو كافيه"))) {
-        document.getElementById('address-selection').style.display = "block";
+
+    if (
+        val &&
+        (
+            val.includes("كتب كتاب في البيت") ||
+            val.includes("خطوبة في البيت أو كافيه")
+        )
+    ) {
+
+        document
+            .getElementById('address-selection')
+            .style.display = "block";
+
     } else {
-        document.getElementById('address-selection').style.display = "none";
+
+        document
+            .getElementById('address-selection')
+            .style.display = "none";
+
     }
 
-    if (val && (val.includes("قاعة") || val.includes("فرح"))) {
-        document.getElementById('hall-selection').style.display = "block";
+
+    if (
+        val &&
+        (
+            val.includes("قاعة") ||
+            val.includes("فرح")
+        )
+    ) {
+
+        document
+            .getElementById('hall-selection')
+            .style.display = "block";
+
     } else {
-        document.getElementById('hall-selection').style.display = "none";
+
+        document
+            .getElementById('hall-selection')
+            .style.display = "none";
+
     }
 
-    if (val && val.includes("مناقشة ماجستير")) {
-        document.getElementById('university-selection').style.display = "block";
+
+    if (
+        val &&
+        val.includes("مناقشة ماجستير")
+    ) {
+
+        document
+            .getElementById('university-selection')
+            .style.display = "block";
+
     } else {
-        document.getElementById('university-selection').style.display = "none";
+
+        document
+            .getElementById('university-selection')
+            .style.display = "none";
+
     }
+
 }
 
 
+
 /* =========================================================
-   إرسال الحجز (واتساب + شيت + كالشيندر + جهات الاتصال)
+   إرسال الحجز
    ========================================================= */
 
 function sendToWhatsApp() {
-    const name = document.getElementById('user-name').value.trim();
-    const phone = convertNumbers(document.getElementById('user-phone').value.trim());
-    const type = document.getElementById('session-type').value;
-    const date = document.getElementById('session-date').value;
-    const time = document.getElementById('session-time').value;
-    const address = document.getElementById('user-address').value.trim();
-    const hall = document.getElementById('hall-name').value.trim();
-    const university = document.getElementById('university-name').value.trim();
 
-    if (!type || !date || !name || !phone) {
-        alert("من فضلك كمل البيانات الأول يا فندم");
+
+    const name =
+        document
+            .getElementById('user-name')
+            .value
+            .trim();
+
+
+    const phone =
+        convertNumbers(
+            document
+                .getElementById('user-phone')
+                .value
+                .trim()
+        );
+
+
+    const type =
+        document
+            .getElementById('session-type')
+            .value;
+
+
+    const date =
+        document
+            .getElementById('session-date')
+            .value;
+
+
+    const time =
+        document
+            .getElementById('session-time')
+            .value;
+
+
+    const address =
+        document
+            .getElementById('user-address')
+            .value
+            .trim();
+
+
+    const hall =
+        document
+            .getElementById('hall-name')
+            .value
+            .trim();
+
+
+    const university =
+        document
+            .getElementById('university-name')
+            .value
+            .trim();
+
+
+
+    /* =====================================================
+       التحقق الأساسي
+       ===================================================== */
+
+    if (
+        !type ||
+        !date ||
+        !name ||
+        !phone
+    ) {
+
+        alert(
+            "من فضلك كمل البيانات الأول يا فندم"
+        );
+
         return;
+
     }
 
-    if (type.includes("كتب كتاب في البيت") && !time) {
-        alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم");
+
+
+    /* =====================================================
+       التحقق من موعد كتب الكتاب
+       ===================================================== */
+
+    if (
+        type.includes("كتب كتاب في البيت") &&
+        !time
+    ) {
+
+        alert(
+            "من فضلك اختر موعد كتب الكتاب أولاً يا فندم"
+        );
+
         return;
+
     }
 
-    const needsAddress = type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه");
-    if (needsAddress && !address) {
-        alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم");
+
+
+    /* =====================================================
+       التحقق من العنوان
+       ===================================================== */
+
+    const needsAddress =
+        type.includes("كتب كتاب في البيت") ||
+        type.includes("خطوبة في البيت أو كافيه");
+
+
+    if (
+        needsAddress &&
+        !address
+    ) {
+
+        alert(
+            "من فضلك ادخل العنوان بالتفصيل أولاً يا فندم"
+        );
+
         return;
+
     }
 
-    const needsHall = type.includes("قاعة") || type.includes("فرح");
-    if (needsHall && !hall) {
-        alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم");
+
+
+    /* =====================================================
+       التحقق من القاعة
+       ===================================================== */
+
+    const needsHall =
+        type.includes("قاعة") ||
+        type.includes("فرح");
+
+
+    if (
+        needsHall &&
+        !hall
+    ) {
+
+        alert(
+            "من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"
+        );
+
         return;
+
     }
 
-    const needsUniversity = type.includes("مناقشة ماجستير");
-    if (needsUniversity && !university) {
-        alert("من فضلك ادخل اسم الجامعة أولاً يا فندم");
+
+
+    /* =====================================================
+       التحقق من الجامعة
+       ===================================================== */
+
+    const needsUniversity =
+        type.includes("مناقشة ماجستير");
+
+
+    if (
+        needsUniversity &&
+        !university
+    ) {
+
+        alert(
+            "من فضلك ادخل اسم الجامعة أولاً يا فندم"
+        );
+
         return;
+
     }
 
-    // حفظ العميل في جهات الاتصال أوتوماتيك
-    saveContactToGoogle(name, phone);
 
-    const bookingData = JSON.stringify({
-        name: name,
-        phone: phone,
-        type: type,
-        date: date,
-        time: time,
-        address: address,
-        hall: hall,
-        university: university
-    });
 
-    fetch(calendarURL, { method: 'POST', mode: 'no-cors', body: bookingData });
-    fetch(accountsURL, { method: 'POST', mode: 'no-cors', body: bookingData });
+    /* =====================================================
+       بيانات الحجز
+       ===================================================== */
 
-    let msg = `تمام يا مقدم، تم الحجز :\n` +
-              `الاسم: ${name}\n` +
-              `الرقم: ${phone}\n` +
-              `المناسبة: ${type}\n` +
-              `التاريخ: ${date}`;
+    const bookingData =
+        JSON.stringify({
 
-    if (type.includes("كتب كتاب في البيت")) {
-        msg += `\nالموعد: ${time}`;
+            name: name,
+            phone: phone,
+            type: type,
+            date: date,
+            time: time,
+            address: address,
+            hall: hall,
+            university: university
+
+        });
+
+
+
+    /* =====================================================
+       Google Calendar
+       ===================================================== */
+
+    fetch(
+        calendarURL,
+        {
+            method: 'POST',
+            mode: 'no-cors',
+            body: bookingData
+        }
+    );
+
+
+
+    /* =====================================================
+       Google Sheets / Accounts
+       ===================================================== */
+
+    fetch(
+        accountsURL,
+        {
+            method: 'POST',
+            mode: 'no-cors',
+            body: bookingData
+        }
+    );
+
+
+
+    /* =====================================================
+       تجهيز رسالة WhatsApp الأساسية
+       ===================================================== */
+
+    let msg =
+        `تمام يا مقدم، تم الحجز :\n` +
+        `الاسم: ${name}\n` +
+        `الرقم: ${phone}\n` +
+        `المناسبة: ${type}\n` +
+        `التاريخ: ${date}`;
+
+
+    if (
+        type.includes("كتب كتاب في البيت")
+    ) {
+
+        msg +=
+            `\nالموعد: ${time}`;
+
     }
+
+
     if (needsAddress) {
-        msg += `\nالعنوان: ${address}`;
-    }
-    if (needsHall) {
-        msg += `\nمكان الفرح/القاعة: ${hall}`;
-    }
-    if (needsUniversity) {
-        msg += `\nاسم الجامعة: ${university}`;
+
+        msg +=
+            `\nالعنوان: ${address}`;
+
     }
 
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
-    closeBooking();
+
+    if (needsHall) {
+
+        msg +=
+            `\nمكان الفرح/القاعة: ${hall}`;
+
+    }
+
+
+    if (needsUniversity) {
+
+        msg +=
+            `\nاسم الجامعة: ${university}`;
+
+    }
+
+
+
+    /* =====================================================
+       إنشاء رابط VCF
+       ===================================================== */
+
+    createVCFLink(
+        name,
+        phone,
+        function(error, vcfLink) {
+
+
+            if (!error && vcfLink) {
+
+                msg +=
+                    `\n\n📱 إضافة العميل لجهات الاتصال:\n` +
+                    `${vcfLink}`;
+
+            } else {
+
+                console.error(
+                    "VCF Error:",
+                    error
+                );
+
+            }
+
+
+
+            /* =============================================
+               فتح WhatsApp
+               ============================================= */
+
+            window.open(
+                `https://wa.me/201210425901?text=${encodeURIComponent(msg)}`,
+                '_blank'
+            );
+
+
+            closeBooking();
+
+        }
+    );
+
 }
 
 
+
 /* =========================================================
-   فودافون كاش
+   Vodafone Cash
    ========================================================= */
 
 function makeVFCashCall() {
-    let amount = document.getElementById('cash-amount').value;
-    amount = convertNumbers(amount);
+
+    let amount =
+        document
+            .getElementById('cash-amount')
+            .value;
+
+
+    amount =
+        convertNumbers(amount);
+
+
     if (!amount) {
-        alert("يرجى كتابة المبلغ أولاً");
+
+        alert(
+            "يرجى كتابة المبلغ أولاً"
+        );
+
         return;
+
     }
-    const phoneNumber = "01092217287";
-    const ussd = encodeURIComponent(`*9*7*${phoneNumber}*${amount}#`);
-    window.location.href = `tel:${ussd}`;
+
+
+    const phoneNumber =
+        "01092217287";
+
+
+    const ussd =
+        encodeURIComponent(
+            `*9*7*${phoneNumber}*${amount}#`
+        );
+
+
+    window.location.href =
+        `tel:${ussd}`;
+
+
     closeVFCash();
+
 }
 
 
+
 /* =========================================================
-   أورنج كاش
+   Orange Cash
    ========================================================= */
 
 function makeOrangeCashCall() {
-    let amount = document.getElementById('orange-amount').value;
-    amount = convertNumbers(amount);
+
+    let amount =
+        document
+            .getElementById('orange-amount')
+            .value;
+
+
+    amount =
+        convertNumbers(amount);
+
+
     if (!amount) {
-        alert("يرجى كتابة المبلغ أولاً");
+
+        alert(
+            "يرجى كتابة المبلغ أولاً"
+        );
+
         return;
+
     }
-    const myNumber = "01210425901";
-    const ussd = encodeURIComponent(`#7115*7*${amount}*${myNumber}#`);
-    window.location.href = `tel:${ussd}`;
+
+
+    const myNumber =
+        "01210425901";
+
+
+    const ussd =
+        encodeURIComponent(
+            `#7115*7*${amount}*${myNumber}#`
+        );
+
+
+    window.location.href =
+        `tel:${ussd}`;
+
+
     closeOrangeCash();
+
 }
 
 
+
 /* =========================================================
-   تحميل الصفحة وتليجرام
+   تحميل الصفحة
    ========================================================= */
 
 window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedPackage = urlParams.get('package');
+
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const selectedPackage =
+        urlParams.get('package');
+
 
     if (selectedPackage) {
+
+
         openBooking();
-        const sessionSelect = document.getElementById('session-type');
+
+
+        const sessionSelect =
+            document
+                .getElementById('session-type');
+
+
         let found = false;
 
-        for (let i = 0; i < sessionSelect.options.length; i++) {
-            if (sessionSelect.options[i].value.trim().startsWith(selectedPackage.trim())) {
-                sessionSelect.selectedIndex = i;
+
+        for (
+            let i = 0;
+            i < sessionSelect.options.length;
+            i++
+        ) {
+
+
+            if (
+                sessionSelect
+                    .options[i]
+                    .value
+                    .trim()
+                    .startsWith(
+                        selectedPackage.trim()
+                    )
+            ) {
+
+                sessionSelect.selectedIndex =
+                    i;
+
                 found = true;
+
                 break;
+
             }
+
         }
+
 
         if (!found) {
-            const newOption = new Option(selectedPackage, selectedPackage);
-            sessionSelect.add(newOption);
-            sessionSelect.value = selectedPackage;
+
+
+            const newOption =
+                new Option(
+                    selectedPackage,
+                    selectedPackage
+                );
+
+
+            sessionSelect.add(
+                newOption
+            );
+
+
+            sessionSelect.value =
+                selectedPackage;
+
         }
 
+
         handleConditionalFields();
+
     }
 
-    const source = urlParams.get('utm_source') || "رابط مباشر";
-    const token = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
-    const chat_id = "720656827";
 
-    fetch('https://ipapi.co/json/')
-    .then(res => res.json())
-    .then(data => {
-        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
-        const now = new Date().toLocaleString('ar-EG');
-        const msg = `📸 زائر جديد يا مقدم\n` +
-                    `📱 الجهاز: ${device}\n` +
-                    `📍 المكان: ${data.city || 'غير معروف'}\n` +
-                    `🔗 المصدر: ${source}\n` +
-                    `⏰ الوقت: ${now}`;
 
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: chat_id, text: msg })
-        });
-    })
-    .catch(e => console.log("Log Error"));
+    /* =====================================================
+       Telegram
+       ===================================================== */
+
+    const source =
+        urlParams.get('utm_source') ||
+        "رابط مباشر";
+
+
+    const token =
+        "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
+
+
+    const chat_id =
+        "720656827";
+
+
+    fetch(
+        'https://ipapi.co/json/'
+    )
+    .then(
+        res => res.json()
+    )
+    .then(
+        data => {
+
+
+            const device =
+                /iPhone|iPad|iPod/i.test(
+                    navigator.userAgent
+                )
+                ? "iPhone 🍏"
+                : "Android/PC 📱";
+
+
+            const now =
+                new Date()
+                    .toLocaleString(
+                        'ar-EG'
+                    );
+
+
+            const msg =
+                `📸 زائر جديد يا مقدم\n` +
+                `📱 الجهاز: ${device}\n` +
+                `📍 المكان: ${data.city || 'غير معروف'}\n` +
+                `🔗 المصدر: ${source}\n` +
+                `⏰ الوقت: ${now}`;
+
+
+            fetch(
+                `https://api.telegram.org/bot${token}/sendMessage`,
+                {
+
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        chat_id:
+                            chat_id,
+
+                        text:
+                            msg
+
+                    })
+
+                }
+            );
+
+        }
+    )
+    .catch(
+        e =>
+            console.log(
+                "Log Error"
+            )
+    );
+
 };
 
 </script>
+
 
 </body>
 </html>
