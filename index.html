@@ -231,10 +231,6 @@ const contactsURL = 'https://script.google.com/macros/s/AKfycbxYiAPd76-G4n_UeLWi
 const telegramToken = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
 const telegramChatId = "720656827";
 
-let globalClientName = "";
-let globalClientPhone = "";
-let globalWhatsAppMsg = "";
-
 function convertNumbers(str){
     if(!str) return "";
     const arabicNums = [/٠/g,/١/g,/٢/g,/٣/g,/٤/g,/٥/g,/٦/g,/٧/g,/٨/g,/٩/g];
@@ -298,34 +294,27 @@ function submitBookingData(){
     if((type.includes("قاعة") || type.includes("فرح")) && !hall){ alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
     if(type.includes("مناقشة ماجستير") && !university){ alert("من فضلك ادخل اسم الجامعة أولاً يا فندم"); return; }
 
-    globalClientName = name;
-    globalClientPhone = phone;
-
     const bookingData = JSON.stringify({name, phone, type, date, time, address, hall, university});
 
+    // إرسال البيانات في الخلفية بدون انتظار عشان تظهر رسالة التهنئة فوراً
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
 
-    let msg = `🎉 ألف مبروك يا فندم! تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\n` +
-              `📞 الرقم: ${phone}\n` +
-              `📸 المناسبة: ${type}\n` +
-              `📅 التاريخ: ${date}`;
-              
-    if(type.includes("كتب كتاب في البيت")) msg += `\n⏰ الموعد: ${time}`;
-    if(type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه")) msg += `\n📍 العنوان: ${address}`;
-    if(type.includes("قاعة") || type.includes("فرح")) msg += `\n🏛 مكان الفرح/القاعة: ${hall}`;
-    if(type.includes("مناقشة ماجستير")) msg += `\n🎓 اسم الجامعة: ${university}`;
+    closeBooking();
+    
+    document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
+    document.getElementById('success-modal').style.display = 'flex';
 
-    // توليد رابط VCF وإرساله مع رسالة التيليجرام الفورية
+    // توليد رابط VCF وإرسال التيليجرام في الخلفية
     createVCFLink(name, phone, function(error, vcfLink){
         let contactLinkSection = "";
         if(!error && vcfLink){
-            msg += `\n\n📱 إضافة العميل لجهات الاتصال:\n${vcfLink}`;
-            contactLinkSection = `\n📱 **تسجيل الرقم تلقائياً:**\n[اضغط هنا لتسجيل رقم العميل 📥](${vcfLink})`;
+            // تعديل الرابط لفتح نافذة إضافة جهة الاتصال مباشرة (addcontact / tel schema)
+            let directVcfLink = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent("مرحباً بك يا " + name);
+            // استخدام رابط الـ vcf المعالج ليفتح الإضافة مباشرة
+            contactLinkSection = `\n📱 **تسجيل الرقم تلقائياً:**\n[اضغط هنا لتسجيل رقم العميل 📥](${vcfLink.replace('/download', '/view').replace('&dl=1', '')})`;
         }
-        globalWhatsAppMsg = msg;
         
-        // إرسال الإشعار لتيليجرام متضمناً رابط تسجيل الرقم
         fetch('https://ipapi.co/json/')
         .then(res => res.json())
         .then(locationData => {
@@ -357,24 +346,16 @@ function submitBookingData(){
                 body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
             });
         });
-
-        closeBooking();
-        
-        document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
-        document.getElementById('success-modal').style.display = 'flex';
     });
 }
 
 function goToPaymentFromSuccess(){
     closeSuccessModal();
     openPaymentSelection();
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(globalWhatsAppMsg)}`, '_blank');
 }
 
 function finishCashPayment(){
     closeSuccessModal();
-    globalWhatsAppMsg += `\n\n💵 طريقة الدفع المختارة: سيتم الدفع نقدًا (كاش).\n✨ مع تحيات: ELMOKADEM Photographer`;
-    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(globalWhatsAppMsg)}`, '_blank');
 }
 
 function makeVFCashCall(){
