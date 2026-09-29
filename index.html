@@ -283,16 +283,33 @@ function sendToWhatsApp(){
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
 
-    let msg = `تمام يا مقدم، تم الحجز :\nالاسم: ${name}\nالرقم: ${phone}\nالمناسبة: ${type}\nالتاريخ: ${date}`;
-    if(type.includes("كتب كتاب في البيت")) msg += `\nالموعد: ${time}`;
-    if(type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه")) msg += `\nالعنوان: ${address}`;
-    if(type.includes("قاعة") || type.includes("فرح")) msg += `\nمكان الفرح/القاعة: ${hall}`;
-    if(type.includes("مناقشة ماجستير")) msg += `\nاسم الجامعة: ${university}`;
+    // رسالة التهنئة المنمقة للواتساب
+    let msg = `🎉 ألف مبروك يا فندم! تم تسجيل حجز سيادتكم معنا بنجاح في انتظار تشريفكم:\n\n` +
+              `👤 الاسم: ${name}\n` +
+              `📞 الرقم: ${phone}\n` +
+              `📸 المناسبة: ${type}\n` +
+              `📅 التاريخ: ${date}`;
+              
+    if(type.includes("كتب كتاب في البيت")) msg += `\n⏰ الموعد: ${time}`;
+    if(type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه")) msg += `\n📍 العنوان: ${address}`;
+    if(type.includes("قاعة") || type.includes("فرح")) msg += `\n🏛 مكان الفرح/القاعة: ${hall}`;
+    if(type.includes("مناقشة ماجستير")) msg += `\n🎓 اسم الجامعة: ${university}`;
+
+    msg += `\n\n💰 لتحويل مبلغ الحجز أو العربون، يمكنك استخدام قسم تحويل المبلغ المتاح على الموقع أو إبلاغنا هنا.\n\n✨ مع تحيات: ELMOKADEM Photographer`;
 
     createVCFLink(name, phone, function(error, vcfLink){
         if(!error && vcfLink){ msg += `\n\n📱 إضافة العميل لجهات الاتصال:\n${vcfLink}`; }
+        
+        // فتح الواتساب بالرسالة الجديدة
         window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
         closeBooking();
+
+        // سؤال العميل إذا كان يريد الانتقال لصفحة تحويل المبلغ فوراً
+        setTimeout(() => {
+            if(confirm("هل تريد الانتقال إلى صفحة تحويل المبلغ (الدفع) الآن؟")){
+                openPaymentSelection();
+            }
+        }, 1000);
     });
 }
 
