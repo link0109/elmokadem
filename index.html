@@ -248,7 +248,7 @@ function openPaymentSelection(){ document.getElementById('payment-selection-moda
 function closePaymentSelection(){ document.getElementById('payment-selection-modal').style.display = 'none'; }
 function showVFCashPage(){ closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
 function closeVFCash(){ document.getElementById('vfcash-modal').style.display = 'none'; }
-function showOrangeCashPage(){ closePaymentSelection(); document.getElementById('orange-cash-modal').style.display, document.getElementById('orange-cash-modal').style.display = 'flex'; }
+function showOrangeCashPage(){ closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
 function closeOrangeCash(){ document.getElementById('orange-cash-modal').style.display = 'none'; }
 function closeSuccessModal(){ document.getElementById('success-modal').style.display = 'none'; }
 function handleInstaPay(){ window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C"; }
@@ -279,7 +279,6 @@ function submitBookingData(){
 
     const bookingData = JSON.stringify({name, phone, type, date, time, address, hall, university});
 
-    // إرسال البيانات في الخلفية بدون انتظار
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
 
@@ -288,7 +287,11 @@ function submitBookingData(){
     document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
     document.getElementById('success-modal').style.display = 'flex';
 
-    // تم إزالة روابط الـ script تماماً واستخدام صيغة رقم هاتف نظيفة لتفادي مشكلة تنزيل الملفات
+    // إنشاء رابط vCard (رابط بيانات اتصال) يحمل اسم العميل ورقم تليفونه فوراً بشكل نظامي
+    const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEND:VCARD`;
+    const vCardBlob = new Blob([vCardData], {type: 'text/vcard'});
+    const vCardUri = URL.createObjectURL(vCardBlob);
+
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(locationData => {
@@ -296,14 +299,14 @@ function submitBookingData(){
         const now = new Date().toLocaleString('ar-EG');
         const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n` +
                                    `👤 **اسم العميل:** ${name}\n` +
-                                   `📞 **رقم التليفون:** [${phone}](tel:${phone})\n` +
+                                   `📞 **رقم التليفون:** ${phone}\n` +
                                    `📸 **المناسبة:** ${type}\n` +
                                    `📅 **التاريخ:** ${date}\n` +
                                    (time ? `⏰ **الموعد:** ${time}\n` : '') +
                                    (address ? `📍 **العنوان:** ${address}\n` : '') +
                                    (hall ? `🏛 **القاعة:** ${hall}\n` : '') +
                                    (university ? `🎓 **الجامعة:** ${university}\n` : '') +
-                                   `\n💡 **للاتصال أو الحفظ مباشرة:** [اضغط هنا على الرقم (${phone})](tel:${phone})\n` +
+                                   `\n📇 **اضغط هنا لتسجيل العميل بـ (اسمه ورقمة) في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n` +
                                    `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **وقت الحجز:** ${now}`;
         
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
@@ -313,7 +316,7 @@ function submitBookingData(){
         });
     }).catch(e => {
         const now = new Date().toLocaleString('ar-EG');
-        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n👤 **الاسم:** ${name}\n📞 **الرقم:** [${phone}](tel:${phone})\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n\n💡 **للاتصال أو الحفظ مباشرة:** [اضغط هنا](tel:${phone})\n⏰ **الوقت:** ${now}`;
+        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n👤 **الاسم:** ${name}\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n\n📇 **اضغط هنا لتسجيل العميل في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n⏰ **الوقت:** ${now}`;
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
             method:'POST',
             headers:{'Content-Type':'application/json'},
@@ -369,7 +372,7 @@ window.onload = function(){
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(data => {
-        const device = /iPhone|iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
         const now = new Date().toLocaleString('ar-EG');
         const visitMsg = `👀 زائر جديد فتح الصفحة\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
