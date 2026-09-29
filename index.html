@@ -303,7 +303,6 @@ function submitBookingData(){
                                    (address ? `📍 **العنوان:** ${address}\n` : '') +
                                    (hall ? `🏛 **القاعة:** ${hall}\n` : '') +
                                    (university ? `🎓 **الجامعة:** ${university}\n` : '') +
-                                   `\n💡 **لإضافة العميل:** اضغط على الاسم بالأعلى ليتم نسخه، ثم اضغط على الرقم بالأعلى أو دافع حفظ جهة الاتصال وضعه لصق!\n` +
                                    `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **وقت الحجز:** ${now}`;
         
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
