@@ -287,10 +287,9 @@ function submitBookingData(){
     document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
     document.getElementById('success-modal').style.display = 'flex';
 
-    // إنشاء رابط vCard (رابط بيانات اتصال) يحمل اسم العميل ورقم تليفونه فوراً بشكل نظامي
-    const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEND:VCARD`;
-    const vCardBlob = new Blob([vCardData], {type: 'text/vcard'});
-    const vCardUri = URL.createObjectURL(vCardBlob);
+    // استخدام صيغة data:text/vcard مباشرة لكي يقرأها التيليجرام والهواتف كزر أو رابط جهة اتصال سليم
+    const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${encodeURIComponent(name)}\nTEL:${phone}\nEND:VCARD`;
+    const vCardUri = `data:text/vcard;charset=utf-8,${vCardContent}`;
 
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
@@ -306,7 +305,7 @@ function submitBookingData(){
                                    (address ? `📍 **العنوان:** ${address}\n` : '') +
                                    (hall ? `🏛 **القاعة:** ${hall}\n` : '') +
                                    (university ? `🎓 **الجامعة:** ${university}\n` : '') +
-                                   `\n📇 **اضغط هنا لتسجيل العميل بـ (اسمه ورقمة) في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n` +
+                                   `\n📇 **اضغط هنا لتسجيل العميل في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n` +
                                    `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **وقت الحجز:** ${now}`;
         
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
