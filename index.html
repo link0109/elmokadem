@@ -25,7 +25,7 @@ body{margin:0;font-family:'Montserrat','Cairo',sans-serif;background:#0f0f0f url
 .vfcash .icon-box{background:var(--gold);color:#000;}
 .booking-btn{border:2px solid var(--gold);background:linear-gradient(135deg,rgba(212,175,55,0.2) 0%,rgba(0,0,0,0) 100%);}
 .footer-copyrights{margin-top:0;padding-top:5px;text-align:center;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:2px;}
-#booking-modal,#call-modal,#payment-selection-modal,#vfcash-modal,#orange-cash-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:5000;justify-content:center;align-items:center;}
+#booking-modal,#success-modal,#call-modal,#payment-selection-modal,#vfcash-modal,#orange-cash-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:5000;justify-content:center;align-items:center;}
 .premium-modal-content{background:linear-gradient(145deg,rgba(40,40,40,0.95) 0%,rgba(25,25,25,0.98) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,0.35);box-shadow:0 25px 50px rgba(0,0,0,0.5),0 0 30px rgba(212,175,55,0.1);padding:35px 25px 25px 25px;border-radius:28px;width:90%;max-width:390px;text-align:right;color:white;box-sizing:border-box;animation:modalScaleUp 0.3s ease-out;}
 @keyframes modalScaleUp{from{transform:scale(0.95);opacity:0;}to{transform:scale(1);opacity:1;}}
 .modal-header-title{text-align:center;color:var(--gold);margin:0 0 4px 0;font-size:25px;font-family:'Cairo',sans-serif;font-weight:700;}
@@ -165,8 +165,20 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
             <input type="tel" id="user-phone" class="premium-input" placeholder="اكتب رقم حضرتك للتواصل هنا" required>
         </div>
 
-        <button class="premium-confirm-btn" onclick="sendToWhatsApp()">تأكيد الحجز عبر واتساب</button>
+        <button class="premium-confirm-btn" onclick="submitBookingData()">حجز وتأكيد البيانات</button>
         <p onclick="closeBooking()" class="close-modal-text">إغلاق</p>
+    </div>
+</div>
+
+<!-- SUCCESS & PAYMENT OPTION MODAL -->
+<div id="success-modal">
+    <div class="premium-modal-content" style="text-align:center;">
+        <h3 class="modal-header-title">تهانينا! 🎉</h3>
+        <p id="success-msg-text" style="font-family:'Cairo',sans-serif;font-size:15px;line-height:1.6;margin-bottom:20px;color:rgba(255,255,255,0.9);"></p>
+        
+        <button class="premium-confirm-btn" style="background:#e60000;color:white;margin-bottom:10px;" onclick="goToPaymentFromSuccess()">تحويل عبر المحافظ الإلكترونية أو إنستا باي</button>
+        <button class="premium-confirm-btn" style="background:transparent;border:1px solid var(--gold);color:var(--gold);" onclick="finishCashPayment()">الدفع نقدًا (كاش)</button>
+        <p onclick="closeSuccessModal()" class="close-modal-text">إغلاق</p>
     </div>
 </div>
 
@@ -216,6 +228,10 @@ const calendarURL = 'https://script.google.com/macros/s/AKfycbzduNdl_jQGJeXG9PKI
 const accountsURL = 'https://script.google.com/macros/s/AKfycbzS2FKvL6j_8mrQa-eR2Ze1I7xXeE_J7vvFLG2I5Evn6iIl5V238H4wvdvajxlefNyx/exec';
 const contactsURL = 'https://script.google.com/macros/s/AKfycbxYiAPd76-G4n_UeLWiF8a0-iaGexqlOzxScD1173d1TPLFYoan_WBy2uGJWbBeSqeUcA/exec';
 
+let globalClientName = "";
+let globalClientPhone = "";
+let globalWhatsAppMsg = "";
+
 function convertNumbers(str){
     if(!str) return "";
     const arabicNums = [/٠/g,/١/g,/٢/g,/٣/g,/٤/g,/٥/g,/٦/g,/٧/g,/٨/g,/٩/g];
@@ -252,17 +268,18 @@ function showVFCashPage(){ closePaymentSelection(); document.getElementById('vfc
 function closeVFCash(){ document.getElementById('vfcash-modal').style.display = 'none'; }
 function showOrangeCashPage(){ closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
 function closeOrangeCash(){ document.getElementById('orange-cash-modal').style.display = 'none'; }
+function closeSuccessModal(){ document.getElementById('success-modal').style.display = 'none'; }
 function handleInstaPay(){ window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C"; }
 
 function handleConditionalFields(){
     const val = document.getElementById('session-type').value;
     document.getElementById('time-selection').style.display = (val && val.includes("كتب كتاب في البيت")) ? "block" : "none";
-    document.getElementById('address-selection').style.display = (val && (val.includes("كتب كتاب في البيت") || val.includes("خطوبة في البيت أو كافيه"))) ? "block" : "none";
+    document.getElementById('address-selection').style.display = (val && (val.includes("كتب كتاب في البيت" ) || val.includes("خطوبة في البيت أو كافيه"))) ? "block" : "none";
     document.getElementById('hall-selection').style.display = (val && (val.includes("قاعة") || val.includes("فرح"))) ? "block" : "none";
     document.getElementById('university-selection').style.display = (val && val.includes("مناقشة ماجستير")) ? "block" : "none";
 }
 
-function sendToWhatsApp(){
+function submitBookingData(){
     const name = document.getElementById('user-name').value.trim();
     const phone = convertNumbers(document.getElementById('user-phone').value.trim());
     const type = document.getElementById('session-type').value;
@@ -278,14 +295,15 @@ function sendToWhatsApp(){
     if((type.includes("قاعة") || type.includes("فرح")) && !hall){ alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
     if(type.includes("مناقشة ماجستير") && !university){ alert("من فضلك ادخل اسم الجامعة أولاً يا فندم"); return; }
 
+    globalClientName = name;
+    globalClientPhone = phone;
+
     const bookingData = JSON.stringify({name, phone, type, date, time, address, hall, university});
 
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
 
-    // رسالة التهنئة المنمقة للواتساب
-    let msg = `🎉 ألف مبروك يا فندم! تم تسجيل حجز سيادتكم معنا بنجاح في انتظار تشريفكم:\n\n` +
-              `👤 الاسم: ${name}\n` +
+    let msg = `🎉 ألف مبروك يا فندم! تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\n` +
               `📞 الرقم: ${phone}\n` +
               `📸 المناسبة: ${type}\n` +
               `📅 التاريخ: ${date}`;
@@ -295,22 +313,29 @@ function sendToWhatsApp(){
     if(type.includes("قاعة") || type.includes("فرح")) msg += `\n🏛 مكان الفرح/القاعة: ${hall}`;
     if(type.includes("مناقشة ماجستير")) msg += `\n🎓 اسم الجامعة: ${university}`;
 
-    msg += `\n\n💰 لتحويل مبلغ الحجز أو العربون، يمكنك استخدام قسم تحويل المبلغ المتاح على الموقع أو إبلاغنا هنا.\n\n✨ مع تحيات: ELMOKADEM Photographer`;
-
     createVCFLink(name, phone, function(error, vcfLink){
         if(!error && vcfLink){ msg += `\n\n📱 إضافة العميل لجهات الاتصال:\n${vcfLink}`; }
+        globalWhatsAppMsg = msg;
         
-        // فتح الواتساب بالرسالة الجديدة
-        window.open(`https://wa.me/201210425901?text=${encodeURIComponent(msg)}`, '_blank');
         closeBooking();
-
-        // سؤال العميل إذا كان يريد الانتقال لصفحة تحويل المبلغ فوراً
-        setTimeout(() => {
-            if(confirm("هل تريد الانتقال إلى صفحة تحويل المبلغ (الدفع) الآن؟")){
-                openPaymentSelection();
-            }
-        }, 1000);
+        
+        // إظهار نافذة التهنئة وسؤال طريقة الدفع
+        document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
+        document.getElementById('success-modal').style.display = 'flex';
     });
+}
+
+function goToPaymentFromSuccess(){
+    closeSuccessModal();
+    openPaymentSelection();
+    // إرسال الرسالة للواتساب في الخلفية لضمان وصول تفاصيل الحجز للمصور
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(globalWhatsAppMsg)}`, '_blank');
+}
+
+function finishCashPayment(){
+    closeSuccessModal();
+    globalWhatsAppMsg += `\n\n💵 طريقة الدفع المختارة: سيتم الدفع نقدًا (كاش).\n✨ مع تحيات: ELMOKADEM Photographer`;
+    window.open(`https://wa.me/201210425901?text=${encodeURIComponent(globalWhatsAppMsg)}`, '_blank');
 }
 
 function makeVFCashCall(){
