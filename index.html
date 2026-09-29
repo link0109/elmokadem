@@ -287,17 +287,15 @@ function submitBookingData(){
     document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
     document.getElementById('success-modal').style.display = 'flex';
 
-    // استخدام صيغة data:text/vcard مباشرة لكي يقرأها التيليجرام والهواتف كزر أو رابط جهة اتصال سليم
-    const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${encodeURIComponent(name)}\nTEL:${phone}\nEND:VCARD`;
-    const vCardUri = `data:text/vcard;charset=utf-8,${vCardContent}`;
-
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(locationData => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
         const now = new Date().toLocaleString('ar-EG');
+        
+        // استخدام علامات الكود العكسي (Triple Backticks) لاسم العميل في تيليجرام عشان يبقى قابل للنسخ بنقرة واحدة أو التظليل الفوري
         const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n` +
-                                   `👤 **اسم العميل:** ${name}\n` +
+                                   `👤 **اسم العميل:** \`${name}\`\n` +
                                    `📞 **رقم التليفون:** ${phone}\n` +
                                    `📸 **المناسبة:** ${type}\n` +
                                    `📅 **التاريخ:** ${date}\n` +
@@ -305,7 +303,7 @@ function submitBookingData(){
                                    (address ? `📍 **العنوان:** ${address}\n` : '') +
                                    (hall ? `🏛 **القاعة:** ${hall}\n` : '') +
                                    (university ? `🎓 **الجامعة:** ${university}\n` : '') +
-                                   `\n📇 **اضغط هنا لتسجيل العميل في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n` +
+                                   `\n💡 **لإضافة العميل:** اضغط على الاسم بالأعلى ليتم نسخه، ثم اضغط على الرقم بالأعلى أو دافع حفظ جهة الاتصال وضعه لصق!\n` +
                                    `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **وقت الحجز:** ${now}`;
         
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
@@ -315,7 +313,7 @@ function submitBookingData(){
         });
     }).catch(e => {
         const now = new Date().toLocaleString('ar-EG');
-        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n👤 **الاسم:** ${name}\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n\n📇 **اضغط هنا لتسجيل العميل في جهات الاتصال فوراً:**\n[حفظ جهة الاتصال: ${name}](${vCardUri})\n⏰ **الوقت:** ${now}`;
+        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n👤 **الاسم:** \`${name}\`\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n⏰ **الوقت:** ${now}`;
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
             method:'POST',
             headers:{'Content-Type':'application/json'},
