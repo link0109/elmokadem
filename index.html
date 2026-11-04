@@ -279,6 +279,23 @@ function convertNumbers(str){
     return str;
 }
 
+// دالة لتنسيق الوقت بنظام 12 ساعة مع صباحاً/مساءً
+function getFormattedTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'مساءً' : 'صباحاً';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // الساعة 12 منتصف الليل أو الظهيرة
+    const formattedHours = String(hours).padStart(2, '0');
+    
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    
+    return `${formattedHours}:${minutes} ${ampm} - ${day}/${month}/${year}`;
+}
+
 document.getElementById('cash-amount').addEventListener('input', function(){ this.value = convertNumbers(this.value); });
 document.getElementById('orange-amount').addEventListener('input', function(){ this.value = convertNumbers(this.value); });
 
@@ -437,14 +454,7 @@ function submitBookingData(){
     .then(res => res.json())
     .then(locationData => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
-        
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
+        const formattedTime = getFormattedTime();
         
         const telegramBookingMsg = `🚨 **حجز جديد يا مقدم** 🚨\n\n` +
                                    `👤 **اسم العميل:** ${name}\n` +
@@ -463,14 +473,7 @@ function submitBookingData(){
             body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
         });
     }).catch(e => {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
-
+        const formattedTime = getFormattedTime();
         const telegramBookingMsg = `🚨 **حجز جديد يا مقدم** 🚨\n\n👤 **الاسم:** ${name}\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n⏰ **الوقت:** ${formattedTime}`;
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
             method:'POST',
@@ -504,14 +507,7 @@ window.onload = function(){
     .then(res => res.json())
     .then(data => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
-        
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
+        const formattedTime = getFormattedTime();
 
         const visitMsg = `👀 **زيارة جديدة**\n\n📱 **الجهاز:** ${device}\n📍 **المكان:** ${data.city || 'غير معروف'}\n🔗 **المصدر:** ${source}\n⏰ **الوقت:** ${formattedTime}`;
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
