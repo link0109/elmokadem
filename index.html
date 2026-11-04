@@ -193,7 +193,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <p style="font-size:14px;color:#ccc;margin-bottom:20px;">سيتم تحويل المبلغ من هاتفك الحالي أم من هاتف آخر؟</p>
         <button class="pay-option-btn vf-style" onclick="selectPhoneSource('current')">من هاتفي الحالي</button>
         <button class="pay-option-btn orange-style" onclick="selectPhoneSource('other')">من هاتف آخر</button>
-        <p onclick="closePhoneSelection()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
+        <p onclick="backToSuccessFromPhone()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
     </div>
 </div>
 
@@ -204,7 +204,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <button class="pay-option-btn vf-style" onclick="chooseWallet('vodafone')">فودافون كاش | Vodafone Cash</button>
         <button class="pay-option-btn orange-style" onclick="chooseWallet('orange')">أورنج كاش | Orange Cash</button>
         <button class="pay-option-btn insta-style" onclick="chooseWallet('instapay')">إنستا باي | InstaPay</button>
-        <p onclick="closeWalletSelection()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
+        <p onclick="backToPhoneSelection()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
     </div>
 </div>
 
@@ -225,7 +225,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <h3 style="color:var(--gold);margin-bottom:20px;">فودافون كاش</h3>
         <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا ">
         <button class="premium-btn" style="background:var(--vfcash-color);" onclick="makeVFCashCall()">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق</p>
+        <p onclick="backToWalletSelection()" style="color:#888;cursor:pointer;margin-top:20px;">رجوع</p>
     </div>
 </div>
 
@@ -235,7 +235,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <h3 style="color:#ff6600;margin-bottom:20px;">أورنج كاش</h3>
         <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا ">
         <button class="premium-btn" style="background:var(--orange-color);" onclick="makeOrangeCashCall()">اتصال وتحويل الآن</button>
-        <p onclick="closeOrangeCash()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق</p>
+        <p onclick="backToWalletSelection()" style="color:#888;cursor:pointer;margin-top:20px;">رجوع</p>
     </div>
 </div>
 
@@ -248,7 +248,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
             <div id="target-number-text" class="number-display"></div>
             <div id="copy-feedback" style="font-size:12px;color:#25D366;margin-top:5px;display:none;">تم النسخ بنجاح! ✓</div>
         </div>
-        <p onclick="closeNumberDisplay()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق / إنهاء</p>
+        <p onclick="backToWalletSelection()" style="color:#888;cursor:pointer;margin-top:20px;">رجوع</p>
     </div>
 </div>
 
@@ -294,8 +294,9 @@ function goToPhoneSelection(){
     closeSuccessModal();
     document.getElementById('phone-selection-modal').style.display = 'flex';
 }
-function closePhoneSelection(){
+function backToSuccessFromPhone(){
     document.getElementById('phone-selection-modal').style.display = 'none';
+    document.getElementById('success-modal').style.display = 'flex';
 }
 
 function selectPhoneSource(source){
@@ -303,15 +304,25 @@ function selectPhoneSource(source){
     document.getElementById('phone-selection-modal').style.display = 'none';
     document.getElementById('wallet-selection-modal').style.display = 'flex';
 }
-function closeWalletSelection(){
+function backToPhoneSelection(){
     document.getElementById('wallet-selection-modal').style.display = 'none';
+    document.getElementById('vfcash-modal').style.display = 'none';
+    document.getElementById('orange-cash-modal').style.display = 'none';
+    document.getElementById('number-display-modal').style.display = 'none';
+    document.getElementById('phone-selection-modal').style.display = 'flex';
+}
+
+function backToWalletSelection(){
+    document.getElementById('vfcash-modal').style.display = 'none';
+    document.getElementById('orange-cash-modal').style.display = 'none';
+    document.getElementById('number-display-modal').style.display = 'none';
+    document.getElementById('wallet-selection-modal').style.display = 'flex';
 }
 
 function chooseWallet(wallet){
     document.getElementById('wallet-selection-modal').style.display = 'none';
     
     if(currentPhoneSource === 'current'){
-        // من هاتفي الحالي
         if(wallet === 'vodafone'){
             document.getElementById('vfcash-modal').style.display = 'flex';
         } else if(wallet === 'orange'){
@@ -320,7 +331,6 @@ function chooseWallet(wallet){
             window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
         }
     } else {
-        // من هاتف آخر -> إظهار الرقم الخاص بك للنسخ في كل الحالات (فودافون، أورانج، إنستا باي)
         if(wallet === 'vodafone'){
             activeNumberToCopy = '01092217287';
             document.getElementById('wallet-title-text').innerText = 'فودافون كاش';
@@ -350,12 +360,6 @@ function startMainInstaPay(){
     closePaymentSelection();
     window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
 }
-
-function closeNumberDisplay(){ document.getElementById('number-display-modal').style.display = 'none'; }
-function showVFCashPage(){ closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
-function closeVFCash(){ document.getElementById('vfcash-modal').style.display = 'none'; }
-function showOrangeCashPage(){ closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
-function closeOrangeCash(){ document.getElementById('orange-cash-modal').style.display = 'none'; }
 
 function copyWalletNumber(){
     navigator.clipboard.writeText(activeNumberToCopy).then(() => {
@@ -394,18 +398,19 @@ function handleConditionalFields(){
 function submitBookingData(){
     const name = document.getElementById('user-name').value.trim();
     const phone = convertNumbers(document.getElementById('user-phone').value.trim());
-    const type = document.getElementById('session-type').value;
+    const fullType = document.getElementById('session-type').value;
+    const type = fullType.split('(')[0].trim();
     const date = document.getElementById('session-date').value;
     const time = document.getElementById('session-time').value;
     const address = document.getElementById('user-address').value.trim();
     const hall = document.getElementById('hall-name').value.trim();
     const university = document.getElementById('university-name').value.trim();
 
-    if(!type || !date || !name || !phone){ alert("من فضلك كمل البيانات الأول يا فندم"); return; }
-    if(type.includes("كتب كتاب في البيت") && !time){ alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم"); return; }
-    if((type.includes("كتب كتاب في البيت") || type.includes("خطوبة في البيت أو كافيه")) && !address){ alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم"); return; }
-    if((type.includes("قاعة") || type.includes("فرح")) && !hall){ alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
-    if(type.includes("مناقشة ماجستير") && !university){ alert("من فضلك ادخل اسم الجامعة أولاً يا فندم"); return; }
+    if(!fullType || !date || !name || !phone){ alert("من فضلك كمل البيانات الأول يا فندم"); return; }
+    if(fullType.includes("كتب كتاب في البيت") && !time){ alert("من فضلك اختر موعد كتب الكتاب أولاً يا فندم"); return; }
+    if((fullType.includes("كتب كتاب في البيت") || fullType.includes("خطوبة في البيت أو كافيه")) && !address){ alert("من فضلك ادخل العنوان بالتفصيل أولاً يا فندم"); return; }
+    if((fullType.includes("قاعة") || fullType.includes("فرح")) && !hall){ alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
+    if(fullType.includes("مناقشة ماجستير") && !university){ alert("من فضلك ادخل اسم الجامعة أولاً يا فندم"); return; }
 
     let bookings = JSON.parse(localStorage.getItem('elmokadem_bookings') || '[]');
     let isDuplicate = bookings.some(b => b.name === name && b.date === date);
@@ -418,7 +423,7 @@ function submitBookingData(){
     bookings.push({name: name, date: date});
     localStorage.setItem('elmokadem_bookings', JSON.stringify(bookings));
 
-    const bookingData = JSON.stringify({name, phone, type, date, time, address, hall, university});
+    const bookingData = JSON.stringify({name, phone, type: fullType, date, time, address, hall, university});
 
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
@@ -432,10 +437,17 @@ function submitBookingData(){
     .then(res => res.json())
     .then(locationData => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
-        const now = new Date().toLocaleString('ar-EG');
         
-        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n` +
-                                   `👤 **اسم العميل:** \`${name}\`\n` +
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
+        
+        const telegramBookingMsg = `🚨 **حجز جديد يا مقدم** 🚨\n\n` +
+                                   `👤 **اسم العميل:** ${name}\n` +
                                    `📞 **رقم التليفون:** ${phone}\n` +
                                    `📸 **المناسبة:** ${type}\n` +
                                    `📅 **التاريخ:** ${date}\n` +
@@ -443,14 +455,29 @@ function submitBookingData(){
                                    (address ? `📍 **العنوان:** ${address}\n` : '') +
                                    (hall ? `🏛 **القاعة:** ${hall}\n` : '') +
                                    (university ? `🎓 **الجامعة:** ${university}\n` : '') +
-                                   `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **وقت الحجز:** ${now}`;
+                                   `\n📱 **الجهاز:** ${device}\n📍 **المدينة:** ${locationData.city || 'غير معروف'}\n⏰ **الوقت:** ${formattedTime}`;
         
         fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
         });
-    }).catch(e => {});
+    }).catch(e => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
+
+        const telegramBookingMsg = `🚨 **حجز جديد يا مقدم** 🚨\n\n👤 **الاسم:** ${name}\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n⏰ **الوقت:** ${formattedTime}`;
+        fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
+        });
+    });
 }
 
 window.onload = function(){
@@ -471,6 +498,28 @@ window.onload = function(){
         }
         handleConditionalFields();
     }
+
+    const source = urlParams.get('utm_source') || "رابط مباشر";
+    fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
+        
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const formattedTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
+
+        const visitMsg = `👀 **زيارة جديدة**\n\n📱 **الجهاز:** ${device}\n📍 **المكان:** ${data.city || 'غير معروف'}\n🔗 **المصدر:** ${source}\n⏰ **الوقت:** ${formattedTime}`;
+        fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({chat_id: telegramChatId, text: visitMsg, parse_mode: 'Markdown'})
+        });
+    }).catch(e => console.log("Log Error"));
 };
 </script>
 
