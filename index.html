@@ -214,7 +214,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <h3 style="color:var(--gold);margin-bottom:20px;">اختر وسيلة التحويل</h3>
         <button class="pay-option-btn vf-style" onclick="startDirectWallet('vodafone')">فودافون كاش | Vodafone Cash</button>
         <button class="pay-option-btn orange-style" onclick="startDirectWallet('orange')">أورنج كاش | Orange Cash</button>
-        <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
+        <button class="pay-option-btn insta-style" onclick="startMainInstaPay()">إنستا باي | InstaPay</button>
         <p onclick="closePaymentSelection()" style="color:#888;cursor:pointer;margin-top:15px;">إغلاق</p>
     </div>
 </div>
@@ -239,7 +239,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
     </div>
 </div>
 
-<!-- NUMBER DISPLAY MODAL (FOR OTHER PHONE COPY) -->
+<!-- NUMBER DISPLAY MODAL (FOR COPY FEATURE) -->
 <div id="number-display-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 id="wallet-title-text" style="color:var(--gold);margin-bottom:15px;"></h3>
@@ -310,26 +310,26 @@ function closeWalletSelection(){
 function chooseWallet(wallet){
     document.getElementById('wallet-selection-modal').style.display = 'none';
     
-    if(wallet === 'instapay'){
-        window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
-        return;
-    }
-    
     if(currentPhoneSource === 'current'){
-        // من هاتفي الحالي -> يفتح إدخال المبلغ والاتصال المباشر
+        // من هاتفي الحالي
         if(wallet === 'vodafone'){
             document.getElementById('vfcash-modal').style.display = 'flex';
         } else if(wallet === 'orange'){
             document.getElementById('orange-cash-modal').style.display = 'flex';
+        } else if(wallet === 'instapay'){
+            window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
         }
     } else {
-        // من هاتف آخر -> يعرض الرقم للنسخ
+        // من هاتف آخر -> إظهار الرقم الخاص بك للنسخ في كل الحالات (فودافون، أورانج، إنستا باي)
         if(wallet === 'vodafone'){
             activeNumberToCopy = '01092217287';
             document.getElementById('wallet-title-text').innerText = 'فودافون كاش';
         } else if(wallet === 'orange'){
             activeNumberToCopy = '01210425901';
             document.getElementById('wallet-title-text').innerText = 'أورنج كاش';
+        } else if(wallet === 'instapay'){
+            activeNumberToCopy = '01092217287';
+            document.getElementById('wallet-title-text').innerText = 'إنستا باي';
         }
         document.getElementById('target-number-text').innerText = activeNumberToCopy;
         document.getElementById('copy-feedback').style.display = 'none';
@@ -346,7 +346,8 @@ function startDirectWallet(wallet){
     }
 }
 
-function handleInstaPay(){
+function startMainInstaPay(){
+    closePaymentSelection();
     window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
 }
 
