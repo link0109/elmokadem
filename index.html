@@ -25,7 +25,7 @@ body{margin:0;font-family:'Montserrat','Cairo',sans-serif;background:#0f0f0f url
 .vfcash .icon-box{background:var(--gold);color:#000;}
 .booking-btn{border:2px solid var(--gold);background:linear-gradient(135deg,rgba(212,175,55,0.2) 0%,rgba(0,0,0,0) 100%);}
 .footer-copyrights{margin-top:0;padding-top:5px;text-align:center;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:2px;}
-#booking-modal,#success-modal,#call-modal,#payment-selection-modal,#vfcash-modal,#orange-cash-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:5000;justify-content:center;align-items:center;}
+#booking-modal,#success-modal,#call-modal,#payment-selection-modal,#phone-selection-modal,#wallet-selection-modal,#number-display-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:5000;justify-content:center;align-items:center;}
 .premium-modal-content{background:linear-gradient(145deg,rgba(40,40,40,0.95) 0%,rgba(25,25,25,0.98) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,0.35);box-shadow:0 25px 50px rgba(0,0,0,0.5),0 0 30px rgba(212,175,55,0.1);padding:35px 25px 25px 25px;border-radius:28px;width:90%;max-width:390px;text-align:right;color:white;box-sizing:border-box;animation:modalScaleUp 0.3s ease-out;}
 @keyframes modalScaleUp{from{transform:scale(0.95);opacity:0;}to{transform:scale(1);opacity:1;}}
 .modal-header-title{text-align:center;color:var(--gold);margin:0 0 4px 0;font-size:25px;font-family:'Cairo',sans-serif;font-weight:700;}
@@ -49,11 +49,14 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
 .close-modal-text{text-align:center;color:rgba(255,255,255,0.5);cursor:pointer;margin-top:20px;font-size:14px;font-family:'Cairo',sans-serif;}
 .modal-content{background:#1a1a1a;padding:25px;border-radius:20px;border:1px solid var(--gold);width:85%;max-width:380px;text-align:right;color:white;box-sizing:border-box;}
 .modal-content input{background:#000;color:#fff;border:1px solid #444;padding:15px;margin:15px 0;border-radius:12px;width:100%;text-align:center;font-size:18px;box-sizing:border-box;}
-.premium-btn{width:100%;padding:15px;border:none;border-radius:12px;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;}
 .pay-option-btn{display:block;width:100%;padding:15px;margin:12px 0;border-radius:10px;border:none;font-weight:bold;cursor:pointer;font-size:14px;}
 .vf-style{background:#e60000;color:white;}
 .orange-style{background:#ff6600;color:white;}
 .insta-style{background:white;color:black;}
+.copy-box{background:rgba(255,255,255,0.08);border:1px dashed var(--gold);padding:15px;border-radius:12px;text-align:center;cursor:pointer;margin:15px 0;transition:0.3s;}
+.copy-box:hover{background:rgba(212,175,55,0.15);}
+.number-display{font-size:26px;color:var(--gold);font-weight:bold;letter-spacing:2px;margin:8px 0;font-family:monospace;}
+.copy-hint{font-size:12px;color:rgba(255,255,255,0.6);}
 </style>
 </head>
 <body>
@@ -176,19 +179,55 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
         <h3 class="modal-header-title">تهانينا! 🎉</h3>
         <p id="success-msg-text" style="font-family:'Cairo',sans-serif;font-size:15px;line-height:1.6;margin-bottom:20px;color:rgba(255,255,255,0.9);"></p>
         
-        <button class="premium-confirm-btn" style="background:#e60000;color:white;margin-bottom:10px;" onclick="goToPaymentFromSuccess()">تحويل عبر المحافظ الإلكترونية أو إنستا باي</button>
-        <button class="premium-confirm-btn" style="background:transparent;border:1px solid var(--gold);color:var(--gold);" onclick="finishCashPayment()">الدفع نقدًا (كاش)</button>
+        <button class="premium-confirm-btn" style="background:#e60000;color:white;margin-bottom:10px;" onclick="goToPhoneSelection()">هل تريد تحويل مبلغ عربون أو ديبوزات الآن؟</button>
+        <button class="premium-confirm-btn" style="background:transparent;border:1px solid var(--gold);color:var(--gold);" onclick="finishCashPayment()">الدفع نقداً / لاحقاً</button>
         <p onclick="closeSuccessModal()" class="close-modal-text">إغلاق</p>
     </div>
 </div>
 
-<!-- PAYMENT SELECTION -->
+<!-- PHONE SELECTION MODAL -->
+<div id="phone-selection-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);margin-bottom:20px;">طريقة التحويل</h3>
+        <p style="font-size:14px;color:#ccc;margin-bottom:20px;">سيتم تحويل المبلغ من هاتفك الحالي أم من هاتف آخر؟</p>
+        <button class="pay-option-btn vf-style" onclick="selectPhoneSource('current')">من هاتفي الحالي</button>
+        <button class="pay-option-btn orange-style" onclick="selectPhoneSource('other')">من هاتف آخر</button>
+        <p onclick="closePhoneSelection()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
+    </div>
+</div>
+
+<!-- WALLET SELECTION MODAL -->
+<div id="wallet-selection-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 style="color:var(--gold);margin-bottom:20px;">اختر المحفظة أو الخدمة</h3>
+        <button class="pay-option-btn vf-style" onclick="chooseWallet('vodafone')">فودافون كاش | Vodafone Cash</button>
+        <button class="pay-option-btn orange-style" onclick="chooseWallet('orange')">أورنج كاش | Orange Cash</button>
+        <button class="pay-option-btn insta-style" onclick="chooseWallet('instapay')">إنستا باي | InstaPay</button>
+        <p onclick="closeWalletSelection()" style="color:#888;cursor:pointer;margin-top:15px;">رجوع</p>
+    </div>
+</div>
+
+<!-- NUMBER DISPLAY MODAL (COPY FEATURE) -->
+<div id="number-display-modal">
+    <div class="modal-content" style="text-align:center;">
+        <h3 id="wallet-title-text" style="color:var(--gold);margin-bottom:15px;"></h3>
+        <div class="copy-box" onclick="copyWalletNumber()">
+            <div class="copy-hint">اضغط على الرقم للنسخ</div>
+            <div id="target-number-text" class="number-display"></div>
+            <div id="copy-feedback" style="font-size:12px;color:#25D366;margin-top:5px;display:none;">تم النسخ بنجاح! ✓</div>
+        </div>
+        <button id="action-call-btn" class="premium-btn" style="margin-top:10px;display:none;" onclick="triggerDial()">اتصال بالرمز المباشر</button>
+        <p onclick="closeNumberDisplay()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق / إنهاء</p>
+    </div>
+</div>
+
+<!-- PAYMENT SELECTION FOR MAIN PAGE -->
 <div id="payment-selection-modal">
     <div class="modal-content" style="text-align:center;">
         <h3 style="color:var(--gold);margin-bottom:20px;">اختر وسيلة التحويل</h3>
-        <button class="pay-option-btn vf-style" onclick="showVFCashPage()">فودافون كاش | Vodafone Cash</button>
-        <button class="pay-option-btn orange-style" onclick="showOrangeCashPage()">أورنج كاش | Orange Cash</button>
-        <button class="pay-option-btn insta-style" onclick="handleInstaPay()">إنستا باي | InstaPay</button>
+        <button class="pay-option-btn vf-style" onclick="startDirectWallet('vodafone')">فودافون كاش | Vodafone Cash</button>
+        <button class="pay-option-btn orange-style" onclick="startDirectWallet('orange')">أورنج كاش | Orange Cash</button>
+        <button class="pay-option-btn insta-style" onclick="startDirectWallet('instapay')">إنستا باي | InstaPay</button>
         <p onclick="closePaymentSelection()" style="color:#888;cursor:pointer;margin-top:15px;">إغلاق</p>
     </div>
 </div>
@@ -203,32 +242,16 @@ input[type="date"]::-webkit-calendar-picker-indicator{background:transparent;bot
     </div>
 </div>
 
-<!-- VODAFONE CASH -->
-<div id="vfcash-modal">
-    <div class="modal-content" style="text-align:center;">
-        <h3 style="color:var(--gold);margin-bottom:20px;">فودافون كاش</h3>
-        <input type="text" inputmode="decimal" id="cash-amount" placeholder=" أدخل المبلغ هنا ">
-        <button class="premium-btn" style="background:var(--vfcash-color);" onclick="makeVFCashCall()">اتصال وتحويل الآن</button>
-        <p onclick="closeVFCash()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق</p>
-    </div>
-</div>
-
-<!-- ORANGE CASH -->
-<div id="orange-cash-modal">
-    <div class="modal-content" style="text-align:center;">
-        <h3 style="color:#ff6600;margin-bottom:20px;">أورنج كاش</h3>
-        <input type="text" inputmode="decimal" id="orange-amount" placeholder=" أدخل المبلغ هنا ">
-        <button class="premium-btn" style="background:var(--orange-color);" onclick="makeOrangeCashCall()">اتصال وتحويل الآن</button>
-        <p onclick="closeOrangeCash()" style="color:#888;cursor:pointer;margin-top:20px;">إغلاق</p>
-    </div>
-</div>
-
 <script>
 const calendarURL = 'https://script.google.com/macros/s/AKfycbxfe8XkU07wPzvk6G32tJlYQ0N3ok7mh-xQoelL57PoC7XvcldsF6JAEHOdfH-EUP_-/exec';
 const accountsURL = 'https://script.google.com/macros/s/AKfycbyOss4GHKdm4myQzM0ywac_vUyo6AgvH8jLj3yEfJOFYDLvKXEsc7i1Fw4HEmgz08Zj/exec';
 
 const telegramToken = "7769219526:AAGL3eyYRgdSQRcX2jbpkEgFEnsHcCgnrcs";
 const telegramChatId = "720656827";
+
+let currentPhoneSource = '';
+let selectedWalletType = '';
+let activeNumberToCopy = '';
 
 function convertNumbers(str){
     if(!str) return "";
@@ -237,21 +260,99 @@ function convertNumbers(str){
     return str;
 }
 
-document.getElementById('cash-amount').addEventListener('input', function(){ this.value = convertNumbers(this.value); });
-document.getElementById('orange-amount').addEventListener('input', function(){ this.value = convertNumbers(this.value); });
-
 function openBooking(){ document.getElementById('booking-modal').style.display = 'flex'; }
 function closeBooking(){ document.getElementById('booking-modal').style.display = 'none'; }
 function openCallModal(){ document.getElementById('call-modal').style.display = 'flex'; }
 function closeCallModal(){ document.getElementById('call-modal').style.display = 'none'; }
 function openPaymentSelection(){ document.getElementById('payment-selection-modal').style.display = 'flex'; }
 function closePaymentSelection(){ document.getElementById('payment-selection-modal').style.display = 'none'; }
-function showVFCashPage(){ closePaymentSelection(); document.getElementById('vfcash-modal').style.display = 'flex'; }
-function closeVFCash(){ document.getElementById('vfcash-modal').style.display = 'none'; }
-function showOrangeCashPage(){ closePaymentSelection(); document.getElementById('orange-cash-modal').style.display = 'flex'; }
-function closeOrangeCash(){ document.getElementById('orange-cash-modal').style.display = 'none'; }
 function closeSuccessModal(){ document.getElementById('success-modal').style.display = 'none'; }
-function handleInstaPay(){ window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C"; }
+
+function goToPhoneSelection(){
+    closeSuccessModal();
+    document.getElementById('phone-selection-modal').style.display = 'flex';
+}
+function closePhoneSelection(){
+    document.getElementById('phone-selection-modal').style.display = 'none';
+}
+
+function selectPhoneSource(source){
+    currentPhoneSource = source;
+    document.getElementById('phone-selection-modal').style.display = 'none';
+    document.getElementById('wallet-selection-modal').style.display = 'flex';
+}
+function closeWalletSelection(){
+    document.getElementById('wallet-selection-modal').style.display = 'none';
+}
+
+function chooseWallet(wallet){
+    selectedWalletType = wallet;
+    document.getElementById('wallet-selection-modal').style.display = 'none';
+    
+    if(wallet === 'instapay'){
+        window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
+        return;
+    }
+    
+    if(wallet === 'vodafone'){
+        activeNumberToCopy = '01092217287';
+        document.getElementById('wallet-title-text').innerText = 'فودافون كاش';
+    } else if(wallet === 'orange'){
+        activeNumberToCopy = '01210425901';
+        document.getElementById('wallet-title-text').innerText = 'أورنج كاش';
+    }
+    
+    document.getElementById('target-number-text').innerText = activeNumberToCopy;
+    document.getElementById('copy-feedback').style.display = 'none';
+    
+    const callBtn = document.getElementById('action-call-btn');
+    if(currentPhoneSource === 'current'){
+        callBtn.style.display = 'block';
+    } else {
+        callBtn.style.display = 'none';
+    }
+    
+    document.getElementById('number-display-modal').style.display = 'flex';
+}
+
+function closeNumberDisplay(){
+    document.getElementById('number-display-modal').style.display = 'none';
+}
+
+function copyWalletNumber(){
+    navigator.clipboard.writeText(activeNumberToCopy).then(() => {
+        const feedback = document.getElementById('copy-feedback');
+        feedback.style.display = 'block';
+        setTimeout(() => { feedback.style.display = 'none'; }, 2500);
+    });
+}
+
+function triggerDial(){
+    if(selectedWalletType === 'vodafone'){
+        window.location.href = `tel:*9*7*${activeNumberToCopy}%23`;
+    } else if(selectedWalletType === 'orange'){
+        window.location.href = `tel:%237115*7*${activeNumberToCopy}%23`;
+    }
+}
+
+function startDirectWallet(wallet){
+    closePaymentSelection();
+    selectedWalletType = wallet;
+    if(wallet === 'instapay'){
+        window.location.href = "https://ipn.eg/S/eslam.elmokadem/instapay/9ehE1C";
+        return;
+    }
+    activeNumberToCopy = (wallet === 'vodafone') ? '01092217287' : '01210425901';
+    document.getElementById('wallet-title-text').innerText = (wallet === 'vodafone') ? 'فودافون كاش' : 'أورنج كاش';
+    document.getElementById('target-number-text').innerText = activeNumberToCopy;
+    document.getElementById('copy-feedback').style.display = 'none';
+    document.getElementById('action-call-btn').style.display = 'block';
+    document.getElementById('number-display-modal').style.display = 'flex';
+}
+
+function finishCashPayment(){
+    closeSuccessModal();
+}
 
 function handleConditionalFields(){
     const val = document.getElementById('session-type').value;
@@ -277,23 +378,37 @@ function submitBookingData(){
     if((type.includes("قاعة") || type.includes("فرح")) && !hall){ alert("من فضلك ادخل اسم القاعة أو مكان الفرح أولاً يا فندم"); return; }
     if(type.includes("مناقشة ماجستير") && !university){ alert("من فضلك ادخل اسم الجامعة أولاً يا فندم"); return; }
 
+    // التحقق من عدم تكرار نفس الاسم لنفس اليوم من خلال الذاكرة المحلية للمتصفح
+    let bookings = JSON.parse(localStorage.getItem('elmokadem_bookings') || '[]');
+    let isDuplicate = bookings.some(b => b.name === name && b.date === date);
+
+    if(isDuplicate){
+        alert("عذراً يا فندم، يوجد حجز مسجل بالفعل بهذا الاسم في نفس اليوم!");
+        return;
+    }
+
+    // حفظ الحجز الجديد محلياً
+    bookings.push({name: name, date: date});
+    localStorage.setItem('elmokadem_bookings', JSON.stringify(bookings));
+
     const bookingData = JSON.stringify({name, phone, type, date, time, address, hall, university});
 
+    // إرسال البيانات لجوجل شيت والتقويم كالمعتاد بدون أي تعديل في السكربت
     fetch(calendarURL, {method:'POST', mode:'no-cors', body:bookingData});
     fetch(accountsURL, {method:'POST', mode:'no-cors', body:bookingData});
 
     closeBooking();
     
-    document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.\n\nهل يمكنك تحويل المبلغ الآن عبر المحافظ الإلكترونية أو إنستا باي، أم سيتم الدفع نقدًا؟`;
+    document.getElementById('success-msg-text').innerText = `ألف مبروك يا فندم، تم حجز اليوم باسم حضرتك (${name}) بنجاح.`;
     document.getElementById('success-modal').style.display = 'flex';
 
+    // إرسال تنبيه تيليجرام
     fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(locationData => {
         const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
         const now = new Date().toLocaleString('ar-EG');
         
-        // تم مسح السطر الإرشادي نهائياً من هنا
         const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n` +
                                    `👤 **اسم العميل:** \`${name}\`\n` +
                                    `📞 **رقم التليفون:** ${phone}\n` +
@@ -310,38 +425,7 @@ function submitBookingData(){
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
         });
-    }).catch(e => {
-        const now = new Date().toLocaleString('ar-EG');
-        const telegramBookingMsg = `🚨 **تم حجز جديد يا مقدم!** 🚨\n\n👤 **الاسم:** \`${name}\`\n📞 **الرقم:** ${phone}\n📸 **المناسبة:** ${type}\n📅 **التاريخ:** ${date}\n⏰ **الوقت:** ${now}`;
-        fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id: telegramChatId, text: telegramBookingMsg, parse_mode: 'Markdown'})
-        });
-    });
-}
-
-function goToPaymentFromSuccess(){
-    closeSuccessModal();
-    openPaymentSelection();
-}
-
-function finishCashPayment(){
-    closeSuccessModal();
-}
-
-function makeVFCashCall(){
-    let amount = convertNumbers(document.getElementById('cash-amount').value);
-    if(!amount){ alert("يرجى كتابة المبلغ أولاً"); return; }
-    window.location.href = `tel:${encodeURIComponent(`*9*7*01092217287*${amount}#`)}`;
-    closeVFCash();
-}
-
-function makeOrangeCashCall(){
-    let amount = convertNumbers(document.getElementById('orange-amount').value);
-    if(!amount){ alert("يرجى كتابة المبلغ أولاً"); return; }
-    window.location.href = `tel:${encodeURIComponent(`#7115*7*${amount}*01210425901#`)}`;
-    closeOrangeCash();
+    }).catch(e => {});
 }
 
 window.onload = function(){
@@ -362,21 +446,6 @@ window.onload = function(){
         }
         handleConditionalFields();
     }
-
-    const source = urlParams.get('utm_source') || "رابط مباشر";
-
-    fetch('https://ipapi.co/json/')
-    .then(res => res.json())
-    .then(data => {
-        const device = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone 🍏" : "Android/PC 📱";
-        const now = new Date().toLocaleString('ar-EG');
-        const visitMsg = `👀 زائر جديد فتح الصفحة\n📱 الجهاز: ${device}\n📍 المكان: ${data.city || 'غير معروف'}\n🔗 المصدر: ${source}\n⏰ الوقت: ${now}`;
-        fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id: telegramChatId, text: visitMsg})
-        });
-    }).catch(e => console.log("Log Error"));
 };
 </script>
 
